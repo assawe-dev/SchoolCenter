@@ -1,0 +1,16 @@
+## Ignore Visual Studio Temporary Files and Folders
+.vs/
+[Bb]in/
+[Oo]bj/
+*.suo
+*.user
+*.userosscache
+*.sln.docstates
+
+## Ignore OS Generated Files
+Thumbs.db
+ehthumbs.db
+Desktop.ini
+
+## Ignore User Specific Database Configurations (Crucial for Privacy)
+db_config.txt
