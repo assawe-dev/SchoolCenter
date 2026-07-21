@@ -228,11 +228,11 @@ namespace SchoolCenter
                     conn.Open();
                     string query = @"
                         SELECT
-                            Id,
+                            CourseID,
                             CourseName AS [اسم الدورة],
                             Cost AS [تكلفة الدورة (د.ل)]
                         FROM Courses
-                        ORDER BY Id DESC";
+                        ORDER BY CourseID DESC";
 
                     using (SqlCommand cmd = new SqlCommand(query, conn))
                     {
@@ -242,8 +242,8 @@ namespace SchoolCenter
                             da.Fill(dt);
                             dgvCourses.DataSource = dt;
 
-                            if (dgvCourses.Columns.Contains("Id"))
-                                dgvCourses.Columns["Id"].Visible = false;
+                            if (dgvCourses.Columns.Contains("CourseID"))
+                                dgvCourses.Columns["CourseID"].Visible = false;
 
                             dgvCourses.AutoSizeColumnsMode = DataGridViewAutoSizeColumnsMode.Fill;
                         }
@@ -331,12 +331,12 @@ namespace SchoolCenter
                 using (SqlConnection conn = new SqlConnection(connectionString))
                 {
                     conn.Open();
-                    string query = "UPDATE Courses SET CourseName = @CourseName, Cost = @Cost WHERE Id = @Id";
+                    string query = "UPDATE Courses SET CourseName = @CourseName, Cost = @Cost WHERE CourseID = @CourseID";
                     using (SqlCommand cmd = new SqlCommand(query, conn))
                     {
                         cmd.Parameters.AddWithValue("@CourseName", txtCourseName.Text.Trim());
                         cmd.Parameters.AddWithValue("@Cost", cost);
-                        cmd.Parameters.AddWithValue("@Id", selectedCourseID);
+                        cmd.Parameters.AddWithValue("@CourseID", selectedCourseID);
                         cmd.ExecuteNonQuery();
                     }
                 }
@@ -360,7 +360,7 @@ namespace SchoolCenter
                 return;
             }
 
-            DialogResult dialogResult = MessageBox.Show("هل أنت متأكد من حذف هذه الدورة نهائياً؟ سيتم حذف جميع تسجيلات المستحقات المتعلقة بها أيضاً.", "تأكيد الحذف", MessageBoxButtons.YesNo, MessageBoxIcon.Question);
+            DialogResult dialogResult = MessageBox.Show("هل أنت متأكد من حذف هذه الدورة نهائياً؟ سيتم حذف جميع تسجيلات الحركات المتعلقة بها أيضاً.", "تأكيد الحذف", MessageBoxButtons.YesNo, MessageBoxIcon.Question);
             if (dialogResult == DialogResult.Yes)
             {
                 try
@@ -369,10 +369,10 @@ namespace SchoolCenter
                     using (SqlConnection conn = new SqlConnection(connectionString))
                     {
                         conn.Open();
-                        string query = "DELETE FROM Courses WHERE Id = @Id";
+                        string query = "DELETE FROM Courses WHERE CourseID = @CourseID";
                         using (SqlCommand cmd = new SqlCommand(query, conn))
                         {
-                            cmd.Parameters.AddWithValue("@Id", selectedCourseID);
+                            cmd.Parameters.AddWithValue("@CourseID", selectedCourseID);
                             cmd.ExecuteNonQuery();
                         }
                     }
@@ -399,7 +399,7 @@ namespace SchoolCenter
             if (e.RowIndex >= 0)
             {
                 DataGridViewRow row = dgvCourses.Rows[e.RowIndex];
-                selectedCourseID = Convert.ToInt32(row.Cells["Id"].Value);
+                selectedCourseID = Convert.ToInt32(row.Cells["CourseID"].Value);
                 txtCourseName.Text = row.Cells["اسم الدورة"].Value.ToString();
                 txtCourseCost.Text = row.Cells["تكلفة الدورة (د.ل)"].Value.ToString();
             }

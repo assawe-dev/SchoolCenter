@@ -318,14 +318,14 @@ namespace SchoolCenter
                     conn.Open();
                     string query = @"
                         SELECT
-                            Id,
-                            FullName AS [اسم الطالب],
+                            StudentID,
+                            StudentName AS [اسم الطالب],
                             GuardianName AS [اسم ولي الأمر],
-                            GuardianPhone AS [رقم هاتف ولي الأمر],
+                            ParentPhone AS [رقم هاتف ولي الأمر],
                             Notes AS [ملاحظات أخرى],
-                            CreatedAt AS [تاريخ التسجيل]
+                            RegistrationDate AS [تاريخ التسجيل]
                         FROM Students
-                        ORDER BY Id DESC";
+                        ORDER BY StudentID DESC";
 
                     using (SqlCommand cmd = new SqlCommand(query, conn))
                     {
@@ -335,8 +335,8 @@ namespace SchoolCenter
                             da.Fill(dt);
                             dgvStudents.DataSource = dt;
 
-                            if (dgvStudents.Columns.Contains("Id"))
-                                dgvStudents.Columns["Id"].Visible = false;
+                            if (dgvStudents.Columns.Contains("StudentID"))
+                                dgvStudents.Columns["StudentID"].Visible = false;
 
                             dgvStudents.AutoSizeColumnsMode = DataGridViewAutoSizeColumnsMode.Fill;
                         }
@@ -372,14 +372,14 @@ namespace SchoolCenter
                 using (SqlConnection conn = new SqlConnection(connectionString))
                 {
                     conn.Open();
-                    string query = "INSERT INTO Students (FullName, GuardianName, GuardianPhone, Notes, CreatedAt) VALUES (@FullName, @GuardianName, @GuardianPhone, @Notes, @CreatedAt)";
+                    string query = "INSERT INTO Students (StudentName, GuardianName, ParentPhone, RegistrationDate, Notes) VALUES (@StudentName, @GuardianName, @ParentPhone, @RegistrationDate, @Notes)";
                     using (SqlCommand cmd = new SqlCommand(query, conn))
                     {
-                        cmd.Parameters.AddWithValue("@FullName", txtName.Text.Trim());
+                        cmd.Parameters.AddWithValue("@StudentName", txtName.Text.Trim());
                         cmd.Parameters.AddWithValue("@GuardianName", txtGuardianName.Text.Trim());
-                        cmd.Parameters.AddWithValue("@GuardianPhone", txtGuardianPhone.Text.Trim());
+                        cmd.Parameters.AddWithValue("@ParentPhone", txtGuardianPhone.Text.Trim());
+                        cmd.Parameters.AddWithValue("@RegistrationDate", DateTime.Now);
                         cmd.Parameters.AddWithValue("@Notes", txtNotes.Text.Trim());
-                        cmd.Parameters.AddWithValue("@CreatedAt", DateTime.Now);
                         cmd.ExecuteNonQuery();
                     }
                 }
@@ -415,14 +415,14 @@ namespace SchoolCenter
                 using (SqlConnection conn = new SqlConnection(connectionString))
                 {
                     conn.Open();
-                    string query = "UPDATE Students SET FullName = @FullName, GuardianName = @GuardianName, GuardianPhone = @GuardianPhone, Notes = @Notes WHERE Id = @Id";
+                    string query = "UPDATE Students SET StudentName = @StudentName, GuardianName = @GuardianName, ParentPhone = @ParentPhone, Notes = @Notes WHERE StudentID = @StudentID";
                     using (SqlCommand cmd = new SqlCommand(query, conn))
                     {
-                        cmd.Parameters.AddWithValue("@FullName", txtName.Text.Trim());
+                        cmd.Parameters.AddWithValue("@StudentName", txtName.Text.Trim());
                         cmd.Parameters.AddWithValue("@GuardianName", txtGuardianName.Text.Trim());
-                        cmd.Parameters.AddWithValue("@GuardianPhone", txtGuardianPhone.Text.Trim());
+                        cmd.Parameters.AddWithValue("@ParentPhone", txtGuardianPhone.Text.Trim());
                         cmd.Parameters.AddWithValue("@Notes", txtNotes.Text.Trim());
-                        cmd.Parameters.AddWithValue("@Id", selectedStudentID);
+                        cmd.Parameters.AddWithValue("@StudentID", selectedStudentID);
                         cmd.ExecuteNonQuery();
                     }
                 }
@@ -446,7 +446,7 @@ namespace SchoolCenter
                 return;
             }
 
-            DialogResult dialogResult = MessageBox.Show("هل أنت متأكد من حذف هذا الطالب نهائياً؟ سيتم حذف جميع الرسوم والمستحقات والمدفوعات التابعة له أيضاً.", "تأكيد الحذف", MessageBoxButtons.YesNo, MessageBoxIcon.Question);
+            DialogResult dialogResult = MessageBox.Show("هل أنت متأكد من حذف هذا الطالب نهائياً؟ سيتم حذف جميع الحركات المالية التابعة له أيضاً.", "تأكيد الحذف", MessageBoxButtons.YesNo, MessageBoxIcon.Question);
             if (dialogResult == DialogResult.Yes)
             {
                 try
@@ -455,10 +455,10 @@ namespace SchoolCenter
                     using (SqlConnection conn = new SqlConnection(connectionString))
                     {
                         conn.Open();
-                        string query = "DELETE FROM Students WHERE Id = @Id";
+                        string query = "DELETE FROM Students WHERE StudentID = @StudentID";
                         using (SqlCommand cmd = new SqlCommand(query, conn))
                         {
-                            cmd.Parameters.AddWithValue("@Id", selectedStudentID);
+                            cmd.Parameters.AddWithValue("@StudentID", selectedStudentID);
                             cmd.ExecuteNonQuery();
                         }
                     }
@@ -497,15 +497,15 @@ namespace SchoolCenter
                     conn.Open();
                     string query = @"
                         SELECT
-                            Id,
-                            FullName AS [اسم الطالب],
+                            StudentID,
+                            StudentName AS [اسم الطالب],
                             GuardianName AS [اسم ولي الأمر],
-                            GuardianPhone AS [رقم هاتف ولي الأمر],
+                            ParentPhone AS [رقم هاتف ولي الأمر],
                             Notes AS [ملاحظات أخرى],
-                            CreatedAt AS [تاريخ التسجيل]
+                            RegistrationDate AS [تاريخ التسجيل]
                         FROM Students
-                        WHERE FullName LIKE @Filter OR GuardianPhone LIKE @Filter OR GuardianName LIKE @Filter
-                        ORDER BY Id DESC";
+                        WHERE StudentName LIKE @Filter OR ParentPhone LIKE @Filter OR GuardianName LIKE @Filter
+                        ORDER BY StudentID DESC";
 
                     using (SqlCommand cmd = new SqlCommand(query, conn))
                     {
@@ -516,8 +516,8 @@ namespace SchoolCenter
                             da.Fill(dt);
                             dgvStudents.DataSource = dt;
 
-                            if (dgvStudents.Columns.Contains("Id"))
-                                dgvStudents.Columns["Id"].Visible = false;
+                            if (dgvStudents.Columns.Contains("StudentID"))
+                                dgvStudents.Columns["StudentID"].Visible = false;
 
                             dgvStudents.AutoSizeColumnsMode = DataGridViewAutoSizeColumnsMode.Fill;
                         }
@@ -530,16 +530,21 @@ namespace SchoolCenter
             }
         }
 
+        private void dgvStudents_CellClick_NoId(DataGridViewRow row)
+        {
+            txtName.Text = row.Cells["اسم الطالب"].Value.ToString();
+            txtGuardianName.Text = row.Cells["اسم ولي الأمر"].Value.ToString();
+            txtGuardianPhone.Text = row.Cells["رقم هاتف ولي الأمر"].Value.ToString();
+            txtNotes.Text = row.Cells["ملاحظات أخرى"].Value.ToString();
+        }
+
         private void DgvStudents_CellClick(object sender, DataGridViewCellEventArgs e)
         {
             if (e.RowIndex >= 0)
             {
                 DataGridViewRow row = dgvStudents.Rows[e.RowIndex];
-                selectedStudentID = Convert.ToInt32(row.Cells["Id"].Value);
-                txtName.Text = row.Cells["اسم الطالب"].Value.ToString();
-                txtGuardianName.Text = row.Cells["اسم ولي الأمر"].Value.ToString();
-                txtGuardianPhone.Text = row.Cells["رقم هاتف ولي الأمر"].Value.ToString();
-                txtNotes.Text = row.Cells["ملاحظات أخرى"].Value.ToString();
+                selectedStudentID = Convert.ToInt32(row.Cells["StudentID"].Value);
+                dgvStudents_CellClick_NoId(row);
             }
         }
 

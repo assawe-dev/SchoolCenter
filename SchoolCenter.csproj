@@ -60,7 +60,7 @@
     <Compile Include="BalanceReportView.cs">
       <SubType>UserControl</SubType>
     </Compile>
-    <Compile Include="FinancialsView.cs">
+    <Compile Include="PaymentsView.cs">
       <SubType>UserControl</SubType>
     </Compile>
     <Compile Include="Form1.cs">
