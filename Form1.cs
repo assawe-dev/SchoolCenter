@@ -64,6 +64,20 @@ namespace SchoolCenter
                     uBalanceReportView.LoadReport();
                     uStudentDuesView.LoadDues();
                 };
+                uUsersView.DataSaved += (s, ev) => {
+                    LoadDashboardData();
+                };
+
+                // Display currently logged-in user information
+                lblUserInfo.Text = string.Format("المستخدم الحالي: {0} ({1})", UserSession.Username, UserSession.Role);
+
+                // Apply role-based screen-level permissions
+                btnStudents.Visible = UserSession.CanManageStudents;
+                btnCourses.Visible = UserSession.CanManageCourses;
+                btnStudentDues.Visible = UserSession.CanAssignDues;
+                btnPayments.Visible = UserSession.CanReceivePayments;
+                btnBalanceReport.Visible = UserSession.CanViewReports;
+                btnUsers.Visible = (UserSession.Role == "Admin" && UserSession.CanManageUsers);
 
                 // Initialize the Home View as the active view
                 SetActiveButton(btnHome);
@@ -127,6 +141,7 @@ namespace SchoolCenter
             studentDuesViewPanel.Visible = (activePanel == studentDuesViewPanel);
             balanceReportViewPanel.Visible = (activePanel == balanceReportViewPanel);
             paymentsViewPanel.Visible = (activePanel == paymentsViewPanel);
+            usersViewPanel.Visible = (activePanel == usersViewPanel);
         }
 
         /// <summary>
@@ -141,6 +156,7 @@ namespace SchoolCenter
             btnStudentDues.BackColor = Color.FromArgb(44, 62, 80);
             btnBalanceReport.BackColor = Color.FromArgb(44, 62, 80);
             btnPayments.BackColor = Color.FromArgb(44, 62, 80);
+            btnUsers.BackColor = Color.FromArgb(44, 62, 80);
             btnSettings.BackColor = Color.FromArgb(44, 62, 80);
 
             // Highlight the selected button with the Accent blue color
@@ -215,6 +231,19 @@ namespace SchoolCenter
                 MessageBox.Show("ملف إعدادات الاتصال 'db_config.txt' غير موجود. يرجى إعادة تشغيل المنظومة ليتم إنشاؤه تلقائياً.",
                     "خطأ", MessageBoxButtons.OK, MessageBoxIcon.Warning);
             }
+        }
+
+        private void BtnUsers_Click(object sender, EventArgs e)
+        {
+            SetActiveButton(btnUsers);
+            ShowPanel(usersViewPanel);
+            uUsersView.LoadUsers();
+        }
+
+        private void BtnLogout_Click(object sender, EventArgs e)
+        {
+            UserSession.Clear();
+            this.Close();
         }
 
         private void BtnRefreshData_Click(object sender, EventArgs e)
