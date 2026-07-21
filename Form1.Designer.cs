@@ -297,11 +297,13 @@ namespace SchoolCenter
             //
             // pnlWarning
             //
+            this.pnlWarning.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left)
+            | System.Windows.Forms.AnchorStyles.Right)));
             this.pnlWarning.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(231)))), ((int)(((byte)(76)))), ((int)(((byte)(60)))));
             this.pnlWarning.Controls.Add(this.lblWarningText);
             this.pnlWarning.Location = new System.Drawing.Point(20, 80);
             this.pnlWarning.Name = "pnlWarning";
-            this.pnlWarning.Size = new System.Drawing.Size(780, 80);
+            this.pnlWarning.Size = new System.Drawing.Size(820, 80);
             this.pnlWarning.TabIndex = 5;
             this.pnlWarning.Visible = false;
             //
@@ -312,28 +314,34 @@ namespace SchoolCenter
             this.lblWarningText.ForeColor = System.Drawing.Color.White;
             this.lblWarningText.Location = new System.Drawing.Point(0, 0);
             this.lblWarningText.Name = "lblWarningText";
-            this.lblWarningText.Size = new System.Drawing.Size(780, 80);
+            this.lblWarningText.Size = new System.Drawing.Size(820, 80);
             this.lblWarningText.TabIndex = 0;
             this.lblWarningText.Text = "تنبيه: تعذر الاتصال بقاعدة البيانات. يرجى التحقق من إعدادات الاتصال في ملف db_config.txt.";
             this.lblWarningText.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
             //
             // welcomePanel
             //
+            this.welcomePanel.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom)
+            | System.Windows.Forms.AnchorStyles.Left)
+            | System.Windows.Forms.AnchorStyles.Right)));
             this.welcomePanel.BackColor = System.Drawing.Color.White;
             this.welcomePanel.Controls.Add(this.lblWelcomeDesc);
             this.welcomePanel.Controls.Add(this.lblWelcomeTitle);
             this.welcomePanel.Location = new System.Drawing.Point(20, 400);
             this.welcomePanel.Name = "welcomePanel";
-            this.welcomePanel.Size = new System.Drawing.Size(780, 200);
+            this.welcomePanel.Size = new System.Drawing.Size(820, 280);
             this.welcomePanel.TabIndex = 4;
             //
             // lblWelcomeDesc
             //
+            this.lblWelcomeDesc.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom)
+            | System.Windows.Forms.AnchorStyles.Left)
+            | System.Windows.Forms.AnchorStyles.Right)));
             this.lblWelcomeDesc.Font = new System.Drawing.Font("Segoe UI", 10F);
             this.lblWelcomeDesc.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(127)))), ((int)(((byte)(140)))), ((int)(((byte)(141)))));
             this.lblWelcomeDesc.Location = new System.Drawing.Point(20, 60);
             this.lblWelcomeDesc.Name = "lblWelcomeDesc";
-            this.lblWelcomeDesc.Size = new System.Drawing.Size(740, 120);
+            this.lblWelcomeDesc.Size = new System.Drawing.Size(780, 200);
             this.lblWelcomeDesc.TabIndex = 1;
             this.lblWelcomeDesc.Text = "تتيح لك هذه المنظومة تتبع سجلات الطلاب والحركات المالية من سداد للرسوم وإيداع في الخزينة بشكل فوري وسهل. يمكنك استخدام القائمة الجانبية للتنقل بين شاشات المنظومة المختلفة.";
             //
@@ -366,12 +374,13 @@ namespace SchoolCenter
             //
             // cardTreasury
             //
+            this.cardTreasury.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
             this.cardTreasury.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(46)))), ((int)(((byte)(204)))), ((int)(((byte)(113)))));
             this.cardTreasury.Controls.Add(this.lblCardTreasuryValue);
             this.cardTreasury.Controls.Add(this.lblCardTreasuryTitle);
-            this.cardTreasury.Location = new System.Drawing.Point(420, 180);
+            this.cardTreasury.Location = new System.Drawing.Point(440, 180);
             this.cardTreasury.Name = "cardTreasury";
-            this.cardTreasury.Size = new System.Drawing.Size(380, 140);
+            this.cardTreasury.Size = new System.Drawing.Size(400, 140);
             this.cardTreasury.TabIndex = 2;
             //
             // lblCardTreasuryValue
@@ -398,12 +407,14 @@ namespace SchoolCenter
             //
             // cardStudents
             //
+            this.cardStudents.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left)
+            | System.Windows.Forms.AnchorStyles.Right)));
             this.cardStudents.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(52)))), ((int)(((byte)(152)))), ((int)(((byte)(219)))));
             this.cardStudents.Controls.Add(this.lblCardStudentsValue);
             this.cardStudents.Controls.Add(this.lblCardStudentsTitle);
             this.cardStudents.Location = new System.Drawing.Point(20, 180);
             this.cardStudents.Name = "cardStudents";
-            this.cardStudents.Size = new System.Drawing.Size(380, 140);
+            this.cardStudents.Size = new System.Drawing.Size(400, 140);
             this.cardStudents.TabIndex = 1;
             //
             // lblCardStudentsValue
@@ -450,6 +461,10 @@ namespace SchoolCenter
             this.studentsViewPanel.TabIndex = 1;
             this.studentsViewPanel.Visible = false;
             //
+            // uStudentsView
+            //
+            this.uStudentsView.Dock = System.Windows.Forms.DockStyle.Fill;
+            //
             // coursesViewPanel
             //
             this.coursesViewPanel.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(248)))), ((int)(((byte)(249)))), ((int)(((byte)(250)))));
@@ -460,6 +475,10 @@ namespace SchoolCenter
             this.coursesViewPanel.Size = new System.Drawing.Size(860, 700);
             this.coursesViewPanel.TabIndex = 2;
             this.coursesViewPanel.Visible = false;
+            //
+            // uCoursesView
+            //
+            this.uCoursesView.Dock = System.Windows.Forms.DockStyle.Fill;
             //
             // studentDuesViewPanel
             //
@@ -472,6 +491,10 @@ namespace SchoolCenter
             this.studentDuesViewPanel.TabIndex = 3;
             this.studentDuesViewPanel.Visible = false;
             //
+            // uStudentDuesView
+            //
+            this.uStudentDuesView.Dock = System.Windows.Forms.DockStyle.Fill;
+            //
             // balanceReportViewPanel
             //
             this.balanceReportViewPanel.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(248)))), ((int)(((byte)(249)))), ((int)(((byte)(250)))));
@@ -483,6 +506,10 @@ namespace SchoolCenter
             this.balanceReportViewPanel.TabIndex = 4;
             this.balanceReportViewPanel.Visible = false;
             //
+            // uBalanceReportView
+            //
+            this.uBalanceReportView.Dock = System.Windows.Forms.DockStyle.Fill;
+            //
             // paymentsViewPanel
             //
             this.paymentsViewPanel.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(248)))), ((int)(((byte)(249)))), ((int)(((byte)(250)))));
@@ -493,6 +520,10 @@ namespace SchoolCenter
             this.paymentsViewPanel.Size = new System.Drawing.Size(860, 700);
             this.paymentsViewPanel.TabIndex = 5;
             this.paymentsViewPanel.Visible = false;
+            //
+            // uPaymentsView
+            //
+            this.uPaymentsView.Dock = System.Windows.Forms.DockStyle.Fill;
             //
             // Form1
             // 

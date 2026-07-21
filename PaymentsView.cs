@@ -21,6 +21,10 @@ namespace SchoolCenter
         private Button btnSave;
         private Button btnPrint;
 
+        private Panel pnlSearch;
+        private Label lblSearch;
+        private TextBox txtSearch;
+
         private Panel pnlGrid;
         private DataGridView dgvFinancials;
 
@@ -53,10 +57,15 @@ namespace SchoolCenter
             this.btnSave = new Button();
             this.btnPrint = new Button();
 
+            this.pnlSearch = new Panel();
+            this.lblSearch = new Label();
+            this.txtSearch = new TextBox();
+
             this.pnlGrid = new Panel();
             this.dgvFinancials = new DataGridView();
 
             this.pnlInput.SuspendLayout();
+            this.pnlSearch.SuspendLayout();
             this.pnlGrid.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.dgvFinancials)).BeginInit();
             this.SuspendLayout();
@@ -66,6 +75,7 @@ namespace SchoolCenter
             //
             this.BackColor = Color.FromArgb(248, 249, 250); // Off-White
             this.Controls.Add(this.pnlGrid);
+            this.Controls.Add(this.pnlSearch);
             this.Controls.Add(this.pnlInput);
             this.Dock = DockStyle.Fill;
             this.Font = new Font("Segoe UI", 10F);
@@ -76,6 +86,8 @@ namespace SchoolCenter
             //
             // pnlInput
             //
+            this.pnlInput.Anchor = ((AnchorStyles)(((AnchorStyles.Top | AnchorStyles.Left)
+            | AnchorStyles.Right)));
             this.pnlInput.BackColor = Color.White;
             this.pnlInput.Controls.Add(this.btnPrint);
             this.pnlInput.Controls.Add(this.btnSave);
@@ -201,13 +213,51 @@ namespace SchoolCenter
             this.btnPrint.Click += new EventHandler(this.BtnPrint_Click);
 
             //
+            // pnlSearch
+            //
+            this.pnlSearch.Anchor = ((AnchorStyles)(((AnchorStyles.Top | AnchorStyles.Left)
+            | AnchorStyles.Right)));
+            this.pnlSearch.BackColor = Color.White;
+            this.pnlSearch.Controls.Add(this.txtSearch);
+            this.pnlSearch.Controls.Add(this.lblSearch);
+            this.pnlSearch.Location = new Point(20, 195);
+            this.pnlSearch.Name = "pnlSearch";
+            this.pnlSearch.Size = new Size(780, 50);
+            this.pnlSearch.TabIndex = 1;
+
+            //
+            // lblSearch
+            //
+            this.lblSearch.Anchor = ((AnchorStyles)((AnchorStyles.Top | AnchorStyles.Right)));
+            this.lblSearch.AutoSize = true;
+            this.lblSearch.Font = new Font("Segoe UI", 10F, FontStyle.Bold);
+            this.lblSearch.ForeColor = Color.FromArgb(44, 62, 80);
+            this.lblSearch.Location = new Point(540, 13);
+            this.lblSearch.Name = "lblSearch";
+            this.lblSearch.Size = new Size(220, 23);
+            this.lblSearch.Text = "بحث سريع باسم الطالب أو البيان:";
+
+            //
+            // txtSearch
+            //
+            this.txtSearch.Anchor = ((AnchorStyles)(((AnchorStyles.Top | AnchorStyles.Left)
+            | AnchorStyles.Right)));
+            this.txtSearch.Location = new Point(40, 10);
+            this.txtSearch.Name = "txtSearch";
+            this.txtSearch.Size = new Size(490, 30);
+            this.txtSearch.TextChanged += new EventHandler(this.TxtSearch_TextChanged);
+
+            //
             // pnlGrid
             //
+            this.pnlGrid.Anchor = ((AnchorStyles)((((AnchorStyles.Top | AnchorStyles.Bottom)
+            | AnchorStyles.Left)
+            | AnchorStyles.Right)));
             this.pnlGrid.Controls.Add(this.dgvFinancials);
-            this.pnlGrid.Location = new Point(20, 200);
+            this.pnlGrid.Location = new Point(20, 260);
             this.pnlGrid.Name = "pnlGrid";
-            this.pnlGrid.Size = new Size(780, 380);
-            this.pnlGrid.TabIndex = 1;
+            this.pnlGrid.Size = new Size(780, 320);
+            this.pnlGrid.TabIndex = 2;
 
             //
             // dgvFinancials
@@ -232,9 +282,58 @@ namespace SchoolCenter
 
             this.pnlInput.ResumeLayout(false);
             this.pnlInput.PerformLayout();
+            this.pnlSearch.ResumeLayout(false);
+            this.pnlSearch.PerformLayout();
             this.pnlGrid.ResumeLayout(false);
             ((System.ComponentModel.ISupportInitialize)(this.dgvFinancials)).EndInit();
             this.ResumeLayout(false);
+        }
+
+        private void TxtSearch_TextChanged(object sender, EventArgs e)
+        {
+            string filterText = txtSearch.Text.Trim();
+            if (string.IsNullOrEmpty(filterText))
+            {
+                LoadTransactions();
+                return;
+            }
+
+            try
+            {
+                string connectionString = DbConnectionManager.GetConnectionString();
+                using (SqlConnection conn = new SqlConnection(connectionString))
+                {
+                    conn.Open();
+                    string query = @"
+                        SELECT
+                            t.TransactionID AS [رقم الحركة],
+                            s.StudentName AS [اسم الطالب],
+                            t.Credit AS [قيمة السداد],
+                            t.TransactionDate AS [تاريخ السداد],
+                            t.Notes AS [ملاحظات]
+                        FROM FinancialTransactions t
+                        INNER JOIN Students s ON t.StudentID = s.StudentID
+                        WHERE t.TransactionType = 'Payment Receipt'
+                          AND (s.StudentName LIKE @Filter OR t.Notes LIKE @Filter)
+                        ORDER BY t.TransactionID DESC";
+
+                    using (SqlCommand cmd = new SqlCommand(query, conn))
+                    {
+                        cmd.Parameters.AddWithValue("@Filter", "%" + filterText + "%");
+                        using (SqlDataAdapter da = new SqlDataAdapter(cmd))
+                        {
+                            DataTable dt = new DataTable();
+                            da.Fill(dt);
+                            dgvFinancials.DataSource = dt;
+                            dgvFinancials.AutoSizeColumnsMode = DataGridViewAutoSizeColumnsMode.Fill;
+                        }
+                    }
+                }
+            }
+            catch (Exception ex)
+            {
+                System.Diagnostics.Debug.WriteLine("Search failed: " + ex.Message);
+            }
         }
 
         public void LoadStudentsList()

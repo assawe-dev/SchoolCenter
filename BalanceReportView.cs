@@ -14,6 +14,10 @@ namespace SchoolCenter
         private Label lblTitle;
         private Button btnExport;
 
+        private Panel pnlSearch;
+        private Label lblSearch;
+        private TextBox txtSearch;
+
         private DataGridView dgvReport;
         private Panel pnlGrid;
 
@@ -35,6 +39,10 @@ namespace SchoolCenter
             this.lblTitle = new Label();
             this.btnExport = new Button();
 
+            this.pnlSearch = new Panel();
+            this.lblSearch = new Label();
+            this.txtSearch = new TextBox();
+
             this.pnlGrid = new Panel();
             this.dgvReport = new DataGridView();
 
@@ -43,6 +51,7 @@ namespace SchoolCenter
             this.lblTotalDebtValue = new Label();
 
             this.pnlHeader.SuspendLayout();
+            this.pnlSearch.SuspendLayout();
             this.pnlGrid.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.dgvReport)).BeginInit();
             this.pnlSummary.SuspendLayout();
@@ -54,6 +63,7 @@ namespace SchoolCenter
             this.BackColor = Color.FromArgb(248, 249, 250); // Off-White
             this.Controls.Add(this.pnlGrid);
             this.Controls.Add(this.pnlSummary);
+            this.Controls.Add(this.pnlSearch);
             this.Controls.Add(this.pnlHeader);
             this.Dock = DockStyle.Fill;
             this.Font = new Font("Segoe UI", 10F);
@@ -64,6 +74,8 @@ namespace SchoolCenter
             //
             // pnlHeader
             //
+            this.pnlHeader.Anchor = ((AnchorStyles)(((AnchorStyles.Top | AnchorStyles.Left)
+            | AnchorStyles.Right)));
             this.pnlHeader.BackColor = Color.White;
             this.pnlHeader.Controls.Add(this.btnExport);
             this.pnlHeader.Controls.Add(this.lblTitle);
@@ -75,6 +87,7 @@ namespace SchoolCenter
             //
             // lblTitle
             //
+            this.lblTitle.Anchor = ((AnchorStyles)((AnchorStyles.Top | AnchorStyles.Right)));
             this.lblTitle.AutoSize = true;
             this.lblTitle.Font = new Font("Segoe UI", 13F, FontStyle.Bold);
             this.lblTitle.ForeColor = Color.FromArgb(44, 62, 80);
@@ -102,6 +115,8 @@ namespace SchoolCenter
             //
             // pnlSummary
             //
+            this.pnlSummary.Anchor = ((AnchorStyles)(((AnchorStyles.Bottom | AnchorStyles.Left)
+            | AnchorStyles.Right)));
             this.pnlSummary.BackColor = Color.FromArgb(231, 76, 60); // Danger/Warning Color
             this.pnlSummary.Controls.Add(this.lblTotalDebtValue);
             this.pnlSummary.Controls.Add(this.lblTotalDebtTitle);
@@ -113,6 +128,7 @@ namespace SchoolCenter
             //
             // lblTotalDebtTitle
             //
+            this.lblTotalDebtTitle.Anchor = ((AnchorStyles)((AnchorStyles.Top | AnchorStyles.Right)));
             this.lblTotalDebtTitle.AutoSize = true;
             this.lblTotalDebtTitle.Font = new Font("Segoe UI", 13F, FontStyle.Bold);
             this.lblTotalDebtTitle.ForeColor = Color.White;
@@ -133,13 +149,51 @@ namespace SchoolCenter
             this.lblTotalDebtValue.TextAlign = ContentAlignment.MiddleLeft;
 
             //
+            // pnlSearch
+            //
+            this.pnlSearch.Anchor = ((AnchorStyles)(((AnchorStyles.Top | AnchorStyles.Left)
+            | AnchorStyles.Right)));
+            this.pnlSearch.BackColor = Color.White;
+            this.pnlSearch.Controls.Add(this.txtSearch);
+            this.pnlSearch.Controls.Add(this.lblSearch);
+            this.pnlSearch.Location = new Point(20, 100);
+            this.pnlSearch.Name = "pnlSearch";
+            this.pnlSearch.Size = new Size(780, 50);
+            this.pnlSearch.TabIndex = 1;
+
+            //
+            // lblSearch
+            //
+            this.lblSearch.Anchor = ((AnchorStyles)((AnchorStyles.Top | AnchorStyles.Right)));
+            this.lblSearch.AutoSize = true;
+            this.lblSearch.Font = new Font("Segoe UI", 10F, FontStyle.Bold);
+            this.lblSearch.ForeColor = Color.FromArgb(44, 62, 80);
+            this.lblSearch.Location = new Point(540, 13);
+            this.lblSearch.Name = "lblSearch";
+            this.lblSearch.Size = new Size(220, 23);
+            this.lblSearch.Text = "بحث سريع باسم الطالب أو الهاتف:";
+
+            //
+            // txtSearch
+            //
+            this.txtSearch.Anchor = ((AnchorStyles)(((AnchorStyles.Top | AnchorStyles.Left)
+            | AnchorStyles.Right)));
+            this.txtSearch.Location = new Point(40, 10);
+            this.txtSearch.Name = "txtSearch";
+            this.txtSearch.Size = new Size(490, 30);
+            this.txtSearch.TextChanged += new EventHandler(this.TxtSearch_TextChanged);
+
+            //
             // pnlGrid
             //
+            this.pnlGrid.Anchor = ((AnchorStyles)((((AnchorStyles.Top | AnchorStyles.Bottom)
+            | AnchorStyles.Left)
+            | AnchorStyles.Right)));
             this.pnlGrid.Controls.Add(this.dgvReport);
-            this.pnlGrid.Location = new Point(20, 100);
+            this.pnlGrid.Location = new Point(20, 165);
             this.pnlGrid.Name = "pnlGrid";
-            this.pnlGrid.Size = new Size(780, 390);
-            this.pnlGrid.TabIndex = 1;
+            this.pnlGrid.Size = new Size(780, 325);
+            this.pnlGrid.TabIndex = 2;
 
             //
             // dgvReport
@@ -164,11 +218,81 @@ namespace SchoolCenter
 
             this.pnlHeader.ResumeLayout(false);
             this.pnlHeader.PerformLayout();
+            this.pnlSearch.ResumeLayout(false);
+            this.pnlSearch.PerformLayout();
             this.pnlGrid.ResumeLayout(false);
             ((System.ComponentModel.ISupportInitialize)(this.dgvReport)).EndInit();
             this.pnlSummary.ResumeLayout(false);
             this.pnlSummary.PerformLayout();
             this.ResumeLayout(false);
+        }
+
+        private void TxtSearch_TextChanged(object sender, EventArgs e)
+        {
+            string filterText = txtSearch.Text.Trim();
+            if (string.IsNullOrEmpty(filterText))
+            {
+                LoadReport();
+                return;
+            }
+
+            try
+            {
+                string connectionString = DbConnectionManager.GetConnectionString();
+                using (SqlConnection conn = new SqlConnection(connectionString))
+                {
+                    conn.Open();
+                    string query = @"
+                        SELECT
+                            s.StudentID,
+                            s.StudentName AS [اسم الطالب],
+                            s.GuardianName AS [اسم ولي الأمر],
+                            s.ParentPhone AS [رقم هاتف ولي الأمر],
+                            ISNULL(SUM(ft.Debit), 0) AS [إجمالي المستحقات],
+                            ISNULL(SUM(ft.Credit), 0) AS [إجمالي المدفوعات],
+                            (ISNULL(SUM(ft.Debit), 0) - ISNULL(SUM(ft.Credit), 0)) AS [الديون المتبقية]
+                        FROM Students s
+                        LEFT JOIN FinancialTransactions ft ON s.StudentID = ft.StudentID
+                        WHERE s.StudentName LIKE @Filter OR s.ParentPhone LIKE @Filter OR s.GuardianName LIKE @Filter
+                        GROUP BY s.StudentID, s.StudentName, s.GuardianName, s.ParentPhone
+                        ORDER BY s.StudentName ASC";
+
+                    using (SqlCommand cmd = new SqlCommand(query, conn))
+                    {
+                        cmd.Parameters.AddWithValue("@Filter", "%" + filterText + "%");
+                        using (SqlDataAdapter da = new SqlDataAdapter(cmd))
+                        {
+                            DataTable dt = new DataTable();
+                            da.Fill(dt);
+                            dgvReport.DataSource = dt;
+
+                            if (dgvReport.Columns.Contains("StudentID"))
+                                dgvReport.Columns["StudentID"].Visible = false;
+
+                            dgvReport.Columns["إجمالي المستحقات"].DefaultCellStyle.Format = "N2";
+                            dgvReport.Columns["إجمالي المدفوعات"].DefaultCellStyle.Format = "N2";
+                            dgvReport.Columns["الديون المتبقية"].DefaultCellStyle.Format = "N2";
+
+                            dgvReport.AutoSizeColumnsMode = DataGridViewAutoSizeColumnsMode.Fill;
+                        }
+                    }
+                }
+
+                // Recalculate total outstanding debts based on filtered datagrid rows
+                decimal totalOutstanding = 0m;
+                foreach (DataGridViewRow row in dgvReport.Rows)
+                {
+                    if (row.Cells["الديون المتبقية"].Value != null && row.Cells["الديون المتبقية"].Value != DBNull.Value)
+                    {
+                        totalOutstanding += Convert.ToDecimal(row.Cells["الديون المتبقية"].Value);
+                    }
+                }
+                lblTotalDebtValue.Text = totalOutstanding.ToString("N2") + " د.ل";
+            }
+            catch (Exception ex)
+            {
+                System.Diagnostics.Debug.WriteLine("Search failed: " + ex.Message);
+            }
         }
 
         public void LoadReport()

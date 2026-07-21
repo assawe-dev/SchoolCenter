@@ -18,6 +18,10 @@ namespace SchoolCenter
         private Button btnDelete;
         private Button btnClear;
 
+        private Panel pnlSearch;
+        private Label lblSearch;
+        private TextBox txtSearch;
+
         private DataGridView dgvCourses;
         private Panel pnlGrid;
 
@@ -43,10 +47,15 @@ namespace SchoolCenter
             this.btnDelete = new Button();
             this.btnClear = new Button();
 
+            this.pnlSearch = new Panel();
+            this.lblSearch = new Label();
+            this.txtSearch = new TextBox();
+
             this.pnlGrid = new Panel();
             this.dgvCourses = new DataGridView();
 
             this.pnlInput.SuspendLayout();
+            this.pnlSearch.SuspendLayout();
             this.pnlGrid.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.dgvCourses)).BeginInit();
             this.SuspendLayout();
@@ -56,6 +65,7 @@ namespace SchoolCenter
             //
             this.BackColor = Color.FromArgb(248, 249, 250); // Off-White
             this.Controls.Add(this.pnlGrid);
+            this.Controls.Add(this.pnlSearch);
             this.Controls.Add(this.pnlInput);
             this.Dock = DockStyle.Fill;
             this.Font = new Font("Segoe UI", 10F);
@@ -66,6 +76,8 @@ namespace SchoolCenter
             //
             // pnlInput
             //
+            this.pnlInput.Anchor = ((AnchorStyles)(((AnchorStyles.Top | AnchorStyles.Left)
+            | AnchorStyles.Right)));
             this.pnlInput.BackColor = Color.White;
             this.pnlInput.Controls.Add(this.btnClear);
             this.pnlInput.Controls.Add(this.btnDelete);
@@ -181,13 +193,51 @@ namespace SchoolCenter
             this.btnClear.Click += new EventHandler(this.BtnClear_Click);
 
             //
+            // pnlSearch
+            //
+            this.pnlSearch.Anchor = ((AnchorStyles)(((AnchorStyles.Top | AnchorStyles.Left)
+            | AnchorStyles.Right)));
+            this.pnlSearch.BackColor = Color.White;
+            this.pnlSearch.Controls.Add(this.txtSearch);
+            this.pnlSearch.Controls.Add(this.lblSearch);
+            this.pnlSearch.Location = new Point(20, 185);
+            this.pnlSearch.Name = "pnlSearch";
+            this.pnlSearch.Size = new Size(780, 50);
+            this.pnlSearch.TabIndex = 1;
+
+            //
+            // lblSearch
+            //
+            this.lblSearch.Anchor = ((AnchorStyles)((AnchorStyles.Top | AnchorStyles.Right)));
+            this.lblSearch.AutoSize = true;
+            this.lblSearch.Font = new Font("Segoe UI", 10F, FontStyle.Bold);
+            this.lblSearch.ForeColor = Color.FromArgb(44, 62, 80);
+            this.lblSearch.Location = new Point(620, 13);
+            this.lblSearch.Name = "lblSearch";
+            this.lblSearch.Size = new Size(140, 23);
+            this.lblSearch.Text = "بحث سريع بالاسم:";
+
+            //
+            // txtSearch
+            //
+            this.txtSearch.Anchor = ((AnchorStyles)(((AnchorStyles.Top | AnchorStyles.Left)
+            | AnchorStyles.Right)));
+            this.txtSearch.Location = new Point(40, 10);
+            this.txtSearch.Name = "txtSearch";
+            this.txtSearch.Size = new Size(570, 30);
+            this.txtSearch.TextChanged += new EventHandler(this.TxtSearch_TextChanged);
+
+            //
             // pnlGrid
             //
+            this.pnlGrid.Anchor = ((AnchorStyles)((((AnchorStyles.Top | AnchorStyles.Bottom)
+            | AnchorStyles.Left)
+            | AnchorStyles.Right)));
             this.pnlGrid.Controls.Add(this.dgvCourses);
-            this.pnlGrid.Location = new Point(20, 190);
+            this.pnlGrid.Location = new Point(20, 250);
             this.pnlGrid.Name = "pnlGrid";
-            this.pnlGrid.Size = new Size(780, 390);
-            this.pnlGrid.TabIndex = 1;
+            this.pnlGrid.Size = new Size(780, 330);
+            this.pnlGrid.TabIndex = 2;
 
             //
             // dgvCourses
@@ -213,9 +263,58 @@ namespace SchoolCenter
 
             this.pnlInput.ResumeLayout(false);
             this.pnlInput.PerformLayout();
+            this.pnlSearch.ResumeLayout(false);
+            this.pnlSearch.PerformLayout();
             this.pnlGrid.ResumeLayout(false);
             ((System.ComponentModel.ISupportInitialize)(this.dgvCourses)).EndInit();
             this.ResumeLayout(false);
+        }
+
+        private void TxtSearch_TextChanged(object sender, EventArgs e)
+        {
+            string filterText = txtSearch.Text.Trim();
+            if (string.IsNullOrEmpty(filterText))
+            {
+                LoadCourses();
+                return;
+            }
+
+            try
+            {
+                string connectionString = DbConnectionManager.GetConnectionString();
+                using (SqlConnection conn = new SqlConnection(connectionString))
+                {
+                    conn.Open();
+                    string query = @"
+                        SELECT
+                            CourseID,
+                            CourseName AS [اسم الدورة],
+                            Cost AS [تكلفة الدورة (د.ل)]
+                        FROM Courses
+                        WHERE CourseName LIKE @Filter
+                        ORDER BY CourseID DESC";
+
+                    using (SqlCommand cmd = new SqlCommand(query, conn))
+                    {
+                        cmd.Parameters.AddWithValue("@Filter", "%" + filterText + "%");
+                        using (SqlDataAdapter da = new SqlDataAdapter(cmd))
+                        {
+                            DataTable dt = new DataTable();
+                            da.Fill(dt);
+                            dgvCourses.DataSource = dt;
+
+                            if (dgvCourses.Columns.Contains("CourseID"))
+                                dgvCourses.Columns["CourseID"].Visible = false;
+
+                            dgvCourses.AutoSizeColumnsMode = DataGridViewAutoSizeColumnsMode.Fill;
+                        }
+                    }
+                }
+            }
+            catch (Exception ex)
+            {
+                System.Diagnostics.Debug.WriteLine("Search failed: " + ex.Message);
+            }
         }
 
         public void LoadCourses()

@@ -48,6 +48,7 @@
   <ItemGroup>
     <Compile Include="DbConnectionManager.cs" />
     <Compile Include="FinancialService.cs" />
+    <Compile Include="ThemeHelper.cs" />
     <Compile Include="StudentsView.cs">
       <SubType>UserControl</SubType>
     </Compile>

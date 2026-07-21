@@ -11,6 +11,7 @@ namespace SchoolCenter
         {
             InitializeComponent();
             this.DoubleBuffered = true;
+            ThemeHelper.ApplyTheme(this);
         }
 
         /// <summary>
