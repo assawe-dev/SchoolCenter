@@ -29,6 +29,7 @@ namespace SchoolCenter
         public StudentDuesView()
         {
             InitializeComponent();
+            ThemeHelper.ApplyTheme(this);
             LoadStudents();
             LoadCourses();
             LoadDues();

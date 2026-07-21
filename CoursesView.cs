@@ -32,6 +32,7 @@ namespace SchoolCenter
         public CoursesView()
         {
             InitializeComponent();
+            ThemeHelper.ApplyTheme(this);
             LoadCourses();
         }
 

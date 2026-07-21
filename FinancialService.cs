@@ -68,5 +68,27 @@ namespace SchoolCenter
                 }
             }
         }
+
+        /// <summary>
+        /// Retrieves the total outstanding system debts calculated as SUM(Debit) - SUM(Credit).
+        /// </summary>
+        public decimal GetTotalOutstandingDebts()
+        {
+            string connectionString = DbConnectionManager.GetConnectionString();
+            using (SqlConnection connection = new SqlConnection(connectionString))
+            {
+                connection.Open();
+                string query = "SELECT ISNULL(SUM(Debit), 0) - ISNULL(SUM(Credit), 0) FROM FinancialTransactions";
+                using (SqlCommand command = new SqlCommand(query, connection))
+                {
+                    object result = command.ExecuteScalar();
+                    if (result != null && result != DBNull.Value)
+                    {
+                        return Convert.ToDecimal(result);
+                    }
+                    return 0m;
+                }
+            }
+        }
     }
 }

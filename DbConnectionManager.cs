@@ -117,7 +117,7 @@ namespace SchoolCenter
                         CREATE TABLE FinancialTransactions (
                             TransactionID INT IDENTITY(1,1) PRIMARY KEY,
                             StudentID INT NOT NULL FOREIGN KEY REFERENCES Students(StudentID) ON DELETE CASCADE,
-                            TransactionType NVARCHAR(50) NOT NULL, -- 'Fee Charge' / 'Payment Receipt'
+                            TransactionType NVARCHAR(50) NOT NULL CONSTRAINT CK_FinancialTransactions_TransactionType CHECK (TransactionType IN (N'Fee Charge', N'Payment Receipt', N'Opening Balance')),
                             Debit DECIMAL(18, 2) NOT NULL,
                             Credit DECIMAL(18, 2) NOT NULL,
                             TransactionDate DATETIME NOT NULL,
@@ -126,6 +126,30 @@ namespace SchoolCenter
                         );
                     END";
                 using (SqlCommand cmd = new SqlCommand(createTransactionsTable, connection))
+                {
+                    cmd.ExecuteNonQuery();
+                }
+
+                // 4.5. تحديث قيد التحقق لجدول الحركات المالية للتأكد من دعم 'Opening Balance'
+                string alterTransactionsCheck = @"
+                    IF EXISTS (SELECT * FROM sys.tables WHERE name = 'FinancialTransactions')
+                    BEGIN
+                        DECLARE @ConstraintName NVARCHAR(200);
+                        SELECT TOP 1 @ConstraintName = name
+                        FROM sys.check_constraints
+                        WHERE parent_object_id = OBJECT_ID('FinancialTransactions')
+                          AND (definition LIKE '%TransactionType%' OR name = 'CK_FinancialTransactions_TransactionType');
+
+                        IF @ConstraintName IS NOT NULL
+                        BEGIN
+                            EXEC('ALTER TABLE FinancialTransactions DROP CONSTRAINT [' + @ConstraintName + ']');
+                        END
+
+                        ALTER TABLE FinancialTransactions
+                        ADD CONSTRAINT CK_FinancialTransactions_TransactionType
+                        CHECK (TransactionType IN ('Fee Charge', 'Payment Receipt', 'Opening Balance'));
+                    END";
+                using (SqlCommand cmd = new SqlCommand(alterTransactionsCheck, connection))
                 {
                     cmd.ExecuteNonQuery();
                 }

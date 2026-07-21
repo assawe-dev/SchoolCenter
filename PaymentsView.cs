@@ -39,6 +39,7 @@ namespace SchoolCenter
         public PaymentsView()
         {
             InitializeComponent();
+            ThemeHelper.ApplyTheme(this);
             LoadStudentsList();
             LoadTransactions();
         }
