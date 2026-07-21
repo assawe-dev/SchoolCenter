@@ -28,7 +28,7 @@ namespace SchoolCenter
         }
 
         /// <summary>
-        /// Retrieves the current treasury balance from FinancialTransactions.
+        /// Retrieves the current treasury balance from the TreasuryLog.
         /// </summary>
         public decimal GetCurrentTreasuryBalance()
         {
@@ -36,7 +36,8 @@ namespace SchoolCenter
             using (SqlConnection connection = new SqlConnection(connectionString))
             {
                 connection.Open();
-                string query = "SELECT COALESCE(SUM(Amount), 0) FROM FinancialTransactions";
+                // Get the latest balance from TreasuryLog running balance
+                string query = "SELECT TOP 1 CurrentBalance FROM TreasuryLog ORDER BY LogID DESC";
                 using (SqlCommand command = new SqlCommand(query, connection))
                 {
                     object result = command.ExecuteScalar();

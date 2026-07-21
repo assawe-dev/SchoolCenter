@@ -31,6 +31,7 @@ namespace SchoolCenter
             this.sidebarPanel = new System.Windows.Forms.Panel();
             this.btnSettings = new System.Windows.Forms.Button();
             this.btnBalanceReport = new System.Windows.Forms.Button();
+            this.btnPayments = new System.Windows.Forms.Button();
             this.btnStudentDues = new System.Windows.Forms.Button();
             this.btnCourses = new System.Windows.Forms.Button();
             this.btnStudents = new System.Windows.Forms.Button();
@@ -57,11 +58,13 @@ namespace SchoolCenter
             this.studentsViewPanel = new System.Windows.Forms.Panel();
             this.coursesViewPanel = new System.Windows.Forms.Panel();
             this.studentDuesViewPanel = new System.Windows.Forms.Panel();
+            this.paymentsViewPanel = new System.Windows.Forms.Panel();
             this.balanceReportViewPanel = new System.Windows.Forms.Panel();
 
             this.uStudentsView = new SchoolCenter.StudentsView();
             this.uCoursesView = new SchoolCenter.CoursesView();
             this.uStudentDuesView = new SchoolCenter.StudentDuesView();
+            this.uPaymentsView = new SchoolCenter.PaymentsView();
             this.uBalanceReportView = new SchoolCenter.BalanceReportView();
 
             this.sidebarPanel.SuspendLayout();
@@ -76,6 +79,7 @@ namespace SchoolCenter
             this.studentsViewPanel.SuspendLayout();
             this.coursesViewPanel.SuspendLayout();
             this.studentDuesViewPanel.SuspendLayout();
+            this.paymentsViewPanel.SuspendLayout();
             this.balanceReportViewPanel.SuspendLayout();
             this.SuspendLayout();
             // 
@@ -84,6 +88,7 @@ namespace SchoolCenter
             this.sidebarPanel.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(44)))), ((int)(((byte)(62)))), ((int)(((byte)(80)))));
             this.sidebarPanel.Controls.Add(this.btnSettings);
             this.sidebarPanel.Controls.Add(this.btnBalanceReport);
+            this.sidebarPanel.Controls.Add(this.btnPayments);
             this.sidebarPanel.Controls.Add(this.btnStudentDues);
             this.sidebarPanel.Controls.Add(this.btnCourses);
             this.sidebarPanel.Controls.Add(this.btnStudents);
@@ -105,10 +110,10 @@ namespace SchoolCenter
             this.btnSettings.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
             this.btnSettings.Font = new System.Drawing.Font("Segoe UI", 11F, System.Drawing.FontStyle.Bold);
             this.btnSettings.ForeColor = System.Drawing.Color.White;
-            this.btnSettings.Location = new System.Drawing.Point(0, 330);
+            this.btnSettings.Location = new System.Drawing.Point(0, 380);
             this.btnSettings.Name = "btnSettings";
             this.btnSettings.Size = new System.Drawing.Size(240, 50);
-            this.btnSettings.TabIndex = 6;
+            this.btnSettings.TabIndex = 7;
             this.btnSettings.Text = "إعدادات الاتصال";
             this.btnSettings.UseVisualStyleBackColor = true;
             this.btnSettings.Click += new System.EventHandler(this.BtnSettings_Click);
@@ -122,13 +127,30 @@ namespace SchoolCenter
             this.btnBalanceReport.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
             this.btnBalanceReport.Font = new System.Drawing.Font("Segoe UI", 11F, System.Drawing.FontStyle.Bold);
             this.btnBalanceReport.ForeColor = System.Drawing.Color.White;
-            this.btnBalanceReport.Location = new System.Drawing.Point(0, 280);
+            this.btnBalanceReport.Location = new System.Drawing.Point(0, 330);
             this.btnBalanceReport.Name = "btnBalanceReport";
             this.btnBalanceReport.Size = new System.Drawing.Size(240, 50);
-            this.btnBalanceReport.TabIndex = 5;
+            this.btnBalanceReport.TabIndex = 6;
             this.btnBalanceReport.Text = "تقرير الأرصدة والديون";
             this.btnBalanceReport.UseVisualStyleBackColor = true;
             this.btnBalanceReport.Click += new System.EventHandler(this.BtnBalanceReport_Click);
+            //
+            // btnPayments
+            //
+            this.btnPayments.Cursor = System.Windows.Forms.Cursors.Hand;
+            this.btnPayments.Dock = System.Windows.Forms.DockStyle.Top;
+            this.btnPayments.FlatAppearance.BorderSize = 0;
+            this.btnPayments.FlatAppearance.MouseOverBackColor = System.Drawing.Color.FromArgb(((int)(((byte)(52)))), ((int)(((byte)(152)))), ((int)(((byte)(219)))));
+            this.btnPayments.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
+            this.btnPayments.Font = new System.Drawing.Font("Segoe UI", 11F, System.Drawing.FontStyle.Bold);
+            this.btnPayments.ForeColor = System.Drawing.Color.White;
+            this.btnPayments.Location = new System.Drawing.Point(0, 280);
+            this.btnPayments.Name = "btnPayments";
+            this.btnPayments.Size = new System.Drawing.Size(240, 50);
+            this.btnPayments.TabIndex = 5;
+            this.btnPayments.Text = "المدفوعات والخزينة";
+            this.btnPayments.UseVisualStyleBackColor = true;
+            this.btnPayments.Click += new System.EventHandler(this.BtnPayments_Click);
             //
             // btnStudentDues
             //
@@ -249,6 +271,7 @@ namespace SchoolCenter
             this.mainContentPanel.Controls.Add(this.studentsViewPanel);
             this.mainContentPanel.Controls.Add(this.coursesViewPanel);
             this.mainContentPanel.Controls.Add(this.studentDuesViewPanel);
+            this.mainContentPanel.Controls.Add(this.paymentsViewPanel);
             this.mainContentPanel.Controls.Add(this.balanceReportViewPanel);
             this.mainContentPanel.Dock = System.Windows.Forms.DockStyle.Fill;
             this.mainContentPanel.Location = new System.Drawing.Point(0, 0);
@@ -448,6 +471,17 @@ namespace SchoolCenter
             this.studentDuesViewPanel.TabIndex = 3;
             this.studentDuesViewPanel.Visible = false;
             //
+            // paymentsViewPanel
+            //
+            this.paymentsViewPanel.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(248)))), ((int)(((byte)(249)))), ((int)(((byte)(250)))));
+            this.paymentsViewPanel.Controls.Add(this.uPaymentsView);
+            this.paymentsViewPanel.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.paymentsViewPanel.Location = new System.Drawing.Point(0, 0);
+            this.paymentsViewPanel.Name = "paymentsViewPanel";
+            this.paymentsViewPanel.Size = new System.Drawing.Size(860, 700);
+            this.paymentsViewPanel.TabIndex = 4;
+            this.paymentsViewPanel.Visible = false;
+            //
             // balanceReportViewPanel
             //
             this.balanceReportViewPanel.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(248)))), ((int)(((byte)(249)))), ((int)(((byte)(250)))));
@@ -456,7 +490,7 @@ namespace SchoolCenter
             this.balanceReportViewPanel.Location = new System.Drawing.Point(0, 0);
             this.balanceReportViewPanel.Name = "balanceReportViewPanel";
             this.balanceReportViewPanel.Size = new System.Drawing.Size(860, 700);
-            this.balanceReportViewPanel.TabIndex = 4;
+            this.balanceReportViewPanel.TabIndex = 5;
             this.balanceReportViewPanel.Visible = false;
             //
             // Form1
@@ -487,6 +521,7 @@ namespace SchoolCenter
             this.studentsViewPanel.ResumeLayout(false);
             this.coursesViewPanel.ResumeLayout(false);
             this.studentDuesViewPanel.ResumeLayout(false);
+            this.paymentsViewPanel.ResumeLayout(false);
             this.balanceReportViewPanel.ResumeLayout(false);
             this.ResumeLayout(false);
 
@@ -501,6 +536,7 @@ namespace SchoolCenter
         private System.Windows.Forms.Button btnStudents;
         private System.Windows.Forms.Button btnCourses;
         private System.Windows.Forms.Button btnStudentDues;
+        private System.Windows.Forms.Button btnPayments;
         private System.Windows.Forms.Button btnBalanceReport;
         private System.Windows.Forms.Button btnSettings;
         private System.Windows.Forms.Panel statusPanel;
@@ -523,11 +559,13 @@ namespace SchoolCenter
         private System.Windows.Forms.Panel studentsViewPanel;
         private System.Windows.Forms.Panel coursesViewPanel;
         private System.Windows.Forms.Panel studentDuesViewPanel;
+        private System.Windows.Forms.Panel paymentsViewPanel;
         private System.Windows.Forms.Panel balanceReportViewPanel;
 
         private SchoolCenter.StudentsView uStudentsView;
         private SchoolCenter.CoursesView uCoursesView;
         private SchoolCenter.StudentDuesView uStudentDuesView;
+        private SchoolCenter.PaymentsView uPaymentsView;
         private SchoolCenter.BalanceReportView uBalanceReportView;
     }
 }

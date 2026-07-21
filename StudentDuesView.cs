@@ -18,19 +18,13 @@ namespace SchoolCenter
         private Label lblNotes;
         private TextBox txtNotes;
 
-        // Payment section (Optional / Instant Payment to update financial balance)
-        private GroupBox gbPayment;
-        private CheckBox chkInstantPay;
-        private Label lblPayAmount;
-        private TextBox txtPayAmount;
-        private Label lblPayNotes;
-        private TextBox txtPayNotes;
-
         private Button btnSave;
         private Button btnClear;
 
         private DataGridView dgvDues;
         private Panel pnlGrid;
+
+        private TableLayoutPanel tlpInput;
 
         public event EventHandler DataSaved;
 
@@ -45,6 +39,8 @@ namespace SchoolCenter
         private void InitializeComponent()
         {
             this.pnlInput = new Panel();
+            this.tlpInput = new TableLayoutPanel();
+
             this.lblStudent = new Label();
             this.cbStudent = new ComboBox();
             this.lblCourse = new Label();
@@ -54,13 +50,6 @@ namespace SchoolCenter
             this.lblNotes = new Label();
             this.txtNotes = new TextBox();
 
-            this.gbPayment = new GroupBox();
-            this.chkInstantPay = new CheckBox();
-            this.lblPayAmount = new Label();
-            this.txtPayAmount = new TextBox();
-            this.lblPayNotes = new Label();
-            this.txtPayNotes = new TextBox();
-
             this.btnSave = new Button();
             this.btnClear = new Button();
 
@@ -68,7 +57,7 @@ namespace SchoolCenter
             this.dgvDues = new DataGridView();
 
             this.pnlInput.SuspendLayout();
-            this.gbPayment.SuspendLayout();
+            this.tlpInput.SuspendLayout();
             this.pnlGrid.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.dgvDues)).BeginInit();
             this.SuspendLayout();
@@ -89,161 +78,147 @@ namespace SchoolCenter
             // pnlInput
             //
             this.pnlInput.BackColor = Color.White;
-            this.pnlInput.Controls.Add(this.gbPayment);
-            this.pnlInput.Controls.Add(this.btnClear);
-            this.pnlInput.Controls.Add(this.btnSave);
-            this.pnlInput.Controls.Add(this.txtNotes);
-            this.pnlInput.Controls.Add(this.lblNotes);
-            this.pnlInput.Controls.Add(this.txtDueAmount);
-            this.pnlInput.Controls.Add(this.lblDueAmount);
-            this.pnlInput.Controls.Add(this.cbCourse);
-            this.pnlInput.Controls.Add(this.lblCourse);
-            this.pnlInput.Controls.Add(this.cbStudent);
-            this.pnlInput.Controls.Add(this.lblStudent);
-            this.pnlInput.Location = new Point(20, 20);
+            this.pnlInput.Controls.Add(this.tlpInput);
+            this.pnlInput.Dock = DockStyle.Top;
+            this.pnlInput.Location = new Point(0, 0);
             this.pnlInput.Name = "pnlInput";
-            this.pnlInput.Size = new Size(780, 240);
+            this.pnlInput.Size = new Size(820, 195);
             this.pnlInput.TabIndex = 0;
+
+            //
+            // tlpInput
+            //
+            this.tlpInput.ColumnCount = 4;
+            this.tlpInput.ColumnStyles.Add(new ColumnStyle(SizeType.Percent, 15F));
+            this.tlpInput.ColumnStyles.Add(new ColumnStyle(SizeType.Percent, 35F));
+            this.tlpInput.ColumnStyles.Add(new ColumnStyle(SizeType.Percent, 15F));
+            this.tlpInput.ColumnStyles.Add(new ColumnStyle(SizeType.Percent, 35F));
+            this.tlpInput.RowCount = 3;
+            this.tlpInput.RowStyles.Add(new RowStyle(SizeType.Absolute, 45F));
+            this.tlpInput.RowStyles.Add(new RowStyle(SizeType.Absolute, 45F));
+            this.tlpInput.RowStyles.Add(new RowStyle(SizeType.Absolute, 60F));
+
+            this.tlpInput.Controls.Add(this.lblStudent, 0, 0);
+            this.tlpInput.Controls.Add(this.cbStudent, 1, 0);
+            this.tlpInput.Controls.Add(this.lblCourse, 2, 0);
+            this.tlpInput.Controls.Add(this.cbCourse, 3, 0);
+            this.tlpInput.Controls.Add(this.lblDueAmount, 0, 1);
+            this.tlpInput.Controls.Add(this.txtDueAmount, 1, 1);
+            this.tlpInput.Controls.Add(this.lblNotes, 2, 1);
+            this.tlpInput.Controls.Add(this.txtNotes, 3, 1);
+
+            // Button flow panel
+            FlowLayoutPanel flpButtons = new FlowLayoutPanel();
+            flpButtons.FlowDirection = FlowDirection.RightToLeft;
+            flpButtons.Controls.Add(this.btnSave);
+            flpButtons.Controls.Add(this.btnClear);
+            flpButtons.Dock = DockStyle.Fill;
+            flpButtons.Margin = new Padding(0);
+
+            this.tlpInput.Controls.Add(flpButtons, 0, 2);
+            this.tlpInput.SetColumnSpan(flpButtons, 4);
+
+            this.tlpInput.Dock = DockStyle.Fill;
+            this.tlpInput.Location = new Point(0, 0);
+            this.tlpInput.Name = "tlpInput";
+            this.tlpInput.Padding = new Padding(15);
+            this.tlpInput.TabIndex = 0;
 
             //
             // lblStudent
             //
+            this.lblStudent.Anchor = AnchorStyles.Left | AnchorStyles.Right;
             this.lblStudent.AutoSize = true;
             this.lblStudent.Font = new Font("Segoe UI", 10F, FontStyle.Bold);
             this.lblStudent.ForeColor = Color.FromArgb(44, 62, 80);
-            this.lblStudent.Location = new Point(650, 18);
+            this.lblStudent.Location = new Point(675, 26);
             this.lblStudent.Name = "lblStudent";
-            this.lblStudent.Size = new Size(110, 23);
+            this.lblStudent.Size = new Size(112, 23);
             this.lblStudent.Text = "اختر الطالب:";
+            this.lblStudent.TextAlign = ContentAlignment.MiddleLeft;
 
             //
             // cbStudent
             //
+            this.cbStudent.Anchor = AnchorStyles.Left | AnchorStyles.Right;
             this.cbStudent.DropDownStyle = ComboBoxStyle.DropDownList;
             this.cbStudent.FormattingEnabled = true;
-            this.cbStudent.Location = new Point(410, 15);
+            this.cbStudent.Location = new Point(413, 22);
             this.cbStudent.Name = "cbStudent";
-            this.cbStudent.Size = new Size(230, 31);
+            this.cbStudent.Size = new Size(256, 31);
+            this.cbStudent.TabIndex = 0;
 
             //
             // lblCourse
             //
+            this.lblCourse.Anchor = AnchorStyles.Left | AnchorStyles.Right;
             this.lblCourse.AutoSize = true;
             this.lblCourse.Font = new Font("Segoe UI", 10F, FontStyle.Bold);
             this.lblCourse.ForeColor = Color.FromArgb(44, 62, 80);
-            this.lblCourse.Location = new Point(650, 58);
+            this.lblCourse.Location = new Point(295, 26);
             this.lblCourse.Name = "lblCourse";
-            this.lblCourse.Size = new Size(110, 23);
+            this.lblCourse.Size = new Size(112, 23);
             this.lblCourse.Text = "اختر الدورة:";
+            this.lblCourse.TextAlign = ContentAlignment.MiddleLeft;
 
             //
             // cbCourse
             //
+            this.cbCourse.Anchor = AnchorStyles.Left | AnchorStyles.Right;
             this.cbCourse.DropDownStyle = ComboBoxStyle.DropDownList;
             this.cbCourse.FormattingEnabled = true;
-            this.cbCourse.Location = new Point(410, 55);
+            this.cbCourse.Location = new Point(18, 22);
             this.cbCourse.Name = "cbCourse";
-            this.cbCourse.Size = new Size(230, 31);
+            this.cbCourse.Size = new Size(271, 31);
+            this.cbCourse.TabIndex = 1;
             this.cbCourse.SelectedIndexChanged += new EventHandler(this.CbCourse_SelectedIndexChanged);
 
             //
             // lblDueAmount
             //
+            this.lblDueAmount.Anchor = AnchorStyles.Left | AnchorStyles.Right;
             this.lblDueAmount.AutoSize = true;
             this.lblDueAmount.Font = new Font("Segoe UI", 10F, FontStyle.Bold);
             this.lblDueAmount.ForeColor = Color.FromArgb(44, 62, 80);
-            this.lblDueAmount.Location = new Point(650, 98);
+            this.lblDueAmount.Location = new Point(675, 71);
             this.lblDueAmount.Name = "lblDueAmount";
-            this.lblDueAmount.Size = new Size(110, 23);
-            this.lblDueAmount.Text = "قيمة المستحق:";
+            this.lblDueAmount.Size = new Size(112, 23);
+            this.lblDueAmount.Text = "تكلفة الدورة:";
+            this.lblDueAmount.TextAlign = ContentAlignment.MiddleLeft;
 
             //
             // txtDueAmount
             //
-            this.txtDueAmount.Location = new Point(410, 95);
+            this.txtDueAmount.Anchor = AnchorStyles.Left | AnchorStyles.Right;
+            this.txtDueAmount.Location = new Point(413, 67);
             this.txtDueAmount.Name = "txtDueAmount";
-            this.txtDueAmount.Size = new Size(230, 30);
+            this.txtDueAmount.ReadOnly = true;
+            this.txtDueAmount.Size = new Size(256, 30);
+            this.txtDueAmount.TabIndex = 2;
+            this.txtDueAmount.TabStop = false;
 
             //
             // lblNotes
             //
+            this.lblNotes.Anchor = AnchorStyles.Left | AnchorStyles.Right;
             this.lblNotes.AutoSize = true;
             this.lblNotes.Font = new Font("Segoe UI", 10F, FontStyle.Bold);
             this.lblNotes.ForeColor = Color.FromArgb(44, 62, 80);
-            this.lblNotes.Location = new Point(650, 138);
+            this.lblNotes.Location = new Point(295, 71);
             this.lblNotes.Name = "lblNotes";
-            this.lblNotes.Size = new Size(110, 23);
+            this.lblNotes.Size = new Size(112, 23);
             this.lblNotes.Text = "ملاحظات الدورة:";
+            this.lblNotes.TextAlign = ContentAlignment.MiddleLeft;
 
             //
             // txtNotes
             //
-            this.txtNotes.Location = new Point(410, 135);
+            this.txtNotes.Anchor = AnchorStyles.Left | AnchorStyles.Right;
+            this.txtNotes.Location = new Point(18, 67);
             this.txtNotes.Name = "txtNotes";
-            this.txtNotes.Size = new Size(230, 30);
-
-            //
-            // gbPayment
-            //
-            this.gbPayment.Controls.Add(this.chkInstantPay);
-            this.gbPayment.Controls.Add(this.lblPayAmount);
-            this.gbPayment.Controls.Add(this.txtPayAmount);
-            this.gbPayment.Controls.Add(this.lblPayNotes);
-            this.gbPayment.Controls.Add(this.txtPayNotes);
-            this.gbPayment.Font = new Font("Segoe UI", 9.5F, FontStyle.Bold);
-            this.gbPayment.ForeColor = Color.FromArgb(44, 62, 80);
-            this.gbPayment.Location = new Point(20, 10);
-            this.gbPayment.Name = "gbPayment";
-            this.gbPayment.Size = new Size(360, 160);
-            this.gbPayment.TabStop = false;
-            this.gbPayment.Text = "تسجيل سداد مالي (اختياري)";
-
-            //
-            // chkInstantPay
-            //
-            this.chkInstantPay.AutoSize = true;
-            this.chkInstantPay.Location = new Point(140, 25);
-            this.chkInstantPay.Name = "chkInstantPay";
-            this.chkInstantPay.Size = new Size(200, 26);
-            this.chkInstantPay.Text = "تسجيل دفعة مسددة الآن";
-            this.chkInstantPay.UseVisualStyleBackColor = true;
-            this.chkInstantPay.CheckedChanged += new EventHandler(this.ChkInstantPay_CheckedChanged);
-
-            //
-            // lblPayAmount
-            //
-            this.lblPayAmount.AutoSize = true;
-            this.lblPayAmount.Enabled = false;
-            this.lblPayAmount.Location = new Point(250, 68);
-            this.lblPayAmount.Name = "lblPayAmount";
-            this.lblPayAmount.Size = new Size(100, 21);
-            this.lblPayAmount.Text = "المبلغ المدفوع:";
-
-            //
-            // txtPayAmount
-            //
-            this.txtPayAmount.Enabled = false;
-            this.txtPayAmount.Location = new Point(20, 65);
-            this.txtPayAmount.Name = "txtPayAmount";
-            this.txtPayAmount.Size = new Size(220, 29);
-
-            //
-            // lblPayNotes
-            //
-            this.lblPayNotes.AutoSize = true;
-            this.lblPayNotes.Enabled = false;
-            this.lblPayNotes.Location = new Point(250, 108);
-            this.lblPayNotes.Name = "lblPayNotes";
-            this.lblPayNotes.Size = new Size(100, 21);
-            this.lblPayNotes.Text = "ملاحظات السداد:";
-
-            //
-            // txtPayNotes
-            //
-            this.txtPayNotes.Enabled = false;
-            this.txtPayNotes.Location = new Point(20, 105);
-            this.txtPayNotes.Name = "txtPayNotes";
-            this.txtPayNotes.Size = new Size(220, 29);
+            this.txtNotes.Size = new Size(271, 30);
+            this.txtNotes.TabIndex = 3;
+            this.txtNotes.KeyDown += new KeyEventHandler(this.Input_KeyDown);
 
             //
             // btnSave
@@ -254,10 +229,11 @@ namespace SchoolCenter
             this.btnSave.FlatStyle = FlatStyle.Flat;
             this.btnSave.Font = new Font("Segoe UI", 10F, FontStyle.Bold);
             this.btnSave.ForeColor = Color.White;
-            this.btnSave.Location = new Point(410, 185);
+            this.btnSave.Location = new Point(3, 3);
             this.btnSave.Name = "btnSave";
             this.btnSave.Size = new Size(160, 38);
-            this.btnSave.Text = "حفظ المستحق والمالية";
+            this.btnSave.TabIndex = 4;
+            this.btnSave.Text = "تعيين المستحق المالي";
             this.btnSave.UseVisualStyleBackColor = false;
             this.btnSave.Click += new EventHandler(this.BtnSave_Click);
 
@@ -270,9 +246,10 @@ namespace SchoolCenter
             this.btnClear.FlatStyle = FlatStyle.Flat;
             this.btnClear.Font = new Font("Segoe UI", 10F, FontStyle.Bold);
             this.btnClear.ForeColor = Color.White;
-            this.btnClear.Location = new Point(230, 185);
+            this.btnClear.Location = new Point(169, 3);
             this.btnClear.Name = "btnClear";
-            this.btnClear.Size = new Size(160, 38);
+            this.btnClear.Size = new Size(120, 38);
+            this.btnClear.TabIndex = 5;
             this.btnClear.Text = "مسح الحقول";
             this.btnClear.UseVisualStyleBackColor = false;
             this.btnClear.Click += new EventHandler(this.BtnClear_Click);
@@ -281,9 +258,11 @@ namespace SchoolCenter
             // pnlGrid
             //
             this.pnlGrid.Controls.Add(this.dgvDues);
-            this.pnlGrid.Location = new Point(20, 280);
+            this.pnlGrid.Dock = DockStyle.Fill;
+            this.pnlGrid.Location = new Point(0, 195);
             this.pnlGrid.Name = "pnlGrid";
-            this.pnlGrid.Size = new Size(780, 300);
+            this.pnlGrid.Padding = new Padding(15);
+            this.pnlGrid.Size = new Size(820, 405);
             this.pnlGrid.TabIndex = 1;
 
             //
@@ -301,19 +280,27 @@ namespace SchoolCenter
             this.dgvDues.DefaultCellStyle.SelectionForeColor = Color.White;
             this.dgvDues.EnableHeadersVisualStyles = false;
             this.dgvDues.Dock = DockStyle.Fill;
-            this.dgvDues.Location = new Point(0, 0);
+            this.dgvDues.Location = new Point(15, 15);
             this.dgvDues.Name = "dgvDues";
             this.dgvDues.ReadOnly = true;
             this.dgvDues.RowHeadersVisible = false;
             this.dgvDues.SelectionMode = DataGridViewSelectionMode.FullRowSelect;
 
             this.pnlInput.ResumeLayout(false);
-            this.pnlInput.PerformLayout();
-            this.gbPayment.ResumeLayout(false);
-            this.gbPayment.PerformLayout();
+            this.tlpInput.ResumeLayout(false);
+            this.tlpInput.PerformLayout();
             this.pnlGrid.ResumeLayout(false);
             ((System.ComponentModel.ISupportInitialize)(this.dgvDues)).EndInit();
             this.ResumeLayout(false);
+        }
+
+        private void Input_KeyDown(object sender, KeyEventArgs e)
+        {
+            if (e.KeyCode == Keys.Enter)
+            {
+                e.SuppressKeyPress = true;
+                this.SelectNextControl((Control)sender, true, true, true, true);
+            }
         }
 
         public void LoadStudents()
@@ -324,7 +311,7 @@ namespace SchoolCenter
                 using (SqlConnection conn = new SqlConnection(connectionString))
                 {
                     conn.Open();
-                    string query = "SELECT Id, FullName FROM Students ORDER BY FullName ASC";
+                    string query = "SELECT StudentID, StudentName FROM Students ORDER BY StudentName ASC";
                     using (SqlCommand cmd = new SqlCommand(query, conn))
                     {
                         using (SqlDataAdapter da = new SqlDataAdapter(cmd))
@@ -332,8 +319,8 @@ namespace SchoolCenter
                             DataTable dt = new DataTable();
                             da.Fill(dt);
                             cbStudent.DataSource = dt;
-                            cbStudent.DisplayMember = "FullName";
-                            cbStudent.ValueMember = "Id";
+                            cbStudent.DisplayMember = "StudentName";
+                            cbStudent.ValueMember = "StudentID";
                         }
                     }
                 }
@@ -352,7 +339,7 @@ namespace SchoolCenter
                 using (SqlConnection conn = new SqlConnection(connectionString))
                 {
                     conn.Open();
-                    string query = "SELECT Id, CourseName, Cost FROM Courses ORDER BY CourseName ASC";
+                    string query = "SELECT CourseID, CourseName, Cost FROM Courses ORDER BY CourseName ASC";
                     using (SqlCommand cmd = new SqlCommand(query, conn))
                     {
                         using (SqlDataAdapter da = new SqlDataAdapter(cmd))
@@ -361,7 +348,7 @@ namespace SchoolCenter
                             da.Fill(dt);
                             cbCourse.DataSource = dt;
                             cbCourse.DisplayMember = "CourseName";
-                            cbCourse.ValueMember = "Id";
+                            cbCourse.ValueMember = "CourseID";
                         }
                     }
                 }
@@ -381,10 +368,6 @@ namespace SchoolCenter
                 if (drv != null)
                 {
                     txtDueAmount.Text = Convert.ToDecimal(drv["Cost"]).ToString("0.00");
-                    if (chkInstantPay.Checked)
-                    {
-                        txtPayAmount.Text = txtDueAmount.Text;
-                    }
                 }
             }
         }
@@ -392,25 +375,6 @@ namespace SchoolCenter
         private void CbCourse_SelectedIndexChanged(object sender, EventArgs e)
         {
             AutoFillCourseCost();
-        }
-
-        private void ChkInstantPay_CheckedChanged(object sender, EventArgs e)
-        {
-            bool isChecked = chkInstantPay.Checked;
-            lblPayAmount.Enabled = isChecked;
-            txtPayAmount.Enabled = isChecked;
-            lblPayNotes.Enabled = isChecked;
-            txtPayNotes.Enabled = isChecked;
-
-            if (isChecked)
-            {
-                txtPayAmount.Text = txtDueAmount.Text;
-            }
-            else
-            {
-                txtPayAmount.Clear();
-                txtPayNotes.Clear();
-            }
         }
 
         public void LoadDues()
@@ -423,16 +387,15 @@ namespace SchoolCenter
                     conn.Open();
                     string query = @"
                         SELECT
-                            d.Id,
-                            s.FullName AS [اسم الطالب],
-                            c.CourseName AS [اسم الدورة],
-                            d.DueAmount AS [قيمة المستحق (د.ل)],
-                            d.Notes AS [ملاحظات],
-                            d.CreatedAt AS [تاريخ التعيين]
-                        FROM StudentDues d
-                        INNER JOIN Students s ON d.StudentId = s.Id
-                        INNER JOIN Courses c ON d.CourseId = c.Id
-                        ORDER BY d.Id DESC";
+                            ft.TransactionID AS [رقم المستحق],
+                            s.StudentName AS [اسم الطالب],
+                            ft.Notes AS [اسم الدورة / ملاحظات],
+                            ft.Debit AS [قيمة المستحق (د.ل)],
+                            ft.TransactionDate AS [تاريخ التعيين]
+                        FROM FinancialTransactions ft
+                        INNER JOIN Students s ON ft.StudentID = s.StudentID
+                        WHERE ft.TransactionType = 'Fee Charge'
+                        ORDER BY ft.TransactionID DESC";
 
                     using (SqlCommand cmd = new SqlCommand(query, conn))
                     {
@@ -441,10 +404,6 @@ namespace SchoolCenter
                             DataTable dt = new DataTable();
                             da.Fill(dt);
                             dgvDues.DataSource = dt;
-
-                            if (dgvDues.Columns.Contains("Id"))
-                                dgvDues.Columns["Id"].Visible = false;
-
                             dgvDues.AutoSizeColumnsMode = DataGridViewAutoSizeColumnsMode.Fill;
                         }
                     }
@@ -461,9 +420,6 @@ namespace SchoolCenter
             if (cbStudent.Items.Count > 0) cbStudent.SelectedIndex = 0;
             if (cbCourse.Items.Count > 0) cbCourse.SelectedIndex = 0;
             txtNotes.Clear();
-            chkInstantPay.Checked = false;
-            txtPayAmount.Clear();
-            txtPayNotes.Clear();
             AutoFillCourseCost();
         }
 
@@ -488,63 +444,35 @@ namespace SchoolCenter
                 return;
             }
 
-            decimal payAmount = 0;
-            if (chkInstantPay.Checked)
-            {
-                if (!decimal.TryParse(txtPayAmount.Text.Trim(), out payAmount) || payAmount < 0)
-                {
-                    MessageBox.Show("يرجى إدخال مبلغ مدفوع صحيح.", "تنبيه", MessageBoxButtons.OK, MessageBoxIcon.Warning);
-                    return;
-                }
-            }
-
             try
             {
                 string connectionString = DbConnectionManager.GetConnectionString();
+                int currentUserID = DbConnectionManager.GetDefaultUserID();
+
                 using (SqlConnection conn = new SqlConnection(connectionString))
                 {
                     conn.Open();
-                    using (SqlTransaction trans = conn.BeginTransaction())
+
+                    // Insert directly into FinancialTransactions (TransactionType = 'Fee Charge', Debit = cost, Credit = 0.00)
+                    string queryDue = @"
+                        INSERT INTO FinancialTransactions (StudentID, TransactionType, Debit, Credit, TransactionDate, Notes, UserID)
+                        VALUES (@StudentID, 'Fee Charge', @Debit, 0.00, @TransactionDate, @Notes, @UserID)";
+
+                    using (SqlCommand cmdDue = new SqlCommand(queryDue, conn))
                     {
-                        try
-                        {
-                            // 1. حفظ المستحق في StudentDues
-                            string queryDue = "INSERT INTO StudentDues (StudentId, CourseId, DueAmount, Notes, CreatedAt) VALUES (@StudentId, @CourseId, @DueAmount, @Notes, @CreatedAt)";
-                            using (SqlCommand cmdDue = new SqlCommand(queryDue, conn, trans))
-                            {
-                                cmdDue.Parameters.AddWithValue("@StudentId", cbStudent.SelectedValue);
-                                cmdDue.Parameters.AddWithValue("@CourseId", cbCourse.SelectedValue);
-                                cmdDue.Parameters.AddWithValue("@DueAmount", dueAmount);
-                                cmdDue.Parameters.AddWithValue("@Notes", txtNotes.Text.Trim());
-                                cmdDue.Parameters.AddWithValue("@CreatedAt", DateTime.Now);
-                                cmdDue.ExecuteNonQuery();
-                            }
+                        cmdDue.Parameters.AddWithValue("@StudentID", cbStudent.SelectedValue);
+                        cmdDue.Parameters.AddWithValue("@Debit", dueAmount);
+                        cmdDue.Parameters.AddWithValue("@TransactionDate", DateTime.Now);
 
-                            // 2. إذا تم تحديد دفع فوري، حفظ الدفع في FinancialTransactions لتحديث رصيد الطالب المالي
-                            if (chkInstantPay.Checked && payAmount > 0)
-                            {
-                                string queryPay = "INSERT INTO FinancialTransactions (StudentId, Amount, TransactionDate, Notes) VALUES (@StudentId, @Amount, @TransactionDate, @Notes)";
-                                using (SqlCommand cmdPay = new SqlCommand(queryPay, conn, trans))
-                                {
-                                    cmdPay.Parameters.AddWithValue("@StudentId", cbStudent.SelectedValue);
-                                    cmdPay.Parameters.AddWithValue("@Amount", payAmount);
-                                    cmdPay.Parameters.AddWithValue("@TransactionDate", DateTime.Now);
-                                    cmdPay.Parameters.AddWithValue("@Notes", "سداد فوري عند تعيين دورة: " + txtPayNotes.Text.Trim());
-                                    cmdPay.ExecuteNonQuery();
-                                }
-                            }
-
-                            trans.Commit();
-                        }
-                        catch
-                        {
-                            trans.Rollback();
-                            throw;
-                        }
+                        string courseInfo = cbCourse.Text;
+                        string finalNotes = "رسوم الدورة: " + courseInfo + (string.IsNullOrEmpty(txtNotes.Text) ? "" : " - " + txtNotes.Text.Trim());
+                        cmdDue.Parameters.AddWithValue("@Notes", finalNotes);
+                        cmdDue.Parameters.AddWithValue("@UserID", currentUserID);
+                        cmdDue.ExecuteNonQuery();
                     }
                 }
 
-                MessageBox.Show("تم تعيين المستحقات المالية وتحديث رصيد الطالب بنجاح.", "نجاح", MessageBoxButtons.OK, MessageBoxIcon.Information);
+                MessageBox.Show("تم تعيين المستحقات المالية (رسوم الدورة) بنجاح.", "نجاح", MessageBoxButtons.OK, MessageBoxIcon.Information);
                 ClearInputs();
                 LoadDues();
                 OnDataSaved();

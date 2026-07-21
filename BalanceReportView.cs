@@ -67,18 +67,20 @@ namespace SchoolCenter
             this.pnlHeader.BackColor = Color.White;
             this.pnlHeader.Controls.Add(this.btnExport);
             this.pnlHeader.Controls.Add(this.lblTitle);
-            this.pnlHeader.Location = new Point(20, 20);
+            this.pnlHeader.Dock = DockStyle.Top;
+            this.pnlHeader.Location = new Point(0, 0);
             this.pnlHeader.Name = "pnlHeader";
-            this.pnlHeader.Size = new Size(780, 65);
+            this.pnlHeader.Size = new Size(820, 65);
             this.pnlHeader.TabIndex = 0;
 
             //
             // lblTitle
             //
+            this.lblTitle.Anchor = AnchorStyles.Top | AnchorStyles.Right;
             this.lblTitle.AutoSize = true;
             this.lblTitle.Font = new Font("Segoe UI", 13F, FontStyle.Bold);
             this.lblTitle.ForeColor = Color.FromArgb(44, 62, 80);
-            this.lblTitle.Location = new Point(500, 18);
+            this.lblTitle.Location = new Point(540, 18);
             this.lblTitle.Name = "lblTitle";
             this.lblTitle.Size = new Size(250, 30);
             this.lblTitle.Text = "تقرير أرصدة وديون الطلاب الشامل";
@@ -95,6 +97,7 @@ namespace SchoolCenter
             this.btnExport.Location = new Point(20, 13);
             this.btnExport.Name = "btnExport";
             this.btnExport.Size = new Size(180, 38);
+            this.btnExport.TabIndex = 0;
             this.btnExport.Text = "تصدير إلى Excel 📥";
             this.btnExport.UseVisualStyleBackColor = false;
             this.btnExport.Click += new EventHandler(this.BtnExport_Click);
@@ -105,18 +108,20 @@ namespace SchoolCenter
             this.pnlSummary.BackColor = Color.FromArgb(231, 76, 60); // Danger/Warning Color
             this.pnlSummary.Controls.Add(this.lblTotalDebtValue);
             this.pnlSummary.Controls.Add(this.lblTotalDebtTitle);
-            this.pnlSummary.Location = new Point(20, 505);
+            this.pnlSummary.Dock = DockStyle.Bottom;
+            this.pnlSummary.Location = new Point(0, 525);
             this.pnlSummary.Name = "pnlSummary";
-            this.pnlSummary.Size = new Size(780, 75);
+            this.pnlSummary.Size = new Size(820, 75);
             this.pnlSummary.TabIndex = 2;
 
             //
             // lblTotalDebtTitle
             //
+            this.lblTotalDebtTitle.Anchor = AnchorStyles.Top | AnchorStyles.Right;
             this.lblTotalDebtTitle.AutoSize = true;
             this.lblTotalDebtTitle.Font = new Font("Segoe UI", 13F, FontStyle.Bold);
             this.lblTotalDebtTitle.ForeColor = Color.White;
-            this.lblTotalDebtTitle.Location = new Point(500, 22);
+            this.lblTotalDebtTitle.Location = new Point(540, 22);
             this.lblTotalDebtTitle.Name = "lblTotalDebtTitle";
             this.lblTotalDebtTitle.Size = new Size(251, 30);
             this.lblTotalDebtTitle.Text = "مجموع الديون المستحقة:";
@@ -136,9 +141,11 @@ namespace SchoolCenter
             // pnlGrid
             //
             this.pnlGrid.Controls.Add(this.dgvReport);
-            this.pnlGrid.Location = new Point(20, 100);
+            this.pnlGrid.Dock = DockStyle.Fill;
+            this.pnlGrid.Location = new Point(0, 65);
             this.pnlGrid.Name = "pnlGrid";
-            this.pnlGrid.Size = new Size(780, 390);
+            this.pnlGrid.Padding = new Padding(15);
+            this.pnlGrid.Size = new Size(820, 460);
             this.pnlGrid.TabIndex = 1;
 
             //
@@ -156,7 +163,7 @@ namespace SchoolCenter
             this.dgvReport.DefaultCellStyle.SelectionForeColor = Color.White;
             this.dgvReport.EnableHeadersVisualStyles = false;
             this.dgvReport.Dock = DockStyle.Fill;
-            this.dgvReport.Location = new Point(0, 0);
+            this.dgvReport.Location = new Point(15, 15);
             this.dgvReport.Name = "dgvReport";
             this.dgvReport.ReadOnly = true;
             this.dgvReport.RowHeadersVisible = false;
@@ -179,26 +186,19 @@ namespace SchoolCenter
                 using (SqlConnection conn = new SqlConnection(connectionString))
                 {
                     conn.Open();
-                    // تقرير شامل يحسب:
-                    // - مجموع المستحقات لكل طالب (Total Dues) من جدول StudentDues
-                    // - مجموع المدفوعات لكل طالب (Paid Amount) من جدول FinancialTransactions
-                    // - المتبقي عليه كديون (Remaining Debt = Total Dues - Paid Amount)
                     string query = @"
                         SELECT
-                            s.FullName AS [اسم الطالب],
-                            s.GuardianPhone AS [رقم هاتف ولي الأمر],
-                            COALESCE(STUFF((
-                                SELECT DISTINCT ', ' + c.CourseName
-                                FROM StudentDues d
-                                INNER JOIN Courses c ON d.CourseId = c.Id
-                                WHERE d.StudentId = s.Id
-                                FOR XML PATH(''), TYPE).value('.', 'NVARCHAR(MAX)'), 1, 2, ''), N'غير مسجل') AS [الدورات المنتسب إليها],
-                            COALESCE((SELECT SUM(DueAmount) FROM StudentDues WHERE StudentId = s.Id), 0) AS [إجمالي المستحقات],
-                            COALESCE((SELECT SUM(Amount) FROM FinancialTransactions WHERE StudentId = s.Id), 0) AS [إجمالي المدفوعات],
-                            (COALESCE((SELECT SUM(DueAmount) FROM StudentDues WHERE StudentId = s.Id), 0) -
-                             COALESCE((SELECT SUM(Amount) FROM FinancialTransactions WHERE StudentId = s.Id), 0)) AS [الديون المتبقية]
+                            s.StudentID,
+                            s.StudentName AS [اسم الطالب],
+                            s.GuardianName AS [اسم ولي الأمر],
+                            s.ParentPhone AS [رقم هاتف ولي الأمر],
+                            ISNULL(SUM(ft.Debit), 0) AS [إجمالي المستحقات],
+                            ISNULL(SUM(ft.Credit), 0) AS [إجمالي المدفوعات],
+                            (ISNULL(SUM(ft.Debit), 0) - ISNULL(SUM(ft.Credit), 0)) AS [الديون المتبقية]
                         FROM Students s
-                        ORDER BY s.FullName ASC";
+                        LEFT JOIN FinancialTransactions ft ON s.StudentID = ft.StudentID
+                        GROUP BY s.StudentID, s.StudentName, s.GuardianName, s.ParentPhone
+                        ORDER BY s.StudentName ASC";
 
                     using (SqlCommand cmd = new SqlCommand(query, conn))
                     {
@@ -207,6 +207,9 @@ namespace SchoolCenter
                             DataTable dt = new DataTable();
                             da.Fill(dt);
                             dgvReport.DataSource = dt;
+
+                            if (dgvReport.Columns.Contains("StudentID"))
+                                dgvReport.Columns["StudentID"].Visible = false;
 
                             dgvReport.Columns["إجمالي المستحقات"].DefaultCellStyle.Format = "N2";
                             dgvReport.Columns["إجمالي المدفوعات"].DefaultCellStyle.Format = "N2";
@@ -256,30 +259,33 @@ namespace SchoolCenter
                 {
                     StringBuilder sb = new StringBuilder();
 
-                    // كتابة ترويسة الأعمدة مع دعم UTF-8 BOM لكي يتعرف عليها Excel باللغة العربية بشكل صحيح
-                    string[] columnNames = new string[dgvReport.Columns.Count];
+                    // كتابة ترويسة الأعمدة
+                    string[] columnNames = new string[dgvReport.Columns.Count - 1]; // Skip StudentID
+                    int colIndex = 0;
                     for (int i = 0; i < dgvReport.Columns.Count; i++)
                     {
-                        columnNames[i] = EscapeCsvField(dgvReport.Columns[i].HeaderText);
+                        if (dgvReport.Columns[i].Name == "StudentID") continue;
+                        columnNames[colIndex++] = EscapeCsvField(dgvReport.Columns[i].HeaderText);
                     }
                     sb.AppendLine(string.Join(",", columnNames));
 
                     // كتابة البيانات
                     foreach (DataGridViewRow row in dgvReport.Rows)
                     {
-                        string[] fields = new string[dgvReport.Columns.Count];
+                        string[] fields = new string[dgvReport.Columns.Count - 1];
+                        colIndex = 0;
                         for (int i = 0; i < dgvReport.Columns.Count; i++)
                         {
-                            fields[i] = EscapeCsvField(row.Cells[i].Value != null ? row.Cells[i].Value.ToString() : "");
+                            if (dgvReport.Columns[i].Name == "StudentID") continue;
+                            fields[colIndex++] = EscapeCsvField(row.Cells[i].Value != null ? row.Cells[i].Value.ToString() : "");
                         }
                         sb.AppendLine(string.Join(",", fields));
                     }
 
-                    // إضافة سطر المجموع في نهاية ملف الـ CSV ليتطابق مع الـ Summary Panel
                     sb.AppendLine();
                     sb.AppendLine(EscapeCsvField("مجموع الديون المستحقة") + ",,,,," + EscapeCsvField(lblTotalDebtValue.Text));
 
-                    // كتابة الملف بترميز UTF-8 مع الـ BOM
+                    // كتابة ملف CSV بترميز UTF-8 مع BOM لحماية الحروف العربية عند فتحها في Excel
                     using (StreamWriter sw = new StreamWriter(sfd.FileName, false, new UTF8Encoding(true)))
                     {
                         sw.Write(sb.ToString());
@@ -297,7 +303,6 @@ namespace SchoolCenter
         private string EscapeCsvField(string field)
         {
             if (string.IsNullOrEmpty(field)) return "";
-            // إذا كان الحقل يحتوي على فواصل، علامات اقتباس، أو سطور جديدة، نقوم بإحاطته بالاقتباسات ودبلجة الاقتباسات الموجودة
             if (field.Contains(",") || field.Contains("\"") || field.Contains("\n") || field.Contains("\r"))
             {
                 return "\"" + field.Replace("\"", "\"\"") + "\"";
