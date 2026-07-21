@@ -113,9 +113,11 @@ namespace SchoolCenter
                 FinancialService financialService = new FinancialService();
                 int totalStudents = financialService.GetTotalStudents();
                 decimal treasuryBalance = financialService.GetCurrentTreasuryBalance();
+                decimal totalOutstandingDebts = financialService.GetTotalOutstandingDebts();
 
                 lblCardStudentsValue.Text = totalStudents.ToString();
                 lblCardTreasuryValue.Text = treasuryBalance.ToString("N2") + " د.ل";
+                lblCardDebtsValue.Text = totalOutstandingDebts.ToString("N2") + " د.ل";
             }
             catch (Exception ex)
             {
@@ -127,6 +129,7 @@ namespace SchoolCenter
 
                 lblCardStudentsValue.Text = "غير متوفر";
                 lblCardTreasuryValue.Text = "غير متوفر";
+                lblCardDebtsValue.Text = "غير متوفر";
             }
         }
 

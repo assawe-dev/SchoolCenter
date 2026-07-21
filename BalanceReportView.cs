@@ -30,6 +30,7 @@ namespace SchoolCenter
         public BalanceReportView()
         {
             InitializeComponent();
+            ThemeHelper.ApplyTheme(this);
             LoadReport();
         }
 
@@ -135,7 +136,7 @@ namespace SchoolCenter
             this.lblTotalDebtTitle.Location = new Point(500, 22);
             this.lblTotalDebtTitle.Name = "lblTotalDebtTitle";
             this.lblTotalDebtTitle.Size = new Size(251, 30);
-            this.lblTotalDebtTitle.Text = "مجموع الديون المستحقة:";
+            this.lblTotalDebtTitle.Text = "إجمالي الديون المستحقة الكلية:";
 
             //
             // lblTotalDebtValue
@@ -417,7 +418,7 @@ namespace SchoolCenter
 
                     // إضافة سطر المجموع في نهاية ملف الـ CSV ليتطابق مع الـ Summary Panel
                     sb.AppendLine();
-                    sb.AppendLine(EscapeCsvField("مجموع الديون المستحقة") + ",,,," + EscapeCsvField(lblTotalDebtValue.Text));
+                    sb.AppendLine(EscapeCsvField("إجمالي الديون المستحقة الكلية") + ",,,," + EscapeCsvField(lblTotalDebtValue.Text));
 
                     // كتابة الملف بترميز UTF-8 مع الـ BOM لضمان الدعم الكامل للغة العربية في Excel
                     using (StreamWriter sw = new StreamWriter(sfd.FileName, false, new UTF8Encoding(true)))

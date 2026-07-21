@@ -40,6 +40,7 @@ namespace SchoolCenter
         public StudentsView()
         {
             InitializeComponent();
+            ThemeHelper.ApplyTheme(this);
             LoadStudents();
         }
 

@@ -44,6 +44,7 @@ namespace SchoolCenter
         public UsersView()
         {
             InitializeComponent();
+            ThemeHelper.ApplyTheme(this);
             LoadUsers();
         }
 

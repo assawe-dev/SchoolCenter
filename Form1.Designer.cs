@@ -55,6 +55,9 @@ namespace SchoolCenter
             this.cardTreasury = new System.Windows.Forms.Panel();
             this.lblCardTreasuryValue = new System.Windows.Forms.Label();
             this.lblCardTreasuryTitle = new System.Windows.Forms.Label();
+            this.cardDebts = new System.Windows.Forms.Panel();
+            this.lblCardDebtsTitle = new System.Windows.Forms.Label();
+            this.lblCardDebtsValue = new System.Windows.Forms.Label();
             this.cardStudents = new System.Windows.Forms.Panel();
             this.lblCardStudentsValue = new System.Windows.Forms.Label();
             this.lblCardStudentsTitle = new System.Windows.Forms.Label();
@@ -83,6 +86,7 @@ namespace SchoolCenter
             this.pnlWarning.SuspendLayout();
             this.welcomePanel.SuspendLayout();
             this.cardTreasury.SuspendLayout();
+            this.cardDebts.SuspendLayout();
             this.cardStudents.SuspendLayout();
             this.studentsViewPanel.SuspendLayout();
             this.coursesViewPanel.SuspendLayout();
@@ -356,6 +360,7 @@ namespace SchoolCenter
             this.homeViewPanel.Controls.Add(this.welcomePanel);
             this.homeViewPanel.Controls.Add(this.btnRefreshData);
             this.homeViewPanel.Controls.Add(this.cardTreasury);
+            this.homeViewPanel.Controls.Add(this.cardDebts);
             this.homeViewPanel.Controls.Add(this.cardStudents);
             this.homeViewPanel.Controls.Add(this.lblHomeTitle);
             this.homeViewPanel.Dock = System.Windows.Forms.DockStyle.Fill;
@@ -447,9 +452,9 @@ namespace SchoolCenter
             this.cardTreasury.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(46)))), ((int)(((byte)(204)))), ((int)(((byte)(113)))));
             this.cardTreasury.Controls.Add(this.lblCardTreasuryValue);
             this.cardTreasury.Controls.Add(this.lblCardTreasuryTitle);
-            this.cardTreasury.Location = new System.Drawing.Point(440, 180);
+             this.cardTreasury.Location = new System.Drawing.Point(300, 180);
             this.cardTreasury.Name = "cardTreasury";
-            this.cardTreasury.Size = new System.Drawing.Size(400, 140);
+             this.cardTreasury.Size = new System.Drawing.Size(260, 140);
             this.cardTreasury.TabIndex = 2;
             //
             // lblCardTreasuryValue
@@ -474,16 +479,48 @@ namespace SchoolCenter
             this.lblCardTreasuryTitle.TabIndex = 0;
             this.lblCardTreasuryTitle.Text = "رصيد الخزينة الحالي";
             //
+             // cardDebts
+             //
+             this.cardDebts.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
+             this.cardDebts.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(231)))), ((int)(((byte)(76)))), ((int)(((byte)(60)))));
+             this.cardDebts.Controls.Add(this.lblCardDebtsValue);
+             this.cardDebts.Controls.Add(this.lblCardDebtsTitle);
+             this.cardDebts.Location = new System.Drawing.Point(20, 180);
+             this.cardDebts.Name = "cardDebts";
+             this.cardDebts.Size = new System.Drawing.Size(260, 140);
+             this.cardDebts.TabIndex = 3;
+             //
+             // lblCardDebtsValue
+             //
+             this.lblCardDebtsValue.AutoSize = true;
+             this.lblCardDebtsValue.Font = new System.Drawing.Font("Segoe UI", 26F, System.Drawing.FontStyle.Bold);
+             this.lblCardDebtsValue.ForeColor = System.Drawing.Color.White;
+             this.lblCardDebtsValue.Location = new System.Drawing.Point(20, 60);
+             this.lblCardDebtsValue.Name = "lblCardDebtsValue";
+             this.lblCardDebtsValue.Size = new System.Drawing.Size(161, 60);
+             this.lblCardDebtsValue.TabIndex = 1;
+             this.lblCardDebtsValue.Text = "0.00 د.ل";
+             //
+             // lblCardDebtsTitle
+             //
+             this.lblCardDebtsTitle.AutoSize = true;
+             this.lblCardDebtsTitle.Font = new System.Drawing.Font("Segoe UI", 12F, System.Drawing.FontStyle.Bold);
+             this.lblCardDebtsTitle.ForeColor = System.Drawing.Color.White;
+             this.lblCardDebtsTitle.Location = new System.Drawing.Point(20, 20);
+             this.lblCardDebtsTitle.Name = "lblCardDebtsTitle";
+             this.lblCardDebtsTitle.Size = new System.Drawing.Size(176, 28);
+             this.lblCardDebtsTitle.TabIndex = 0;
+             this.lblCardDebtsTitle.Text = "إجمالي الديون المستحقة";
+             //
             // cardStudents
             //
-            this.cardStudents.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left)
-            | System.Windows.Forms.AnchorStyles.Right)));
+             this.cardStudents.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
             this.cardStudents.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(52)))), ((int)(((byte)(152)))), ((int)(((byte)(219)))));
             this.cardStudents.Controls.Add(this.lblCardStudentsValue);
             this.cardStudents.Controls.Add(this.lblCardStudentsTitle);
-            this.cardStudents.Location = new System.Drawing.Point(20, 180);
+             this.cardStudents.Location = new System.Drawing.Point(580, 180);
             this.cardStudents.Name = "cardStudents";
-            this.cardStudents.Size = new System.Drawing.Size(400, 140);
+             this.cardStudents.Size = new System.Drawing.Size(260, 140);
             this.cardStudents.TabIndex = 1;
             //
             // lblCardStudentsValue
@@ -634,6 +671,8 @@ namespace SchoolCenter
             this.welcomePanel.PerformLayout();
             this.cardTreasury.ResumeLayout(false);
             this.cardTreasury.PerformLayout();
+            this.cardDebts.ResumeLayout(false);
+            this.cardDebts.PerformLayout();
             this.cardStudents.ResumeLayout(false);
             this.cardStudents.PerformLayout();
             this.studentsViewPanel.ResumeLayout(false);
@@ -671,6 +710,9 @@ namespace SchoolCenter
         private System.Windows.Forms.Panel cardTreasury;
         private System.Windows.Forms.Label lblCardTreasuryTitle;
         private System.Windows.Forms.Label lblCardTreasuryValue;
+        private System.Windows.Forms.Panel cardDebts;
+        private System.Windows.Forms.Label lblCardDebtsTitle;
+        private System.Windows.Forms.Label lblCardDebtsValue;
         private System.Windows.Forms.Button btnRefreshData;
         private System.Windows.Forms.Panel welcomePanel;
         private System.Windows.Forms.Label lblWelcomeTitle;
