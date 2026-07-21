@@ -33,7 +33,13 @@ namespace SchoolCenter
         {
             try
             {
+                // Explicitly set Right-to-Left layout flow and docking
+                this.RightToLeftLayout = false;
+                sidebarPanel.Dock = DockStyle.Right;
+                mainContentPanel.Dock = DockStyle.Fill;
+
                 // Bind paint events to draw nice subtle borders
+                headerPanel.Paint += DrawHeaderBottomBorder;
                 cardStudents.Paint += DrawCardBorder;
                 cardCourses.Paint += DrawCardBorder;
                 cardTreasury.Paint += DrawCardBorder;
@@ -209,6 +215,20 @@ namespace SchoolCenter
                     dgvRecentTransactions.AutoSizeColumnsMode = DataGridViewAutoSizeColumnsMode.Fill;
                     dgvCourseDistribution.AutoSizeColumnsMode = DataGridViewAutoSizeColumnsMode.Fill;
 
+                    // Set custom column weights and minimum widths to prevent timestamp and value text truncation
+                    if (dgvRecentTransactions.Columns.Count >= 4)
+                    {
+                        dgvRecentTransactions.Columns[0].FillWeight = 120; // الطالب
+                        dgvRecentTransactions.Columns[1].FillWeight = 90;  // العملية
+                        dgvRecentTransactions.Columns[2].FillWeight = 90;  // القيمة (د.ل)
+                        dgvRecentTransactions.Columns[3].FillWeight = 100; // الوقت
+
+                        dgvRecentTransactions.Columns[0].MinimumWidth = 100;
+                        dgvRecentTransactions.Columns[1].MinimumWidth = 80;
+                        dgvRecentTransactions.Columns[2].MinimumWidth = 80;
+                        dgvRecentTransactions.Columns[3].MinimumWidth = 90;
+                    }
+
                     // Format grids
                     StyleDashboardGrid(dgvRecentTransactions);
                     StyleDashboardGrid(dgvCourseDistribution);
@@ -248,6 +268,14 @@ namespace SchoolCenter
             using (Pen p = new Pen(Color.FromArgb(226, 232, 240), 1))
             {
                 e.Graphics.DrawRectangle(p, 0, 0, ((Panel)sender).Width - 1, ((Panel)sender).Height - 1);
+            }
+        }
+
+        private void DrawHeaderBottomBorder(object sender, PaintEventArgs e)
+        {
+            using (Pen p = new Pen(Color.FromArgb(226, 232, 240), 1))
+            {
+                e.Graphics.DrawLine(p, 0, headerPanel.Height - 1, headerPanel.Width, headerPanel.Height - 1);
             }
         }
 

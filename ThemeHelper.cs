@@ -86,7 +86,7 @@ namespace SchoolCenter
             Form form = control as Form;
             if (form != null)
             {
-                form.RightToLeftLayout = true;
+                form.RightToLeftLayout = false;
             }
 
             // Apply to all children recursively
