@@ -218,14 +218,14 @@ namespace SchoolCenter
             //
             this.dgvDues.AllowUserToAddRows = false;
             this.dgvDues.AllowUserToDeleteRows = false;
-            this.dgvDues.AlternatingRowsDefaultCellStyle.BackColor = Color.FromArgb(242, 244, 244);
+            this.dgvDues.AlternatingRowsDefaultCellStyle.BackColor = Color.FromArgb(248, 250, 252);
             this.dgvDues.BackgroundColor = Color.White;
             this.dgvDues.BorderStyle = BorderStyle.None;
-            this.dgvDues.ColumnHeadersDefaultCellStyle.BackColor = Color.FromArgb(44, 62, 80);
+            this.dgvDues.ColumnHeadersDefaultCellStyle.BackColor = Color.FromArgb(37, 99, 235); // #2563EB
             this.dgvDues.ColumnHeadersDefaultCellStyle.Font = new Font("Segoe UI", 10F, FontStyle.Bold);
             this.dgvDues.ColumnHeadersDefaultCellStyle.ForeColor = Color.White;
-            this.dgvDues.DefaultCellStyle.SelectionBackColor = Color.FromArgb(52, 152, 219);
-            this.dgvDues.DefaultCellStyle.SelectionForeColor = Color.White;
+            this.dgvDues.DefaultCellStyle.SelectionBackColor = Color.FromArgb(239, 246, 255);
+            this.dgvDues.DefaultCellStyle.SelectionForeColor = Color.FromArgb(37, 99, 235);
             this.dgvDues.EnableHeadersVisualStyles = false;
             this.dgvDues.Dock = DockStyle.Fill;
             this.dgvDues.Location = new Point(0, 0);
@@ -347,6 +347,12 @@ namespace SchoolCenter
 
                             if (dgvDues.Columns.Contains("TransactionID"))
                                 dgvDues.Columns["TransactionID"].Visible = false;
+
+                            if (dgvDues.Columns.Contains("قيمة المستحق (د.ل)"))
+                            {
+                                dgvDues.Columns["قيمة المستحق (د.ل)"].DefaultCellStyle.Format = "N2";
+                                dgvDues.Columns["قيمة المستحق (د.ل)"].DefaultCellStyle.Alignment = DataGridViewContentAlignment.MiddleRight;
+                            }
 
                             dgvDues.AutoSizeColumnsMode = DataGridViewAutoSizeColumnsMode.Fill;
                         }

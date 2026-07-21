@@ -60,6 +60,8 @@ namespace SchoolCenter
                     uBalanceReportView.LoadReport();
                     uPaymentsView.LoadStudentsList();
                     uPaymentsView.LoadTransactions();
+                    uAccountStatementView.LoadStudents();
+                    uAccountStatementView.LoadStatement();
                 };
                 uCoursesView.DataSaved += (s, ev) => {
                     LoadDashboardData();
@@ -71,6 +73,7 @@ namespace SchoolCenter
                     uBalanceReportView.LoadReport();
                     uStudentsView.LoadStudents();
                     uPaymentsView.LoadTransactions();
+                    uAccountStatementView.LoadStatement();
                 };
                 uBalanceReportView.DataSaved += (s, ev) => {
                     LoadDashboardData();
@@ -79,6 +82,7 @@ namespace SchoolCenter
                     LoadDashboardData();
                     uBalanceReportView.LoadReport();
                     uStudentDuesView.LoadDues();
+                    uAccountStatementView.LoadStatement();
                 };
                 uUsersView.DataSaved += (s, ev) => {
                     LoadDashboardData();
@@ -94,6 +98,7 @@ namespace SchoolCenter
                 btnStudentDues.Visible = UserSession.CanAssignDues;
                 btnPayments.Visible = UserSession.CanReceivePayments;
                 btnBalanceReport.Visible = UserSession.CanViewReports;
+                btnAccountStatement.Visible = UserSession.CanViewReports;
                 btnUsers.Visible = (UserSession.Role == "Admin" && UserSession.CanManageUsers);
 
                 // Initialize the Home View as the active view
@@ -291,6 +296,7 @@ namespace SchoolCenter
             balanceReportViewPanel.Visible = (activePanel == balanceReportViewPanel);
             paymentsViewPanel.Visible = (activePanel == paymentsViewPanel);
             usersViewPanel.Visible = (activePanel == usersViewPanel);
+            accountStatementViewPanel.Visible = (activePanel == accountStatementViewPanel);
         }
 
         /// <summary>
@@ -301,7 +307,7 @@ namespace SchoolCenter
             Color darkText = Color.FromArgb(51, 65, 85);      // #334155
             Color hoverBg = Color.FromArgb(226, 232, 240);    // #E2E8F0
 
-            Button[] buttons = { btnHome, btnStudents, btnCourses, btnStudentDues, btnBalanceReport, btnPayments, btnUsers, btnSettings };
+            Button[] buttons = { btnHome, btnStudents, btnCourses, btnStudentDues, btnBalanceReport, btnPayments, btnUsers, btnSettings, btnAccountStatement };
             foreach (var btn in buttons)
             {
                 if (btn == null) continue;
@@ -354,6 +360,14 @@ namespace SchoolCenter
             SetActiveButton(btnBalanceReport);
             ShowPanel(balanceReportViewPanel);
             uBalanceReportView.LoadReport();
+        }
+
+        private void BtnAccountStatement_Click(object sender, EventArgs e)
+        {
+            SetActiveButton(btnAccountStatement);
+            ShowPanel(accountStatementViewPanel);
+            uAccountStatementView.LoadStudents();
+            uAccountStatementView.LoadStatement();
         }
 
         private void BtnPayments_Click(object sender, EventArgs e)

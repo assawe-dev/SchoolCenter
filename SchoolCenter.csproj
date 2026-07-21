@@ -64,6 +64,9 @@
     <Compile Include="PaymentsView.cs">
       <SubType>UserControl</SubType>
     </Compile>
+    <Compile Include="AccountStatementView.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
     <Compile Include="UserSession.cs" />
     <Compile Include="LoginForm.cs">
       <SubType>Form</SubType>

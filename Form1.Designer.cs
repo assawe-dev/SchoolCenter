@@ -88,6 +88,10 @@ namespace SchoolCenter
             this.paymentsViewPanel = new System.Windows.Forms.Panel();
             this.uPaymentsView = new SchoolCenter.PaymentsView();
 
+            this.btnAccountStatement = new System.Windows.Forms.Button();
+            this.accountStatementViewPanel = new System.Windows.Forms.Panel();
+            this.uAccountStatementView = new SchoolCenter.AccountStatementView();
+
             this.uStudentsView = new SchoolCenter.StudentsView();
             this.uCoursesView = new SchoolCenter.CoursesView();
             this.uStudentDuesView = new SchoolCenter.StudentDuesView();
@@ -125,6 +129,7 @@ namespace SchoolCenter
             this.sidebarPanel.Controls.Add(this.btnUsers);
             this.sidebarPanel.Controls.Add(this.lblCatSettings);
             this.sidebarPanel.Controls.Add(this.btnBalanceReport);
+            this.sidebarPanel.Controls.Add(this.btnAccountStatement);
             this.sidebarPanel.Controls.Add(this.btnPayments);
             this.sidebarPanel.Controls.Add(this.btnStudentDues);
             this.sidebarPanel.Controls.Add(this.lblCatFinance);
@@ -210,6 +215,24 @@ namespace SchoolCenter
             this.btnBalanceReport.TextAlign = System.Drawing.ContentAlignment.MiddleRight;
             this.btnBalanceReport.UseVisualStyleBackColor = true;
             this.btnBalanceReport.Click += new System.EventHandler(this.BtnBalanceReport_Click);
+            //
+            // btnAccountStatement
+            //
+            this.btnAccountStatement.Cursor = System.Windows.Forms.Cursors.Hand;
+            this.btnAccountStatement.Dock = System.Windows.Forms.DockStyle.Top;
+            this.btnAccountStatement.FlatAppearance.BorderSize = 0;
+            this.btnAccountStatement.FlatAppearance.MouseOverBackColor = System.Drawing.Color.FromArgb(((int)(((byte)(226)))), ((int)(((byte)(232)))), ((int)(((byte)(240)))));
+            this.btnAccountStatement.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
+            this.btnAccountStatement.Font = new System.Drawing.Font("Segoe UI", 11F, System.Drawing.FontStyle.Bold);
+            this.btnAccountStatement.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(51)))), ((int)(((byte)(65)))), ((int)(((byte)(85)))));
+            this.btnAccountStatement.Location = new System.Drawing.Point(0, 310);
+            this.btnAccountStatement.Name = "btnAccountStatement";
+            this.btnAccountStatement.Size = new System.Drawing.Size(240, 45);
+            this.btnAccountStatement.TabIndex = 13;
+            this.btnAccountStatement.Text = "كشف حساب 🧾";
+            this.btnAccountStatement.TextAlign = System.Drawing.ContentAlignment.MiddleRight;
+            this.btnAccountStatement.UseVisualStyleBackColor = true;
+            this.btnAccountStatement.Click += new System.EventHandler(this.BtnAccountStatement_Click);
             //
             // btnStudentDues
             //
@@ -476,6 +499,7 @@ namespace SchoolCenter
             this.mainContentPanel.Controls.Add(this.balanceReportViewPanel);
             this.mainContentPanel.Controls.Add(this.paymentsViewPanel);
             this.mainContentPanel.Controls.Add(this.usersViewPanel);
+            this.mainContentPanel.Controls.Add(this.accountStatementViewPanel);
             this.mainContentPanel.Dock = System.Windows.Forms.DockStyle.Fill;
             this.mainContentPanel.Location = new System.Drawing.Point(0, 50);
             this.mainContentPanel.Name = "mainContentPanel";
@@ -876,6 +900,21 @@ namespace SchoolCenter
             //
             this.uUsersView.Dock = System.Windows.Forms.DockStyle.Fill;
             //
+            // accountStatementViewPanel
+            //
+            this.accountStatementViewPanel.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(248)))), ((int)(((byte)(250)))), ((int)(((byte)(252)))));
+            this.accountStatementViewPanel.Controls.Add(this.uAccountStatementView);
+            this.accountStatementViewPanel.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.accountStatementViewPanel.Location = new System.Drawing.Point(0, 0);
+            this.accountStatementViewPanel.Name = "accountStatementViewPanel";
+            this.accountStatementViewPanel.Size = new System.Drawing.Size(860, 650);
+            this.accountStatementViewPanel.TabIndex = 7;
+            this.accountStatementViewPanel.Visible = false;
+            //
+            // uAccountStatementView
+            //
+            this.uAccountStatementView.Dock = System.Windows.Forms.DockStyle.Fill;
+            //
             // Form1
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(7F, 16F);
@@ -978,6 +1017,10 @@ namespace SchoolCenter
         private System.Windows.Forms.Panel usersViewPanel;
         private System.Windows.Forms.Button btnPayments;
         private System.Windows.Forms.Button btnUsers;
+
+        private System.Windows.Forms.Button btnAccountStatement;
+        private System.Windows.Forms.Panel accountStatementViewPanel;
+        private SchoolCenter.AccountStatementView uAccountStatementView;
 
         private SchoolCenter.StudentsView uStudentsView;
         private SchoolCenter.CoursesView uCoursesView;

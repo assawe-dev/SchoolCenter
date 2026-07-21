@@ -363,14 +363,14 @@ namespace SchoolCenter
             //
             this.dgvStudents.AllowUserToAddRows = false;
             this.dgvStudents.AllowUserToDeleteRows = false;
-            this.dgvStudents.AlternatingRowsDefaultCellStyle.BackColor = Color.FromArgb(242, 244, 244);
+            this.dgvStudents.AlternatingRowsDefaultCellStyle.BackColor = Color.FromArgb(248, 250, 252);
             this.dgvStudents.BackgroundColor = Color.White;
             this.dgvStudents.BorderStyle = BorderStyle.None;
-            this.dgvStudents.ColumnHeadersDefaultCellStyle.BackColor = Color.FromArgb(44, 62, 80);
+            this.dgvStudents.ColumnHeadersDefaultCellStyle.BackColor = Color.FromArgb(37, 99, 235); // #2563EB
             this.dgvStudents.ColumnHeadersDefaultCellStyle.Font = new Font("Segoe UI", 10F, FontStyle.Bold);
             this.dgvStudents.ColumnHeadersDefaultCellStyle.ForeColor = Color.White;
-            this.dgvStudents.DefaultCellStyle.SelectionBackColor = Color.FromArgb(52, 152, 219);
-            this.dgvStudents.DefaultCellStyle.SelectionForeColor = Color.White;
+            this.dgvStudents.DefaultCellStyle.SelectionBackColor = Color.FromArgb(239, 246, 255);
+            this.dgvStudents.DefaultCellStyle.SelectionForeColor = Color.FromArgb(37, 99, 235);
             this.dgvStudents.EnableHeadersVisualStyles = false;
             this.dgvStudents.Dock = DockStyle.Fill;
             this.dgvStudents.Location = new Point(0, 0);
