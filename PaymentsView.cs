@@ -7,7 +7,7 @@ using System.Drawing.Printing;
 
 namespace SchoolCenter
 {
-    public class FinancialsView : UserControl
+    public class PaymentsView : UserControl
     {
         private Panel pnlInput;
         private Label lblStudent;
@@ -26,14 +26,13 @@ namespace SchoolCenter
 
         private int lastTransactionID = -1;
         private string printStudentName = "";
-        private string printCourseName = "";
         private decimal printAmount = 0m;
         private DateTime printDate = DateTime.Now;
         private string printNotes = "";
 
         public event EventHandler DataSaved;
 
-        public FinancialsView()
+        public PaymentsView()
         {
             InitializeComponent();
             LoadStudentsList();
@@ -63,14 +62,14 @@ namespace SchoolCenter
             this.SuspendLayout();
 
             //
-            // FinancialsView
+            // PaymentsView
             //
             this.BackColor = Color.FromArgb(248, 249, 250); // Off-White
             this.Controls.Add(this.pnlGrid);
             this.Controls.Add(this.pnlInput);
             this.Dock = DockStyle.Fill;
             this.Font = new Font("Segoe UI", 10F);
-            this.Name = "FinancialsView";
+            this.Name = "PaymentsView";
             this.RightToLeft = RightToLeft.Yes;
             this.Size = new Size(820, 600);
 
@@ -247,10 +246,9 @@ namespace SchoolCenter
                 {
                     conn.Open();
                     string query = @"
-                        SELECT s.StudentID, s.FullName + ' - (' + c.CourseName + ')' AS Display
-                        FROM Students s
-                        INNER JOIN Courses c ON s.CourseID = c.CourseID
-                        ORDER BY s.FullName ASC";
+                        SELECT StudentID, StudentName
+                        FROM Students
+                        ORDER BY StudentName ASC";
                     using (SqlCommand cmd = new SqlCommand(query, conn))
                     {
                         using (SqlDataAdapter da = new SqlDataAdapter(cmd))
@@ -258,7 +256,7 @@ namespace SchoolCenter
                             DataTable dt = new DataTable();
                             da.Fill(dt);
                             cbStudent.DataSource = dt;
-                            cbStudent.DisplayMember = "Display";
+                            cbStudent.DisplayMember = "StudentName";
                             cbStudent.ValueMember = "StudentID";
                         }
                     }
@@ -281,14 +279,13 @@ namespace SchoolCenter
                     string query = @"
                         SELECT
                             t.TransactionID AS [رقم الحركة],
-                            s.FullName AS [اسم الطالب],
-                            c.CourseName AS [الدورة التعليمية],
-                            t.Amount AS [قيمة السداد],
+                            s.StudentName AS [اسم الطالب],
+                            t.Credit AS [قيمة السداد],
                             t.TransactionDate AS [تاريخ السداد],
                             t.Notes AS [ملاحظات]
                         FROM FinancialTransactions t
                         INNER JOIN Students s ON t.StudentID = s.StudentID
-                        INNER JOIN Courses c ON s.CourseID = c.CourseID
+                        WHERE t.TransactionType = 'Payment Receipt'
                         ORDER BY t.TransactionID DESC";
 
                     using (SqlCommand cmd = new SqlCommand(query, conn))
@@ -330,27 +327,84 @@ namespace SchoolCenter
                 using (SqlConnection conn = new SqlConnection(connectionString))
                 {
                     conn.Open();
-                    string query = @"
-                        INSERT INTO FinancialTransactions (StudentID, Amount, TransactionDate, Notes)
-                        VALUES (@StudentID, @Amount, @TransactionDate, @Notes);
-                        SELECT SCOPE_IDENTITY();";
-
-                    using (SqlCommand cmd = new SqlCommand(query, conn))
+                    using (SqlTransaction trans = conn.BeginTransaction())
                     {
-                        cmd.Parameters.AddWithValue("@StudentID", cbStudent.SelectedValue);
-                        cmd.Parameters.AddWithValue("@Amount", amount);
-                        cmd.Parameters.AddWithValue("@TransactionDate", dtpDate.Value);
-                        cmd.Parameters.AddWithValue("@Notes", string.IsNullOrEmpty(txtNotes.Text) ? (object)DBNull.Value : txtNotes.Text.Trim());
-
-                        object scalarResult = cmd.ExecuteScalar();
-                        if (scalarResult != null && scalarResult != DBNull.Value)
+                        try
                         {
-                            lastTransactionID = Convert.ToInt32(scalarResult);
+                            // 1. Insert into FinancialTransactions
+                            // TransactionType = 'Payment Receipt'
+                            // Debit = 0.00, Credit = Paid Amount
+                            // UserID = 1 (default admin)
+                            string queryTx = @"
+                                INSERT INTO FinancialTransactions (StudentID, TransactionType, Debit, Credit, TransactionDate, Notes, UserID)
+                                VALUES (@StudentID, 'Payment Receipt', 0.00, @Credit, @TransactionDate, @Notes, @UserID);
+                                SELECT SCOPE_IDENTITY();";
+
+                            int newTxID = -1;
+                            using (SqlCommand cmd = new SqlCommand(queryTx, conn, trans))
+                            {
+                                cmd.Parameters.AddWithValue("@StudentID", cbStudent.SelectedValue);
+                                cmd.Parameters.AddWithValue("@Credit", amount);
+                                cmd.Parameters.AddWithValue("@TransactionDate", dtpDate.Value);
+                                cmd.Parameters.AddWithValue("@Notes", string.IsNullOrEmpty(txtNotes.Text) ? "إيصال سداد رسوم" : txtNotes.Text.Trim());
+                                cmd.Parameters.AddWithValue("@UserID", 1); // seeded admin
+
+                                object scalarResult = cmd.ExecuteScalar();
+                                if (scalarResult != null && scalarResult != DBNull.Value)
+                                {
+                                    newTxID = Convert.ToInt32(scalarResult);
+                                }
+                            }
+
+                            if (newTxID != -1)
+                            {
+                                // Calculate current treasury balance to append to TreasuryLog
+                                string queryBalance = @"
+                                    SELECT ISNULL(
+                                        (SELECT SUM(Amount) FROM TreasuryLog WHERE ActionType = 'Deposit') -
+                                        (SELECT SUM(Amount) FROM TreasuryLog WHERE ActionType = 'Withdrawal'),
+                                        0
+                                    )";
+                                decimal currentBal = 0m;
+                                using (SqlCommand cmdBal = new SqlCommand(queryBalance, conn, trans))
+                                {
+                                    object res = cmdBal.ExecuteScalar();
+                                    if (res != null && res != DBNull.Value)
+                                    {
+                                        currentBal = Convert.ToDecimal(res);
+                                    }
+                                }
+
+                                decimal newBalance = currentBal + amount;
+
+                                // 2. Append deposit entry into TreasuryLog
+                                string queryLog = @"
+                                    INSERT INTO TreasuryLog (TransactionID, Amount, ActionType, CurrentBalance, LogDate, Notes)
+                                    VALUES (@TransactionID, @Amount, 'Deposit', @CurrentBalance, @LogDate, @Notes)";
+                                using (SqlCommand cmdLog = new SqlCommand(queryLog, conn, trans))
+                                {
+                                    cmdLog.Parameters.AddWithValue("@TransactionID", newTxID);
+                                    cmdLog.Parameters.AddWithValue("@Amount", amount);
+                                    cmdLog.Parameters.AddWithValue("@CurrentBalance", newBalance);
+                                    cmdLog.Parameters.AddWithValue("@LogDate", dtpDate.Value);
+                                    cmdLog.Parameters.AddWithValue("@Notes", "إيداع تلقائي لقيمة إيصال رقم " + newTxID);
+                                    cmdLog.ExecuteNonQuery();
+                                }
+
+                                lastTransactionID = newTxID;
+                            }
+
+                            trans.Commit();
+                        }
+                        catch
+                        {
+                            trans.Rollback();
+                            throw;
                         }
                     }
                 }
 
-                MessageBox.Show("تم تسجيل الإيصال المالي بنجاح.", "نجاح", MessageBoxButtons.OK, MessageBoxIcon.Information);
+                MessageBox.Show("تم تسجيل الإيصال المالي وتحديث الخزينة بنجاح.", "نجاح", MessageBoxButtons.OK, MessageBoxIcon.Information);
                 txtAmount.Clear();
                 txtNotes.Clear();
                 LoadTransactions();
@@ -379,14 +433,12 @@ namespace SchoolCenter
                     conn.Open();
                     string query = @"
                         SELECT
-                            s.FullName,
-                            c.CourseName,
-                            t.Amount,
+                            s.StudentName,
+                            t.Credit,
                             t.TransactionDate,
                             t.Notes
                         FROM FinancialTransactions t
                         INNER JOIN Students s ON t.StudentID = s.StudentID
-                        INNER JOIN Courses c ON s.CourseID = c.CourseID
                         WHERE t.TransactionID = @ID";
 
                     using (SqlCommand cmd = new SqlCommand(query, conn))
@@ -396,9 +448,8 @@ namespace SchoolCenter
                         {
                             if (reader.Read())
                             {
-                                printStudentName = reader["FullName"].ToString();
-                                printCourseName = reader["CourseName"].ToString();
-                                printAmount = Convert.ToDecimal(reader["Amount"]);
+                                printStudentName = reader["StudentName"].ToString();
+                                printAmount = Convert.ToDecimal(reader["Credit"]);
                                 printDate = Convert.ToDateTime(reader["TransactionDate"]);
                                 printNotes = reader["Notes"].ToString();
                             }
@@ -428,7 +479,6 @@ namespace SchoolCenter
             Graphics g = e.Graphics;
             int startX = e.PageBounds.Width - 50; // هامش أيمن
             int startY = 50;
-            int width = e.PageBounds.Width - 100;
 
             // خطوط الفرشاة والخطوط
             Font fontHeader = new Font("Segoe UI", 16, FontStyle.Bold);
@@ -470,8 +520,6 @@ namespace SchoolCenter
 
             // 3. محتوى الإيصال والتفاصيل
             g.DrawString("استلمنا من الطالب/الطالبة: " + printStudentName, fontBodyBold, brushText, startX, startY, sfRight);
-            startY += 30;
-            g.DrawString("المسجل في دورة: " + printCourseName, fontBody, brushText, startX, startY, sfRight);
             startY += 30;
             g.DrawString("مبلغاً وقدره: " + printAmount.ToString("N2") + " د.ل (دينار ليبي)", fontBodyBold, brushText, startX, startY, sfRight);
             startY += 30;

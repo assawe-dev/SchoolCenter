@@ -10,7 +10,7 @@ namespace SchoolCenter
         private static string _connectionString = null;
 
         /// <summary>
-        /// تهيئة قاعدة البيانات وإنشاء الجداول إذا لم تكن موجودة مع إدخال بيانات افتراضية للدورات
+        /// تهيئة قاعدة البيانات وإنشاء الجداول إذا لم تكن موجودة مع إدخال بيانات افتراضية
         /// </summary>
         public static void InitializeDatabase()
         {
@@ -21,28 +21,38 @@ namespace SchoolCenter
 
                 // التحقق من وجود الهيكل القديم وحذفه لتجنب تعارضات الأسماء والأعمدة الجديدة
                 string dropOldSchema = @"
-                    -- إذا كان جدول الطلاب يحتوي على العمود القديم Phone أو الهيكل القديم
-                    IF EXISTS (SELECT * FROM sys.tables WHERE name = 'Students') AND EXISTS (SELECT * FROM sys.columns WHERE object_id = OBJECT_ID('Students') AND name = 'Phone')
+                    -- حذف جدول StudentDues القديم غير المستخدم في الهيكل الجديد
+                    IF EXISTS (SELECT * FROM sys.tables WHERE name = 'StudentDues')
                     BEGIN
-                        IF EXISTS (SELECT * FROM sys.tables WHERE name = 'FinancialTransactions')
-                            DROP TABLE FinancialTransactions;
-                        IF EXISTS (SELECT * FROM sys.tables WHERE name = 'StudentDues')
-                            DROP TABLE StudentDues;
-                        DROP TABLE Students;
-                        IF EXISTS (SELECT * FROM sys.tables WHERE name = 'Courses')
-                            DROP TABLE Courses;
+                        DROP TABLE StudentDues;
                     END
 
-                    -- إذا كان جدول الدورات يحتوي على العمود القديم CourseID
-                    IF EXISTS (SELECT * FROM sys.tables WHERE name = 'Courses') AND EXISTS (SELECT * FROM sys.columns WHERE object_id = OBJECT_ID('Courses') AND name = 'CourseID')
+                    -- إذا كان جدول الطلاب يحتوي على عمود Id بدلاً من StudentID
+                    IF EXISTS (SELECT * FROM sys.tables WHERE name = 'Students') AND EXISTS (SELECT * FROM sys.columns WHERE object_id = OBJECT_ID('Students') AND name = 'Id')
                     BEGIN
+                        IF EXISTS (SELECT * FROM sys.tables WHERE name = 'TreasuryLog')
+                            DROP TABLE TreasuryLog;
                         IF EXISTS (SELECT * FROM sys.tables WHERE name = 'FinancialTransactions')
                             DROP TABLE FinancialTransactions;
-                        IF EXISTS (SELECT * FROM sys.tables WHERE name = 'StudentDues')
-                            DROP TABLE StudentDues;
-                        IF EXISTS (SELECT * FROM sys.tables WHERE name = 'Students')
-                            DROP TABLE Students;
+                        DROP TABLE Students;
+                    END
+
+                    -- إذا كان جدول الدورات يحتوي على عمود Id بدلاً من CourseID
+                    IF EXISTS (SELECT * FROM sys.tables WHERE name = 'Courses') AND EXISTS (SELECT * FROM sys.columns WHERE object_id = OBJECT_ID('Courses') AND name = 'Id')
+                    BEGIN
+                        IF EXISTS (SELECT * FROM sys.tables WHERE name = 'TreasuryLog')
+                            DROP TABLE TreasuryLog;
+                        IF EXISTS (SELECT * FROM sys.tables WHERE name = 'FinancialTransactions')
+                            DROP TABLE FinancialTransactions;
                         DROP TABLE Courses;
+                    END
+
+                    -- إذا كان جدول المعاملات لا يحتوي على عمود TransactionType
+                    IF EXISTS (SELECT * FROM sys.tables WHERE name = 'FinancialTransactions') AND NOT EXISTS (SELECT * FROM sys.columns WHERE object_id = OBJECT_ID('FinancialTransactions') AND name = 'TransactionType')
+                    BEGIN
+                        IF EXISTS (SELECT * FROM sys.tables WHERE name = 'TreasuryLog')
+                            DROP TABLE TreasuryLog;
+                        DROP TABLE FinancialTransactions;
                     END";
 
                 using (SqlCommand cmd = new SqlCommand(dropOldSchema, connection))
@@ -50,12 +60,47 @@ namespace SchoolCenter
                     cmd.ExecuteNonQuery();
                 }
 
-                // 1. إنشاء جدول الدورات الجديد
+                // 1. إنشاء جدول المستخدمين Users
+                string createUsersTable = @"
+                    IF NOT EXISTS (SELECT * FROM sys.tables WHERE name = 'Users')
+                    BEGIN
+                        CREATE TABLE Users (
+                            UserID INT IDENTITY(1,1) PRIMARY KEY,
+                            Username NVARCHAR(100) NOT NULL,
+                            PasswordHash NVARCHAR(100) NOT NULL,
+                            Role NVARCHAR(50) NOT NULL,
+                            IsActive BIT NOT NULL
+                        );
+                    END";
+                using (SqlCommand cmd = new SqlCommand(createUsersTable, connection))
+                {
+                    cmd.ExecuteNonQuery();
+                }
+
+                // 2. إنشاء جدول الطلاب Students
+                string createStudentsTable = @"
+                    IF NOT EXISTS (SELECT * FROM sys.tables WHERE name = 'Students')
+                    BEGIN
+                        CREATE TABLE Students (
+                            StudentID INT IDENTITY(1,1) PRIMARY KEY,
+                            StudentName NVARCHAR(100) NOT NULL,
+                            GuardianName NVARCHAR(100) NOT NULL,
+                            ParentPhone NVARCHAR(50) NOT NULL,
+                            RegistrationDate DATETIME NOT NULL,
+                            Notes NVARCHAR(250) NULL
+                        );
+                    END";
+                using (SqlCommand cmd = new SqlCommand(createStudentsTable, connection))
+                {
+                    cmd.ExecuteNonQuery();
+                }
+
+                // 3. إنشاء جدول الدورات Courses
                 string createCoursesTable = @"
                     IF NOT EXISTS (SELECT * FROM sys.tables WHERE name = 'Courses')
                     BEGIN
                         CREATE TABLE Courses (
-                            Id INT IDENTITY(1,1) PRIMARY KEY,
+                            CourseID INT IDENTITY(1,1) PRIMARY KEY,
                             CourseName NVARCHAR(100) NOT NULL,
                             Cost DECIMAL(18, 2) NOT NULL
                         );
@@ -65,52 +110,19 @@ namespace SchoolCenter
                     cmd.ExecuteNonQuery();
                 }
 
-                // 2. إنشاء جدول الطلاب الجديد
-                string createStudentsTable = @"
-                    IF NOT EXISTS (SELECT * FROM sys.tables WHERE name = 'Students')
-                    BEGIN
-                        CREATE TABLE Students (
-                            Id INT IDENTITY(1,1) PRIMARY KEY,
-                            FullName NVARCHAR(100) NOT NULL,
-                            GuardianName NVARCHAR(100) NOT NULL,
-                            GuardianPhone NVARCHAR(50) NOT NULL,
-                            Notes NVARCHAR(250) NULL,
-                            CreatedAt DATETIME NOT NULL
-                        );
-                    END";
-                using (SqlCommand cmd = new SqlCommand(createStudentsTable, connection))
-                {
-                    cmd.ExecuteNonQuery();
-                }
-
-                // 3. إنشاء جدول المستحقات المالية الجديد StudentDues
-                string createStudentDuesTable = @"
-                    IF NOT EXISTS (SELECT * FROM sys.tables WHERE name = 'StudentDues')
-                    BEGIN
-                        CREATE TABLE StudentDues (
-                            Id INT IDENTITY(1,1) PRIMARY KEY,
-                            StudentId INT NOT NULL FOREIGN KEY REFERENCES Students(Id) ON DELETE CASCADE,
-                            CourseId INT NOT NULL FOREIGN KEY REFERENCES Courses(Id) ON DELETE CASCADE,
-                            DueAmount DECIMAL(18, 2) NOT NULL,
-                            Notes NVARCHAR(250) NULL,
-                            CreatedAt DATETIME NOT NULL
-                        );
-                    END";
-                using (SqlCommand cmd = new SqlCommand(createStudentDuesTable, connection))
-                {
-                    cmd.ExecuteNonQuery();
-                }
-
-                // 4. إنشاء جدول الحركات المالية المعدل
+                // 4. إنشاء جدول الحركات المالية FinancialTransactions
                 string createTransactionsTable = @"
                     IF NOT EXISTS (SELECT * FROM sys.tables WHERE name = 'FinancialTransactions')
                     BEGIN
                         CREATE TABLE FinancialTransactions (
-                            Id INT IDENTITY(1,1) PRIMARY KEY,
-                            StudentId INT NOT NULL FOREIGN KEY REFERENCES Students(Id) ON DELETE CASCADE,
-                            Amount DECIMAL(18, 2) NOT NULL,
+                            TransactionID INT IDENTITY(1,1) PRIMARY KEY,
+                            StudentID INT NOT NULL FOREIGN KEY REFERENCES Students(StudentID) ON DELETE CASCADE,
+                            TransactionType NVARCHAR(50) NOT NULL, -- 'Fee Charge' / 'Payment Receipt'
+                            Debit DECIMAL(18, 2) NOT NULL,
+                            Credit DECIMAL(18, 2) NOT NULL,
                             TransactionDate DATETIME NOT NULL,
-                            Notes NVARCHAR(250) NULL
+                            Notes NVARCHAR(250) NULL,
+                            UserID INT NOT NULL FOREIGN KEY REFERENCES Users(UserID)
                         );
                     END";
                 using (SqlCommand cmd = new SqlCommand(createTransactionsTable, connection))
@@ -118,7 +130,38 @@ namespace SchoolCenter
                     cmd.ExecuteNonQuery();
                 }
 
-                // 5. إدخال دورات افتراضية إذا كان جدول الدورات فارغاً
+                // 5. إنشاء جدول سجل الخزينة TreasuryLog
+                string createTreasuryLogTable = @"
+                    IF NOT EXISTS (SELECT * FROM sys.tables WHERE name = 'TreasuryLog')
+                    BEGIN
+                        CREATE TABLE TreasuryLog (
+                            LogID INT IDENTITY(1,1) PRIMARY KEY,
+                            TransactionID INT NOT NULL FOREIGN KEY REFERENCES FinancialTransactions(TransactionID) ON DELETE CASCADE,
+                            Amount DECIMAL(18, 2) NOT NULL,
+                            ActionType NVARCHAR(50) NOT NULL, -- 'Deposit' / 'Withdrawal'
+                            CurrentBalance DECIMAL(18, 2) NOT NULL,
+                            LogDate DATETIME NOT NULL,
+                            Notes NVARCHAR(250) NULL
+                        );
+                    END";
+                using (SqlCommand cmd = new SqlCommand(createTreasuryLogTable, connection))
+                {
+                    cmd.ExecuteNonQuery();
+                }
+
+                // 6. إدخال مستخدم افتراضي إذا كان جدول المستخدمين فارغاً
+                string seedUsers = @"
+                    IF NOT EXISTS (SELECT * FROM Users)
+                    BEGIN
+                        INSERT INTO Users (Username, PasswordHash, Role, IsActive) VALUES
+                        (N'admin', N'admin123', N'Administrator', 1);
+                    END";
+                using (SqlCommand cmd = new SqlCommand(seedUsers, connection))
+                {
+                    cmd.ExecuteNonQuery();
+                }
+
+                // 7. إدخال دورات افتراضية إذا كان جدول الدورات فارغاً
                 string seedCourses = @"
                     IF NOT EXISTS (SELECT * FROM Courses)
                     BEGIN

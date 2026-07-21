@@ -179,26 +179,20 @@ namespace SchoolCenter
                 using (SqlConnection conn = new SqlConnection(connectionString))
                 {
                     conn.Open();
-                    // تقرير شامل يحسب:
-                    // - مجموع المستحقات لكل طالب (Total Dues) من جدول StudentDues
-                    // - مجموع المدفوعات لكل طالب (Paid Amount) من جدول FinancialTransactions
-                    // - المتبقي عليه كديون (Remaining Debt = Total Dues - Paid Amount)
+                    // Using the exact specified T-SQL query for the DataGridView reporting
                     string query = @"
                         SELECT
-                            s.FullName AS [اسم الطالب],
-                            s.GuardianPhone AS [رقم هاتف ولي الأمر],
-                            COALESCE(STUFF((
-                                SELECT DISTINCT ', ' + c.CourseName
-                                FROM StudentDues d
-                                INNER JOIN Courses c ON d.CourseId = c.Id
-                                WHERE d.StudentId = s.Id
-                                FOR XML PATH(''), TYPE).value('.', 'NVARCHAR(MAX)'), 1, 2, ''), N'غير مسجل') AS [الدورات المنتسب إليها],
-                            COALESCE((SELECT SUM(DueAmount) FROM StudentDues WHERE StudentId = s.Id), 0) AS [إجمالي المستحقات],
-                            COALESCE((SELECT SUM(Amount) FROM FinancialTransactions WHERE StudentId = s.Id), 0) AS [إجمالي المدفوعات],
-                            (COALESCE((SELECT SUM(DueAmount) FROM StudentDues WHERE StudentId = s.Id), 0) -
-                             COALESCE((SELECT SUM(Amount) FROM FinancialTransactions WHERE StudentId = s.Id), 0)) AS [الديون المتبقية]
+                            s.StudentID,
+                            s.StudentName AS [اسم الطالب],
+                            s.GuardianName AS [اسم ولي الأمر],
+                            s.ParentPhone AS [رقم هاتف ولي الأمر],
+                            ISNULL(SUM(ft.Debit), 0) AS [إجمالي المستحقات],
+                            ISNULL(SUM(ft.Credit), 0) AS [إجمالي المدفوعات],
+                            (ISNULL(SUM(ft.Debit), 0) - ISNULL(SUM(ft.Credit), 0)) AS [الديون المتبقية]
                         FROM Students s
-                        ORDER BY s.FullName ASC";
+                        LEFT JOIN FinancialTransactions ft ON s.StudentID = ft.StudentID
+                        GROUP BY s.StudentID, s.StudentName, s.GuardianName, s.ParentPhone
+                        ORDER BY s.StudentName ASC";
 
                     using (SqlCommand cmd = new SqlCommand(query, conn))
                     {
@@ -207,6 +201,9 @@ namespace SchoolCenter
                             DataTable dt = new DataTable();
                             da.Fill(dt);
                             dgvReport.DataSource = dt;
+
+                            if (dgvReport.Columns.Contains("StudentID"))
+                                dgvReport.Columns["StudentID"].Visible = false;
 
                             dgvReport.Columns["إجمالي المستحقات"].DefaultCellStyle.Format = "N2";
                             dgvReport.Columns["إجمالي المدفوعات"].DefaultCellStyle.Format = "N2";
@@ -227,15 +224,30 @@ namespace SchoolCenter
 
         private void CalculateTotalOutstandingDebts()
         {
-            decimal totalOutstanding = 0m;
-            foreach (DataGridViewRow row in dgvReport.Rows)
+            try
             {
-                if (row.Cells["الديون المتبقية"].Value != DBNull.Value)
+                string connectionString = DbConnectionManager.GetConnectionString();
+                using (SqlConnection conn = new SqlConnection(connectionString))
                 {
-                    totalOutstanding += Convert.ToDecimal(row.Cells["الديون المتبقية"].Value);
+                    conn.Open();
+                    // Using the exact specified T-SQL query for the Total System Debt Label
+                    string query = "SELECT ISNULL(SUM(Debit), 0) - ISNULL(SUM(Credit), 0) FROM FinancialTransactions";
+                    using (SqlCommand cmd = new SqlCommand(query, conn))
+                    {
+                        object result = cmd.ExecuteScalar();
+                        decimal totalOutstanding = 0m;
+                        if (result != null && result != DBNull.Value)
+                        {
+                            totalOutstanding = Convert.ToDecimal(result);
+                        }
+                        lblTotalDebtValue.Text = totalOutstanding.ToString("N2") + " د.ل";
+                    }
                 }
             }
-            lblTotalDebtValue.Text = totalOutstanding.ToString("N2") + " د.ل";
+            catch (Exception ex)
+            {
+                System.Diagnostics.Debug.WriteLine("CalculateTotalOutstandingDebts failed: " + ex.Message);
+            }
         }
 
         private void BtnExport_Click(object sender, EventArgs e)
@@ -257,29 +269,33 @@ namespace SchoolCenter
                     StringBuilder sb = new StringBuilder();
 
                     // كتابة ترويسة الأعمدة مع دعم UTF-8 BOM لكي يتعرف عليها Excel باللغة العربية بشكل صحيح
-                    string[] columnNames = new string[dgvReport.Columns.Count];
+                    string[] columnNames = new string[dgvReport.Columns.Count - 1]; // Exclude StudentID
+                    int colIndex = 0;
                     for (int i = 0; i < dgvReport.Columns.Count; i++)
                     {
-                        columnNames[i] = EscapeCsvField(dgvReport.Columns[i].HeaderText);
+                        if (dgvReport.Columns[i].Name == "StudentID") continue;
+                        columnNames[colIndex++] = EscapeCsvField(dgvReport.Columns[i].HeaderText);
                     }
                     sb.AppendLine(string.Join(",", columnNames));
 
                     // كتابة البيانات
                     foreach (DataGridViewRow row in dgvReport.Rows)
                     {
-                        string[] fields = new string[dgvReport.Columns.Count];
+                        string[] fields = new string[dgvReport.Columns.Count - 1];
+                        colIndex = 0;
                         for (int i = 0; i < dgvReport.Columns.Count; i++)
                         {
-                            fields[i] = EscapeCsvField(row.Cells[i].Value != null ? row.Cells[i].Value.ToString() : "");
+                            if (dgvReport.Columns[i].Name == "StudentID") continue;
+                            fields[colIndex++] = EscapeCsvField(row.Cells[i].Value != null ? row.Cells[i].Value.ToString() : "");
                         }
                         sb.AppendLine(string.Join(",", fields));
                     }
 
                     // إضافة سطر المجموع في نهاية ملف الـ CSV ليتطابق مع الـ Summary Panel
                     sb.AppendLine();
-                    sb.AppendLine(EscapeCsvField("مجموع الديون المستحقة") + ",,,,," + EscapeCsvField(lblTotalDebtValue.Text));
+                    sb.AppendLine(EscapeCsvField("مجموع الديون المستحقة") + ",,,," + EscapeCsvField(lblTotalDebtValue.Text));
 
-                    // كتابة الملف بترميز UTF-8 مع الـ BOM
+                    // كتابة الملف بترميز UTF-8 مع الـ BOM لضمان الدعم الكامل للغة العربية في Excel
                     using (StreamWriter sw = new StreamWriter(sfd.FileName, false, new UTF8Encoding(true)))
                     {
                         sw.Write(sb.ToString());
@@ -297,7 +313,6 @@ namespace SchoolCenter
         private string EscapeCsvField(string field)
         {
             if (string.IsNullOrEmpty(field)) return "";
-            // إذا كان الحقل يحتوي على فواصل، علامات اقتباس، أو سطور جديدة، نقوم بإحاطته بالاقتباسات ودبلجة الاقتباسات الموجودة
             if (field.Contains(",") || field.Contains("\"") || field.Contains("\n") || field.Contains("\r"))
             {
                 return "\"" + field.Replace("\"", "\"\"") + "\"";

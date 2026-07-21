@@ -41,6 +41,8 @@ namespace SchoolCenter
                     LoadDashboardData();
                     uStudentDuesView.LoadStudents();
                     uBalanceReportView.LoadReport();
+                    uPaymentsView.LoadStudentsList();
+                    uPaymentsView.LoadTransactions();
                 };
                 uCoursesView.DataSaved += (s, ev) => {
                     LoadDashboardData();
@@ -51,9 +53,15 @@ namespace SchoolCenter
                     LoadDashboardData();
                     uBalanceReportView.LoadReport();
                     uStudentsView.LoadStudents();
+                    uPaymentsView.LoadTransactions();
                 };
                 uBalanceReportView.DataSaved += (s, ev) => {
                     LoadDashboardData();
+                };
+                uPaymentsView.DataSaved += (s, ev) => {
+                    LoadDashboardData();
+                    uBalanceReportView.LoadReport();
+                    uStudentDuesView.LoadDues();
                 };
 
                 // Initialize the Home View as the active view
@@ -117,6 +125,7 @@ namespace SchoolCenter
             coursesViewPanel.Visible = (activePanel == coursesViewPanel);
             studentDuesViewPanel.Visible = (activePanel == studentDuesViewPanel);
             balanceReportViewPanel.Visible = (activePanel == balanceReportViewPanel);
+            paymentsViewPanel.Visible = (activePanel == paymentsViewPanel);
         }
 
         /// <summary>
@@ -130,6 +139,7 @@ namespace SchoolCenter
             btnCourses.BackColor = Color.FromArgb(44, 62, 80);
             btnStudentDues.BackColor = Color.FromArgb(44, 62, 80);
             btnBalanceReport.BackColor = Color.FromArgb(44, 62, 80);
+            btnPayments.BackColor = Color.FromArgb(44, 62, 80);
             btnSettings.BackColor = Color.FromArgb(44, 62, 80);
 
             // Highlight the selected button with the Accent blue color
@@ -171,6 +181,14 @@ namespace SchoolCenter
             SetActiveButton(btnBalanceReport);
             ShowPanel(balanceReportViewPanel);
             uBalanceReportView.LoadReport();
+        }
+
+        private void BtnPayments_Click(object sender, EventArgs e)
+        {
+            SetActiveButton(btnPayments);
+            ShowPanel(paymentsViewPanel);
+            uPaymentsView.LoadStudentsList();
+            uPaymentsView.LoadTransactions();
         }
 
         private void BtnSettings_Click(object sender, EventArgs e)
