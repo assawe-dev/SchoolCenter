@@ -72,6 +72,8 @@ namespace SchoolCenter
             //
             // pnlInput
             //
+            this.pnlInput.Anchor = ((AnchorStyles)(((AnchorStyles.Top | AnchorStyles.Left)
+            | AnchorStyles.Right)));
             this.pnlInput.BackColor = Color.White;
             this.pnlInput.Controls.Add(this.btnClear);
             this.pnlInput.Controls.Add(this.btnSave);
@@ -201,6 +203,9 @@ namespace SchoolCenter
             //
             // pnlGrid
             //
+            this.pnlGrid.Anchor = ((AnchorStyles)((((AnchorStyles.Top | AnchorStyles.Bottom)
+            | AnchorStyles.Left)
+            | AnchorStyles.Right)));
             this.pnlGrid.Controls.Add(this.dgvDues);
             this.pnlGrid.Location = new Point(20, 280);
             this.pnlGrid.Name = "pnlGrid";
