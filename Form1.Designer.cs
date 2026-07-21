@@ -30,7 +30,9 @@ namespace SchoolCenter
         {
             this.sidebarPanel = new System.Windows.Forms.Panel();
             this.btnSettings = new System.Windows.Forms.Button();
-            this.btnFinancials = new System.Windows.Forms.Button();
+            this.btnBalanceReport = new System.Windows.Forms.Button();
+            this.btnStudentDues = new System.Windows.Forms.Button();
+            this.btnCourses = new System.Windows.Forms.Button();
             this.btnStudents = new System.Windows.Forms.Button();
             this.btnHome = new System.Windows.Forms.Button();
             this.statusPanel = new System.Windows.Forms.Panel();
@@ -53,9 +55,15 @@ namespace SchoolCenter
             this.lblCardStudentsTitle = new System.Windows.Forms.Label();
             this.lblHomeTitle = new System.Windows.Forms.Label();
             this.studentsViewPanel = new System.Windows.Forms.Panel();
-            this.financialsViewPanel = new System.Windows.Forms.Panel();
+            this.coursesViewPanel = new System.Windows.Forms.Panel();
+            this.studentDuesViewPanel = new System.Windows.Forms.Panel();
+            this.balanceReportViewPanel = new System.Windows.Forms.Panel();
+
             this.uStudentsView = new SchoolCenter.StudentsView();
-            this.uFinancialsView = new SchoolCenter.FinancialsView();
+            this.uCoursesView = new SchoolCenter.CoursesView();
+            this.uStudentDuesView = new SchoolCenter.StudentDuesView();
+            this.uBalanceReportView = new SchoolCenter.BalanceReportView();
+
             this.sidebarPanel.SuspendLayout();
             this.statusPanel.SuspendLayout();
             this.logoPanel.SuspendLayout();
@@ -66,14 +74,18 @@ namespace SchoolCenter
             this.cardTreasury.SuspendLayout();
             this.cardStudents.SuspendLayout();
             this.studentsViewPanel.SuspendLayout();
-            this.financialsViewPanel.SuspendLayout();
+            this.coursesViewPanel.SuspendLayout();
+            this.studentDuesViewPanel.SuspendLayout();
+            this.balanceReportViewPanel.SuspendLayout();
             this.SuspendLayout();
             // 
             // sidebarPanel
             //
             this.sidebarPanel.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(44)))), ((int)(((byte)(62)))), ((int)(((byte)(80)))));
             this.sidebarPanel.Controls.Add(this.btnSettings);
-            this.sidebarPanel.Controls.Add(this.btnFinancials);
+            this.sidebarPanel.Controls.Add(this.btnBalanceReport);
+            this.sidebarPanel.Controls.Add(this.btnStudentDues);
+            this.sidebarPanel.Controls.Add(this.btnCourses);
             this.sidebarPanel.Controls.Add(this.btnStudents);
             this.sidebarPanel.Controls.Add(this.btnHome);
             this.sidebarPanel.Controls.Add(this.statusPanel);
@@ -93,30 +105,64 @@ namespace SchoolCenter
             this.btnSettings.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
             this.btnSettings.Font = new System.Drawing.Font("Segoe UI", 11F, System.Drawing.FontStyle.Bold);
             this.btnSettings.ForeColor = System.Drawing.Color.White;
-            this.btnSettings.Location = new System.Drawing.Point(0, 230);
+            this.btnSettings.Location = new System.Drawing.Point(0, 330);
             this.btnSettings.Name = "btnSettings";
             this.btnSettings.Size = new System.Drawing.Size(240, 50);
-            this.btnSettings.TabIndex = 4;
+            this.btnSettings.TabIndex = 6;
             this.btnSettings.Text = "إعدادات الاتصال";
             this.btnSettings.UseVisualStyleBackColor = true;
             this.btnSettings.Click += new System.EventHandler(this.BtnSettings_Click);
             //
-            // btnFinancials
+            // btnBalanceReport
             //
-            this.btnFinancials.Cursor = System.Windows.Forms.Cursors.Hand;
-            this.btnFinancials.Dock = System.Windows.Forms.DockStyle.Top;
-            this.btnFinancials.FlatAppearance.BorderSize = 0;
-            this.btnFinancials.FlatAppearance.MouseOverBackColor = System.Drawing.Color.FromArgb(((int)(((byte)(52)))), ((int)(((byte)(152)))), ((int)(((byte)(219)))));
-            this.btnFinancials.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
-            this.btnFinancials.Font = new System.Drawing.Font("Segoe UI", 11F, System.Drawing.FontStyle.Bold);
-            this.btnFinancials.ForeColor = System.Drawing.Color.White;
-            this.btnFinancials.Location = new System.Drawing.Point(0, 180);
-            this.btnFinancials.Name = "btnFinancials";
-            this.btnFinancials.Size = new System.Drawing.Size(240, 50);
-            this.btnFinancials.TabIndex = 3;
-            this.btnFinancials.Text = "الحركة المالية";
-            this.btnFinancials.UseVisualStyleBackColor = true;
-            this.btnFinancials.Click += new System.EventHandler(this.BtnFinancials_Click);
+            this.btnBalanceReport.Cursor = System.Windows.Forms.Cursors.Hand;
+            this.btnBalanceReport.Dock = System.Windows.Forms.DockStyle.Top;
+            this.btnBalanceReport.FlatAppearance.BorderSize = 0;
+            this.btnBalanceReport.FlatAppearance.MouseOverBackColor = System.Drawing.Color.FromArgb(((int)(((byte)(52)))), ((int)(((byte)(152)))), ((int)(((byte)(219)))));
+            this.btnBalanceReport.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
+            this.btnBalanceReport.Font = new System.Drawing.Font("Segoe UI", 11F, System.Drawing.FontStyle.Bold);
+            this.btnBalanceReport.ForeColor = System.Drawing.Color.White;
+            this.btnBalanceReport.Location = new System.Drawing.Point(0, 280);
+            this.btnBalanceReport.Name = "btnBalanceReport";
+            this.btnBalanceReport.Size = new System.Drawing.Size(240, 50);
+            this.btnBalanceReport.TabIndex = 5;
+            this.btnBalanceReport.Text = "تقرير الأرصدة والديون";
+            this.btnBalanceReport.UseVisualStyleBackColor = true;
+            this.btnBalanceReport.Click += new System.EventHandler(this.BtnBalanceReport_Click);
+            //
+            // btnStudentDues
+            //
+            this.btnStudentDues.Cursor = System.Windows.Forms.Cursors.Hand;
+            this.btnStudentDues.Dock = System.Windows.Forms.DockStyle.Top;
+            this.btnStudentDues.FlatAppearance.BorderSize = 0;
+            this.btnStudentDues.FlatAppearance.MouseOverBackColor = System.Drawing.Color.FromArgb(((int)(((byte)(52)))), ((int)(((byte)(152)))), ((int)(((byte)(219)))));
+            this.btnStudentDues.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
+            this.btnStudentDues.Font = new System.Drawing.Font("Segoe UI", 11F, System.Drawing.FontStyle.Bold);
+            this.btnStudentDues.ForeColor = System.Drawing.Color.White;
+            this.btnStudentDues.Location = new System.Drawing.Point(0, 230);
+            this.btnStudentDues.Name = "btnStudentDues";
+            this.btnStudentDues.Size = new System.Drawing.Size(240, 50);
+            this.btnStudentDues.TabIndex = 4;
+            this.btnStudentDues.Text = "تعيين المستحقات المالية";
+            this.btnStudentDues.UseVisualStyleBackColor = true;
+            this.btnStudentDues.Click += new System.EventHandler(this.BtnStudentDues_Click);
+            //
+            // btnCourses
+            //
+            this.btnCourses.Cursor = System.Windows.Forms.Cursors.Hand;
+            this.btnCourses.Dock = System.Windows.Forms.DockStyle.Top;
+            this.btnCourses.FlatAppearance.BorderSize = 0;
+            this.btnCourses.FlatAppearance.MouseOverBackColor = System.Drawing.Color.FromArgb(((int)(((byte)(52)))), ((int)(((byte)(152)))), ((int)(((byte)(219)))));
+            this.btnCourses.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
+            this.btnCourses.Font = new System.Drawing.Font("Segoe UI", 11F, System.Drawing.FontStyle.Bold);
+            this.btnCourses.ForeColor = System.Drawing.Color.White;
+            this.btnCourses.Location = new System.Drawing.Point(0, 180);
+            this.btnCourses.Name = "btnCourses";
+            this.btnCourses.Size = new System.Drawing.Size(240, 50);
+            this.btnCourses.TabIndex = 3;
+            this.btnCourses.Text = "إدارة الدورات";
+            this.btnCourses.UseVisualStyleBackColor = true;
+            this.btnCourses.Click += new System.EventHandler(this.BtnCourses_Click);
             //
             // btnStudents
             //
@@ -201,7 +247,9 @@ namespace SchoolCenter
             this.mainContentPanel.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(248)))), ((int)(((byte)(249)))), ((int)(((byte)(250)))));
             this.mainContentPanel.Controls.Add(this.homeViewPanel);
             this.mainContentPanel.Controls.Add(this.studentsViewPanel);
-            this.mainContentPanel.Controls.Add(this.financialsViewPanel);
+            this.mainContentPanel.Controls.Add(this.coursesViewPanel);
+            this.mainContentPanel.Controls.Add(this.studentDuesViewPanel);
+            this.mainContentPanel.Controls.Add(this.balanceReportViewPanel);
             this.mainContentPanel.Dock = System.Windows.Forms.DockStyle.Fill;
             this.mainContentPanel.Location = new System.Drawing.Point(0, 0);
             this.mainContentPanel.Name = "mainContentPanel";
@@ -242,8 +290,7 @@ namespace SchoolCenter
             this.lblWarningText.Name = "lblWarningText";
             this.lblWarningText.Size = new System.Drawing.Size(780, 80);
             this.lblWarningText.TabIndex = 0;
-            this.lblWarningText.Text = "تنبيه: تعذر الاتصال بقاعدة البيانات. يرجى التحقق من إعدادات الاتصال في ملف db_co" +
-    "nfig.txt.";
+            this.lblWarningText.Text = "تنبيه: تعذر الاتصال بقاعدة البيانات. يرجى التحقق من إعدادات الاتصال في ملف db_config.txt.";
             this.lblWarningText.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
             //
             // welcomePanel
@@ -264,9 +311,7 @@ namespace SchoolCenter
             this.lblWelcomeDesc.Name = "lblWelcomeDesc";
             this.lblWelcomeDesc.Size = new System.Drawing.Size(740, 120);
             this.lblWelcomeDesc.TabIndex = 1;
-            this.lblWelcomeDesc.Text = "تتيح لك هذه المنظومة تتبع سجلات الطلاب والحركات المالية من سداد للرسوم وإيداع في " +
-    "الخزينة بشكل فوري وسهل. يمكنك استخدام القائمة الجانبية للتنقل بين شاشات المنظوم" +
-    "ة المختلفة.";
+            this.lblWelcomeDesc.Text = "تتيح لك هذه المنظومة تتبع سجلات الطلاب والحركات المالية من سداد للرسوم وإيداع في الخزينة بشكل فوري وسهل. يمكنك استخدام القائمة الجانبية للتنقل بين شاشات المنظومة المختلفة.";
             //
             // lblWelcomeTitle
             //
@@ -381,16 +426,38 @@ namespace SchoolCenter
             this.studentsViewPanel.TabIndex = 1;
             this.studentsViewPanel.Visible = false;
             //
-            // financialsViewPanel
+            // coursesViewPanel
             //
-            this.financialsViewPanel.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(248)))), ((int)(((byte)(249)))), ((int)(((byte)(250)))));
-            this.financialsViewPanel.Controls.Add(this.uFinancialsView);
-            this.financialsViewPanel.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.financialsViewPanel.Location = new System.Drawing.Point(0, 0);
-            this.financialsViewPanel.Name = "financialsViewPanel";
-            this.financialsViewPanel.Size = new System.Drawing.Size(860, 700);
-            this.financialsViewPanel.TabIndex = 2;
-            this.financialsViewPanel.Visible = false;
+            this.coursesViewPanel.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(248)))), ((int)(((byte)(249)))), ((int)(((byte)(250)))));
+            this.coursesViewPanel.Controls.Add(this.uCoursesView);
+            this.coursesViewPanel.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.coursesViewPanel.Location = new System.Drawing.Point(0, 0);
+            this.coursesViewPanel.Name = "coursesViewPanel";
+            this.coursesViewPanel.Size = new System.Drawing.Size(860, 700);
+            this.coursesViewPanel.TabIndex = 2;
+            this.coursesViewPanel.Visible = false;
+            //
+            // studentDuesViewPanel
+            //
+            this.studentDuesViewPanel.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(248)))), ((int)(((byte)(249)))), ((int)(((byte)(250)))));
+            this.studentDuesViewPanel.Controls.Add(this.uStudentDuesView);
+            this.studentDuesViewPanel.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.studentDuesViewPanel.Location = new System.Drawing.Point(0, 0);
+            this.studentDuesViewPanel.Name = "studentDuesViewPanel";
+            this.studentDuesViewPanel.Size = new System.Drawing.Size(860, 700);
+            this.studentDuesViewPanel.TabIndex = 3;
+            this.studentDuesViewPanel.Visible = false;
+            //
+            // balanceReportViewPanel
+            //
+            this.balanceReportViewPanel.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(248)))), ((int)(((byte)(249)))), ((int)(((byte)(250)))));
+            this.balanceReportViewPanel.Controls.Add(this.uBalanceReportView);
+            this.balanceReportViewPanel.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.balanceReportViewPanel.Location = new System.Drawing.Point(0, 0);
+            this.balanceReportViewPanel.Name = "balanceReportViewPanel";
+            this.balanceReportViewPanel.Size = new System.Drawing.Size(860, 700);
+            this.balanceReportViewPanel.TabIndex = 4;
+            this.balanceReportViewPanel.Visible = false;
             //
             // Form1
             // 
@@ -418,7 +485,9 @@ namespace SchoolCenter
             this.cardStudents.ResumeLayout(false);
             this.cardStudents.PerformLayout();
             this.studentsViewPanel.ResumeLayout(false);
-            this.financialsViewPanel.ResumeLayout(false);
+            this.coursesViewPanel.ResumeLayout(false);
+            this.studentDuesViewPanel.ResumeLayout(false);
+            this.balanceReportViewPanel.ResumeLayout(false);
             this.ResumeLayout(false);
 
         }
@@ -430,7 +499,9 @@ namespace SchoolCenter
         private System.Windows.Forms.Label lblLogo;
         private System.Windows.Forms.Button btnHome;
         private System.Windows.Forms.Button btnStudents;
-        private System.Windows.Forms.Button btnFinancials;
+        private System.Windows.Forms.Button btnCourses;
+        private System.Windows.Forms.Button btnStudentDues;
+        private System.Windows.Forms.Button btnBalanceReport;
         private System.Windows.Forms.Button btnSettings;
         private System.Windows.Forms.Panel statusPanel;
         private System.Windows.Forms.Label lblStatus;
@@ -450,8 +521,13 @@ namespace SchoolCenter
         private System.Windows.Forms.Panel pnlWarning;
         private System.Windows.Forms.Label lblWarningText;
         private System.Windows.Forms.Panel studentsViewPanel;
-        private System.Windows.Forms.Panel financialsViewPanel;
+        private System.Windows.Forms.Panel coursesViewPanel;
+        private System.Windows.Forms.Panel studentDuesViewPanel;
+        private System.Windows.Forms.Panel balanceReportViewPanel;
+
         private SchoolCenter.StudentsView uStudentsView;
-        private SchoolCenter.FinancialsView uFinancialsView;
+        private SchoolCenter.CoursesView uCoursesView;
+        private SchoolCenter.StudentDuesView uStudentDuesView;
+        private SchoolCenter.BalanceReportView uBalanceReportView;
     }
 }

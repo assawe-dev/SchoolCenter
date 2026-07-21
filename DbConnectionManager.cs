@@ -1,4 +1,4 @@
-﻿using System;
+using System;
 using System.IO;
 using System.Data.SqlClient;
 
@@ -19,14 +19,45 @@ namespace SchoolCenter
             {
                 connection.Open();
 
-                // 1. إنشاء جدول الدورات
+                // التحقق من وجود الهيكل القديم وحذفه لتجنب تعارضات الأسماء والأعمدة الجديدة
+                string dropOldSchema = @"
+                    -- إذا كان جدول الطلاب يحتوي على العمود القديم Phone أو الهيكل القديم
+                    IF EXISTS (SELECT * FROM sys.tables WHERE name = 'Students') AND EXISTS (SELECT * FROM sys.columns WHERE object_id = OBJECT_ID('Students') AND name = 'Phone')
+                    BEGIN
+                        IF EXISTS (SELECT * FROM sys.tables WHERE name = 'FinancialTransactions')
+                            DROP TABLE FinancialTransactions;
+                        IF EXISTS (SELECT * FROM sys.tables WHERE name = 'StudentDues')
+                            DROP TABLE StudentDues;
+                        DROP TABLE Students;
+                        IF EXISTS (SELECT * FROM sys.tables WHERE name = 'Courses')
+                            DROP TABLE Courses;
+                    END
+
+                    -- إذا كان جدول الدورات يحتوي على العمود القديم CourseID
+                    IF EXISTS (SELECT * FROM sys.tables WHERE name = 'Courses') AND EXISTS (SELECT * FROM sys.columns WHERE object_id = OBJECT_ID('Courses') AND name = 'CourseID')
+                    BEGIN
+                        IF EXISTS (SELECT * FROM sys.tables WHERE name = 'FinancialTransactions')
+                            DROP TABLE FinancialTransactions;
+                        IF EXISTS (SELECT * FROM sys.tables WHERE name = 'StudentDues')
+                            DROP TABLE StudentDues;
+                        IF EXISTS (SELECT * FROM sys.tables WHERE name = 'Students')
+                            DROP TABLE Students;
+                        DROP TABLE Courses;
+                    END";
+
+                using (SqlCommand cmd = new SqlCommand(dropOldSchema, connection))
+                {
+                    cmd.ExecuteNonQuery();
+                }
+
+                // 1. إنشاء جدول الدورات الجديد
                 string createCoursesTable = @"
                     IF NOT EXISTS (SELECT * FROM sys.tables WHERE name = 'Courses')
                     BEGIN
                         CREATE TABLE Courses (
-                            CourseID INT IDENTITY(1,1) PRIMARY KEY,
+                            Id INT IDENTITY(1,1) PRIMARY KEY,
                             CourseName NVARCHAR(100) NOT NULL,
-                            CourseFees DECIMAL(18, 2) NOT NULL
+                            Cost DECIMAL(18, 2) NOT NULL
                         );
                     END";
                 using (SqlCommand cmd = new SqlCommand(createCoursesTable, connection))
@@ -34,16 +65,17 @@ namespace SchoolCenter
                     cmd.ExecuteNonQuery();
                 }
 
-                // 2. إنشاء جدول الطلاب
+                // 2. إنشاء جدول الطلاب الجديد
                 string createStudentsTable = @"
                     IF NOT EXISTS (SELECT * FROM sys.tables WHERE name = 'Students')
                     BEGIN
                         CREATE TABLE Students (
-                            StudentID INT IDENTITY(1,1) PRIMARY KEY,
+                            Id INT IDENTITY(1,1) PRIMARY KEY,
                             FullName NVARCHAR(100) NOT NULL,
-                            Phone NVARCHAR(50) NOT NULL,
-                            CourseID INT NOT NULL FOREIGN KEY REFERENCES Courses(CourseID),
-                            RegistrationDate DATETIME NOT NULL
+                            GuardianName NVARCHAR(100) NOT NULL,
+                            GuardianPhone NVARCHAR(50) NOT NULL,
+                            Notes NVARCHAR(250) NULL,
+                            CreatedAt DATETIME NOT NULL
                         );
                     END";
                 using (SqlCommand cmd = new SqlCommand(createStudentsTable, connection))
@@ -51,13 +83,31 @@ namespace SchoolCenter
                     cmd.ExecuteNonQuery();
                 }
 
-                // 3. إنشاء جدول المعاملات المالية
+                // 3. إنشاء جدول المستحقات المالية الجديد StudentDues
+                string createStudentDuesTable = @"
+                    IF NOT EXISTS (SELECT * FROM sys.tables WHERE name = 'StudentDues')
+                    BEGIN
+                        CREATE TABLE StudentDues (
+                            Id INT IDENTITY(1,1) PRIMARY KEY,
+                            StudentId INT NOT NULL FOREIGN KEY REFERENCES Students(Id) ON DELETE CASCADE,
+                            CourseId INT NOT NULL FOREIGN KEY REFERENCES Courses(Id) ON DELETE CASCADE,
+                            DueAmount DECIMAL(18, 2) NOT NULL,
+                            Notes NVARCHAR(250) NULL,
+                            CreatedAt DATETIME NOT NULL
+                        );
+                    END";
+                using (SqlCommand cmd = new SqlCommand(createStudentDuesTable, connection))
+                {
+                    cmd.ExecuteNonQuery();
+                }
+
+                // 4. إنشاء جدول الحركات المالية المعدل
                 string createTransactionsTable = @"
                     IF NOT EXISTS (SELECT * FROM sys.tables WHERE name = 'FinancialTransactions')
                     BEGIN
                         CREATE TABLE FinancialTransactions (
-                            TransactionID INT IDENTITY(1,1) PRIMARY KEY,
-                            StudentID INT NOT NULL FOREIGN KEY REFERENCES Students(StudentID) ON DELETE CASCADE,
+                            Id INT IDENTITY(1,1) PRIMARY KEY,
+                            StudentId INT NOT NULL FOREIGN KEY REFERENCES Students(Id) ON DELETE CASCADE,
                             Amount DECIMAL(18, 2) NOT NULL,
                             TransactionDate DATETIME NOT NULL,
                             Notes NVARCHAR(250) NULL
@@ -68,11 +118,11 @@ namespace SchoolCenter
                     cmd.ExecuteNonQuery();
                 }
 
-                // 4. إدخال دورات افتراضية إذا كان الجدول فارغاً
+                // 5. إدخال دورات افتراضية إذا كان جدول الدورات فارغاً
                 string seedCourses = @"
                     IF NOT EXISTS (SELECT * FROM Courses)
                     BEGIN
-                        INSERT INTO Courses (CourseName, CourseFees) VALUES
+                        INSERT INTO Courses (CourseName, Cost) VALUES
                         (N'لغة إنجليزية - مستوى مبتدئ', 150.00),
                         (N'لغة إنجليزية - مستوى متوسط', 200.00),
                         (N'برمجة وتطوير تطبيقات سطح المكتب', 350.00),
@@ -91,16 +141,13 @@ namespace SchoolCenter
         /// </summary>
         public static string GetConnectionString()
         {
-            // إذا تم قراءة نص الاتصال مسبقاً، نقوم بإرجاعه مباشرة لتوفير الأداء
             if (!string.IsNullOrEmpty(_connectionString))
             {
                 return _connectionString;
             }
 
-            // تحديد مسار الملف الخارجي في مجلد Debug أو Release بجانب ملف الـ EXE
             string configPath = Path.Combine(AppDomain.CurrentDomain.BaseDirectory, ConfigFileName);
 
-            // إذا كان الملف غير موجود، نقوم بإنشائه تلقائياً بنموذج افتراضي
             if (!File.Exists(configPath))
             {
                 CreateDefaultConfigFile(configPath);
@@ -116,7 +163,6 @@ namespace SchoolCenter
 
                 foreach (string line in lines)
                 {
-                    // تجاهل السطور الفارغة أو التعليقات التي تبدأ بـ #
                     if (string.IsNullOrWhiteSpace(line) || line.Trim().StartsWith("#"))
                         continue;
 
@@ -154,8 +200,8 @@ namespace SchoolCenter
                     }
                 }
 
-                builder.ConnectTimeout = 15; // وقت المحاولة قبل إظهار خطأ
-                builder.Pooling = true;       // تسريع العمليات المتكررة
+                builder.ConnectTimeout = 15;
+                builder.Pooling = true;
 
                 _connectionString = builder.ConnectionString;
                 return _connectionString;

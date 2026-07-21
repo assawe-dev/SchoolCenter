@@ -51,6 +51,15 @@
     <Compile Include="StudentsView.cs">
       <SubType>UserControl</SubType>
     </Compile>
+    <Compile Include="CoursesView.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Include="StudentDuesView.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Include="BalanceReportView.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
     <Compile Include="FinancialsView.cs">
       <SubType>UserControl</SubType>
     </Compile>

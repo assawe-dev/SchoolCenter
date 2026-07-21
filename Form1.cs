@@ -36,14 +36,24 @@ namespace SchoolCenter
                 // Initialize Database and Tables if they don't exist
                 DbConnectionManager.InitializeDatabase();
 
-                // Wire up data saved event handlers
+                // Wire up data saved event handlers to keep everything in sync
                 uStudentsView.DataSaved += (s, ev) => {
                     LoadDashboardData();
-                    uFinancialsView.LoadStudentsList();
+                    uStudentDuesView.LoadStudents();
+                    uBalanceReportView.LoadReport();
                 };
-                uFinancialsView.DataSaved += (s, ev) => {
+                uCoursesView.DataSaved += (s, ev) => {
                     LoadDashboardData();
+                    uStudentDuesView.LoadCourses();
+                    uBalanceReportView.LoadReport();
+                };
+                uStudentDuesView.DataSaved += (s, ev) => {
+                    LoadDashboardData();
+                    uBalanceReportView.LoadReport();
                     uStudentsView.LoadStudents();
+                };
+                uBalanceReportView.DataSaved += (s, ev) => {
+                    LoadDashboardData();
                 };
 
                 // Initialize the Home View as the active view
@@ -104,7 +114,9 @@ namespace SchoolCenter
         {
             homeViewPanel.Visible = (activePanel == homeViewPanel);
             studentsViewPanel.Visible = (activePanel == studentsViewPanel);
-            financialsViewPanel.Visible = (activePanel == financialsViewPanel);
+            coursesViewPanel.Visible = (activePanel == coursesViewPanel);
+            studentDuesViewPanel.Visible = (activePanel == studentDuesViewPanel);
+            balanceReportViewPanel.Visible = (activePanel == balanceReportViewPanel);
         }
 
         /// <summary>
@@ -115,7 +127,9 @@ namespace SchoolCenter
             // Reset all buttons to default sidebar dark color
             btnHome.BackColor = Color.FromArgb(44, 62, 80);
             btnStudents.BackColor = Color.FromArgb(44, 62, 80);
-            btnFinancials.BackColor = Color.FromArgb(44, 62, 80);
+            btnCourses.BackColor = Color.FromArgb(44, 62, 80);
+            btnStudentDues.BackColor = Color.FromArgb(44, 62, 80);
+            btnBalanceReport.BackColor = Color.FromArgb(44, 62, 80);
             btnSettings.BackColor = Color.FromArgb(44, 62, 80);
 
             // Highlight the selected button with the Accent blue color
@@ -136,12 +150,27 @@ namespace SchoolCenter
             uStudentsView.LoadStudents();
         }
 
-        private void BtnFinancials_Click(object sender, EventArgs e)
+        private void BtnCourses_Click(object sender, EventArgs e)
         {
-            SetActiveButton(btnFinancials);
-            ShowPanel(financialsViewPanel);
-            uFinancialsView.LoadStudentsList();
-            uFinancialsView.LoadTransactions();
+            SetActiveButton(btnCourses);
+            ShowPanel(coursesViewPanel);
+            uCoursesView.LoadCourses();
+        }
+
+        private void BtnStudentDues_Click(object sender, EventArgs e)
+        {
+            SetActiveButton(btnStudentDues);
+            ShowPanel(studentDuesViewPanel);
+            uStudentDuesView.LoadStudents();
+            uStudentDuesView.LoadCourses();
+            uStudentDuesView.LoadDues();
+        }
+
+        private void BtnBalanceReport_Click(object sender, EventArgs e)
+        {
+            SetActiveButton(btnBalanceReport);
+            ShowPanel(balanceReportViewPanel);
+            uBalanceReportView.LoadReport();
         }
 
         private void BtnSettings_Click(object sender, EventArgs e)

@@ -11,10 +11,12 @@ namespace SchoolCenter
         private Panel pnlInput;
         private Label lblName;
         private TextBox txtName;
-        private Label lblPhone;
-        private TextBox txtPhone;
-        private Label lblCourse;
-        private ComboBox cbCourse;
+        private Label lblGuardianName;
+        private TextBox txtGuardianName;
+        private Label lblGuardianPhone;
+        private TextBox txtGuardianPhone;
+        private Label lblNotes;
+        private TextBox txtNotes;
         private Button btnAdd;
         private Button btnUpdate;
         private Button btnDelete;
@@ -34,7 +36,6 @@ namespace SchoolCenter
         public StudentsView()
         {
             InitializeComponent();
-            LoadCourses();
             LoadStudents();
         }
 
@@ -43,10 +44,12 @@ namespace SchoolCenter
             this.pnlInput = new Panel();
             this.lblName = new Label();
             this.txtName = new TextBox();
-            this.lblPhone = new Label();
-            this.txtPhone = new TextBox();
-            this.lblCourse = new Label();
-            this.cbCourse = new ComboBox();
+            this.lblGuardianName = new Label();
+            this.txtGuardianName = new TextBox();
+            this.lblGuardianPhone = new Label();
+            this.txtGuardianPhone = new TextBox();
+            this.lblNotes = new Label();
+            this.txtNotes = new TextBox();
             this.btnAdd = new Button();
             this.btnUpdate = new Button();
             this.btnDelete = new Button();
@@ -68,7 +71,7 @@ namespace SchoolCenter
             //
             // StudentsView
             //
-            this.BackColor = Color.FromArgb(248, 249, 250); // Off-White background
+            this.BackColor = Color.FromArgb(248, 249, 250); // Off-White
             this.Controls.Add(this.pnlGrid);
             this.Controls.Add(this.pnlSearch);
             this.Controls.Add(this.pnlInput);
@@ -82,20 +85,21 @@ namespace SchoolCenter
             // pnlInput
             //
             this.pnlInput.BackColor = Color.White;
-            this.pnlInput.BorderStyle = BorderStyle.None;
             this.pnlInput.Controls.Add(this.btnClear);
             this.pnlInput.Controls.Add(this.btnDelete);
             this.pnlInput.Controls.Add(this.btnUpdate);
             this.pnlInput.Controls.Add(this.btnAdd);
-            this.pnlInput.Controls.Add(this.cbCourse);
-            this.pnlInput.Controls.Add(this.lblCourse);
-            this.pnlInput.Controls.Add(this.txtPhone);
-            this.pnlInput.Controls.Add(this.lblPhone);
+            this.pnlInput.Controls.Add(this.txtNotes);
+            this.pnlInput.Controls.Add(this.lblNotes);
+            this.pnlInput.Controls.Add(this.txtGuardianPhone);
+            this.pnlInput.Controls.Add(this.lblGuardianPhone);
+            this.pnlInput.Controls.Add(this.txtGuardianName);
+            this.pnlInput.Controls.Add(this.lblGuardianName);
             this.pnlInput.Controls.Add(this.txtName);
             this.pnlInput.Controls.Add(this.lblName);
             this.pnlInput.Location = new Point(20, 20);
             this.pnlInput.Name = "pnlInput";
-            this.pnlInput.Size = new Size(780, 140);
+            this.pnlInput.Size = new Size(780, 180);
             this.pnlInput.TabIndex = 0;
 
             //
@@ -104,68 +108,84 @@ namespace SchoolCenter
             this.lblName.AutoSize = true;
             this.lblName.Font = new Font("Segoe UI", 10F, FontStyle.Bold);
             this.lblName.ForeColor = Color.FromArgb(44, 62, 80);
-            this.lblName.Location = new Point(680, 20);
+            this.lblName.Location = new Point(650, 20);
             this.lblName.Name = "lblName";
-            this.lblName.Size = new Size(80, 23);
+            this.lblName.Size = new Size(110, 23);
             this.lblName.Text = "اسم الطالب:";
 
             //
             // txtName
             //
-            this.txtName.Location = new Point(440, 17);
+            this.txtName.Location = new Point(410, 17);
             this.txtName.Name = "txtName";
             this.txtName.Size = new Size(230, 30);
 
             //
-            // lblPhone
+            // lblGuardianName
             //
-            this.lblPhone.AutoSize = true;
-            this.lblPhone.Font = new Font("Segoe UI", 10F, FontStyle.Bold);
-            this.lblPhone.ForeColor = Color.FromArgb(44, 62, 80);
-            this.lblPhone.Location = new Point(340, 20);
-            this.lblPhone.Name = "lblPhone";
-            this.lblPhone.Size = new Size(85, 23);
-            this.lblPhone.Text = "رقم الهاتف:";
+            this.lblGuardianName.AutoSize = true;
+            this.lblGuardianName.Font = new Font("Segoe UI", 10F, FontStyle.Bold);
+            this.lblGuardianName.ForeColor = Color.FromArgb(44, 62, 80);
+            this.lblGuardianName.Location = new Point(290, 20);
+            this.lblGuardianName.Name = "lblGuardianName";
+            this.lblGuardianName.Size = new Size(115, 23);
+            this.lblGuardianName.Text = "اسم ولي الأمر:";
 
             //
-            // txtPhone
+            // txtGuardianName
             //
-            this.txtPhone.Location = new Point(110, 17);
-            this.txtPhone.Name = "txtPhone";
-            this.txtPhone.Size = new Size(220, 30);
+            this.txtGuardianName.Location = new Point(40, 17);
+            this.txtGuardianName.Name = "txtGuardianName";
+            this.txtGuardianName.Size = new Size(240, 30);
 
             //
-            // lblCourse
+            // lblGuardianPhone
             //
-            this.lblCourse.AutoSize = true;
-            this.lblCourse.Font = new Font("Segoe UI", 10F, FontStyle.Bold);
-            this.lblCourse.ForeColor = Color.FromArgb(44, 62, 80);
-            this.lblCourse.Location = new Point(680, 65);
-            this.lblCourse.Name = "lblCourse";
-            this.lblCourse.Size = new Size(83, 23);
-            this.lblCourse.Text = "الدورة المسجل بها:";
+            this.lblGuardianPhone.AutoSize = true;
+            this.lblGuardianPhone.Font = new Font("Segoe UI", 10F, FontStyle.Bold);
+            this.lblGuardianPhone.ForeColor = Color.FromArgb(44, 62, 80);
+            this.lblGuardianPhone.Location = new Point(650, 65);
+            this.lblGuardianPhone.Name = "lblGuardianPhone";
+            this.lblGuardianPhone.Size = new Size(115, 23);
+            this.lblGuardianPhone.Text = "رقم ولي الأمر:";
 
             //
-            // cbCourse
+            // txtGuardianPhone
             //
-            this.cbCourse.DropDownStyle = ComboBoxStyle.DropDownList;
-            this.cbCourse.FormattingEnabled = true;
-            this.cbCourse.Location = new Point(110, 62);
-            this.cbCourse.Name = "cbCourse";
-            this.cbCourse.Size = new Size(560, 31);
+            this.txtGuardianPhone.Location = new Point(410, 62);
+            this.txtGuardianPhone.Name = "txtGuardianPhone";
+            this.txtGuardianPhone.Size = new Size(230, 30);
+
+            //
+            // lblNotes
+            //
+            this.lblNotes.AutoSize = true;
+            this.lblNotes.Font = new Font("Segoe UI", 10F, FontStyle.Bold);
+            this.lblNotes.ForeColor = Color.FromArgb(44, 62, 80);
+            this.lblNotes.Location = new Point(290, 65);
+            this.lblNotes.Name = "lblNotes";
+            this.lblNotes.Size = new Size(110, 23);
+            this.lblNotes.Text = "ملاحظات أخرى:";
+
+            //
+            // txtNotes
+            //
+            this.txtNotes.Location = new Point(40, 62);
+            this.txtNotes.Name = "txtNotes";
+            this.txtNotes.Size = new Size(240, 30);
 
             //
             // btnAdd
             //
-            this.btnAdd.BackColor = Color.FromArgb(52, 152, 219); // Action Blue
+            this.btnAdd.BackColor = Color.FromArgb(52, 152, 219); // Modern Action Blue
             this.btnAdd.Cursor = Cursors.Hand;
             this.btnAdd.FlatAppearance.BorderSize = 0;
             this.btnAdd.FlatStyle = FlatStyle.Flat;
             this.btnAdd.Font = new Font("Segoe UI", 10F, FontStyle.Bold);
             this.btnAdd.ForeColor = Color.White;
-            this.btnAdd.Location = new Point(570, 100);
+            this.btnAdd.Location = new Point(540, 120);
             this.btnAdd.Name = "btnAdd";
-            this.btnAdd.Size = new Size(100, 32);
+            this.btnAdd.Size = new Size(120, 35);
             this.btnAdd.Text = "إضافة طالب";
             this.btnAdd.UseVisualStyleBackColor = false;
             this.btnAdd.Click += new EventHandler(this.BtnAdd_Click);
@@ -173,15 +193,15 @@ namespace SchoolCenter
             //
             // btnUpdate
             //
-            this.btnUpdate.BackColor = Color.FromArgb(46, 204, 113); // Soft Green
+            this.btnUpdate.BackColor = Color.FromArgb(46, 204, 113); // Soft Success Green
             this.btnUpdate.Cursor = Cursors.Hand;
             this.btnUpdate.FlatAppearance.BorderSize = 0;
             this.btnUpdate.FlatStyle = FlatStyle.Flat;
             this.btnUpdate.Font = new Font("Segoe UI", 10F, FontStyle.Bold);
             this.btnUpdate.ForeColor = Color.White;
-            this.btnUpdate.Location = new Point(460, 100);
+            this.btnUpdate.Location = new Point(410, 120);
             this.btnUpdate.Name = "btnUpdate";
-            this.btnUpdate.Size = new Size(100, 32);
+            this.btnUpdate.Size = new Size(120, 35);
             this.btnUpdate.Text = "تعديل البيانات";
             this.btnUpdate.UseVisualStyleBackColor = false;
             this.btnUpdate.Click += new EventHandler(this.BtnUpdate_Click);
@@ -189,15 +209,15 @@ namespace SchoolCenter
             //
             // btnDelete
             //
-            this.btnDelete.BackColor = Color.FromArgb(231, 76, 60); // Soft Red
+            this.btnDelete.BackColor = Color.FromArgb(231, 76, 60); // Soft Danger Red
             this.btnDelete.Cursor = Cursors.Hand;
             this.btnDelete.FlatAppearance.BorderSize = 0;
             this.btnDelete.FlatStyle = FlatStyle.Flat;
             this.btnDelete.Font = new Font("Segoe UI", 10F, FontStyle.Bold);
             this.btnDelete.ForeColor = Color.White;
-            this.btnDelete.Location = new Point(350, 100);
+            this.btnDelete.Location = new Point(280, 120);
             this.btnDelete.Name = "btnDelete";
-            this.btnDelete.Size = new Size(100, 32);
+            this.btnDelete.Size = new Size(120, 35);
             this.btnDelete.Text = "حذف";
             this.btnDelete.UseVisualStyleBackColor = false;
             this.btnDelete.Click += new EventHandler(this.BtnDelete_Click);
@@ -211,9 +231,9 @@ namespace SchoolCenter
             this.btnClear.FlatStyle = FlatStyle.Flat;
             this.btnClear.Font = new Font("Segoe UI", 10F, FontStyle.Bold);
             this.btnClear.ForeColor = Color.White;
-            this.btnClear.Location = new Point(240, 100);
+            this.btnClear.Location = new Point(150, 120);
             this.btnClear.Name = "btnClear";
-            this.btnClear.Size = new Size(100, 32);
+            this.btnClear.Size = new Size(120, 35);
             this.btnClear.Text = "جديد / مسح";
             this.btnClear.UseVisualStyleBackColor = false;
             this.btnClear.Click += new EventHandler(this.BtnClear_Click);
@@ -224,7 +244,7 @@ namespace SchoolCenter
             this.pnlSearch.BackColor = Color.White;
             this.pnlSearch.Controls.Add(this.txtSearch);
             this.pnlSearch.Controls.Add(this.lblSearch);
-            this.pnlSearch.Location = new Point(20, 175);
+            this.pnlSearch.Location = new Point(20, 215);
             this.pnlSearch.Name = "pnlSearch";
             this.pnlSearch.Size = new Size(780, 50);
             this.pnlSearch.TabIndex = 1;
@@ -235,26 +255,26 @@ namespace SchoolCenter
             this.lblSearch.AutoSize = true;
             this.lblSearch.Font = new Font("Segoe UI", 10F, FontStyle.Bold);
             this.lblSearch.ForeColor = Color.FromArgb(44, 62, 80);
-            this.lblSearch.Location = new Point(650, 13);
+            this.lblSearch.Location = new Point(600, 13);
             this.lblSearch.Name = "lblSearch";
-            this.lblSearch.Size = new Size(110, 23);
-            this.lblSearch.Text = "بحث بالاسم أو الهاتف:";
+            this.lblSearch.Size = new Size(160, 23);
+            this.lblSearch.Text = "بحث سريع بالاسم أو الهاتف:";
 
             //
             // txtSearch
             //
-            this.txtSearch.Location = new Point(110, 10);
+            this.txtSearch.Location = new Point(40, 10);
             this.txtSearch.Name = "txtSearch";
-            this.txtSearch.Size = new Size(530, 30);
+            this.txtSearch.Size = new Size(550, 30);
             this.txtSearch.TextChanged += new EventHandler(this.TxtSearch_TextChanged);
 
             //
             // pnlGrid
             //
             this.pnlGrid.Controls.Add(this.dgvStudents);
-            this.pnlGrid.Location = new Point(20, 240);
+            this.pnlGrid.Location = new Point(20, 280);
             this.pnlGrid.Name = "pnlGrid";
-            this.pnlGrid.Size = new Size(780, 340);
+            this.pnlGrid.Size = new Size(780, 300);
             this.pnlGrid.TabIndex = 2;
 
             //
@@ -288,34 +308,6 @@ namespace SchoolCenter
             this.ResumeLayout(false);
         }
 
-        private void LoadCourses()
-        {
-            try
-            {
-                string connectionString = DbConnectionManager.GetConnectionString();
-                using (SqlConnection conn = new SqlConnection(connectionString))
-                {
-                    conn.Open();
-                    string query = "SELECT CourseID, CourseName + ' - (' + CAST(CourseFees AS NVARCHAR) + ' د.ل)' AS Display FROM Courses";
-                    using (SqlCommand cmd = new SqlCommand(query, conn))
-                    {
-                        using (SqlDataAdapter da = new SqlDataAdapter(cmd))
-                        {
-                            DataTable dt = new DataTable();
-                            da.Fill(dt);
-                            cbCourse.DataSource = dt;
-                            cbCourse.DisplayMember = "Display";
-                            cbCourse.ValueMember = "CourseID";
-                        }
-                    }
-                }
-            }
-            catch (Exception ex)
-            {
-                MessageBox.Show("خطأ أثناء تحميل الدورات: " + ex.Message);
-            }
-        }
-
         public void LoadStudents()
         {
             try
@@ -326,18 +318,14 @@ namespace SchoolCenter
                     conn.Open();
                     string query = @"
                         SELECT
-                            s.StudentID,
-                            s.FullName AS [اسم الطالب],
-                            s.Phone AS [رقم الهاتف],
-                            c.CourseName AS [الدورة المسجل بها],
-                            s.RegistrationDate AS [تاريخ التسجيل],
-                            COALESCE(SUM(t.Amount), 0) AS [المبلغ المدفوع],
-                            s.CourseID
-                        FROM Students s
-                        INNER JOIN Courses c ON s.CourseID = c.CourseID
-                        LEFT JOIN FinancialTransactions t ON s.StudentID = t.StudentID
-                        GROUP BY s.StudentID, s.FullName, s.Phone, c.CourseName, s.RegistrationDate, s.CourseID
-                        ORDER BY s.StudentID DESC";
+                            Id,
+                            FullName AS [اسم الطالب],
+                            GuardianName AS [اسم ولي الأمر],
+                            GuardianPhone AS [رقم هاتف ولي الأمر],
+                            Notes AS [ملاحظات أخرى],
+                            CreatedAt AS [تاريخ التسجيل]
+                        FROM Students
+                        ORDER BY Id DESC";
 
                     using (SqlCommand cmd = new SqlCommand(query, conn))
                     {
@@ -347,10 +335,8 @@ namespace SchoolCenter
                             da.Fill(dt);
                             dgvStudents.DataSource = dt;
 
-                            if (dgvStudents.Columns.Contains("StudentID"))
-                                dgvStudents.Columns["StudentID"].Visible = false;
-                            if (dgvStudents.Columns.Contains("CourseID"))
-                                dgvStudents.Columns["CourseID"].Visible = false;
+                            if (dgvStudents.Columns.Contains("Id"))
+                                dgvStudents.Columns["Id"].Visible = false;
 
                             dgvStudents.AutoSizeColumnsMode = DataGridViewAutoSizeColumnsMode.Fill;
                         }
@@ -359,7 +345,6 @@ namespace SchoolCenter
             }
             catch (Exception ex)
             {
-                // Graceful fallback if database is not configured or offline
                 System.Diagnostics.Debug.WriteLine("LoadStudents failed: " + ex.Message);
             }
         }
@@ -367,22 +352,17 @@ namespace SchoolCenter
         private void ClearInputs()
         {
             txtName.Clear();
-            txtPhone.Clear();
-            if (cbCourse.Items.Count > 0) cbCourse.SelectedIndex = 0;
+            txtGuardianName.Clear();
+            txtGuardianPhone.Clear();
+            txtNotes.Clear();
             selectedStudentID = -1;
         }
 
         private void BtnAdd_Click(object sender, EventArgs e)
         {
-            if (string.IsNullOrWhiteSpace(txtName.Text) || string.IsNullOrWhiteSpace(txtPhone.Text))
+            if (string.IsNullOrWhiteSpace(txtName.Text) || string.IsNullOrWhiteSpace(txtGuardianPhone.Text))
             {
-                MessageBox.Show("يرجى ملء جميع الحقول المطلوبة (الاسم ورقم الهاتف).", "تنبيه", MessageBoxButtons.OK, MessageBoxIcon.Warning);
-                return;
-            }
-
-            if (cbCourse.SelectedValue == null)
-            {
-                MessageBox.Show("يرجى اختيار دورة تعليمية أولاً.", "تنبيه", MessageBoxButtons.OK, MessageBoxIcon.Warning);
+                MessageBox.Show("يرجى ملء جميع الحقول المطلوبة (اسم الطالب ورقم هاتف ولي الأمر).", "تنبيه", MessageBoxButtons.OK, MessageBoxIcon.Warning);
                 return;
             }
 
@@ -392,13 +372,14 @@ namespace SchoolCenter
                 using (SqlConnection conn = new SqlConnection(connectionString))
                 {
                     conn.Open();
-                    string query = "INSERT INTO Students (FullName, Phone, CourseID, RegistrationDate) VALUES (@FullName, @Phone, @CourseID, @RegistrationDate)";
+                    string query = "INSERT INTO Students (FullName, GuardianName, GuardianPhone, Notes, CreatedAt) VALUES (@FullName, @GuardianName, @GuardianPhone, @Notes, @CreatedAt)";
                     using (SqlCommand cmd = new SqlCommand(query, conn))
                     {
                         cmd.Parameters.AddWithValue("@FullName", txtName.Text.Trim());
-                        cmd.Parameters.AddWithValue("@Phone", txtPhone.Text.Trim());
-                        cmd.Parameters.AddWithValue("@CourseID", cbCourse.SelectedValue);
-                        cmd.Parameters.AddWithValue("@RegistrationDate", DateTime.Now);
+                        cmd.Parameters.AddWithValue("@GuardianName", txtGuardianName.Text.Trim());
+                        cmd.Parameters.AddWithValue("@GuardianPhone", txtGuardianPhone.Text.Trim());
+                        cmd.Parameters.AddWithValue("@Notes", txtNotes.Text.Trim());
+                        cmd.Parameters.AddWithValue("@CreatedAt", DateTime.Now);
                         cmd.ExecuteNonQuery();
                     }
                 }
@@ -422,9 +403,9 @@ namespace SchoolCenter
                 return;
             }
 
-            if (string.IsNullOrWhiteSpace(txtName.Text) || string.IsNullOrWhiteSpace(txtPhone.Text))
+            if (string.IsNullOrWhiteSpace(txtName.Text) || string.IsNullOrWhiteSpace(txtGuardianPhone.Text))
             {
-                MessageBox.Show("يرجى ملء جميع الحقول المطلوبة.", "تنبيه", MessageBoxButtons.OK, MessageBoxIcon.Warning);
+                MessageBox.Show("يرجى ملء جميع الحقول المطلوبة (الاسم ورقم الهاتف).", "تنبيه", MessageBoxButtons.OK, MessageBoxIcon.Warning);
                 return;
             }
 
@@ -434,13 +415,14 @@ namespace SchoolCenter
                 using (SqlConnection conn = new SqlConnection(connectionString))
                 {
                     conn.Open();
-                    string query = "UPDATE Students SET FullName = @FullName, Phone = @Phone, CourseID = @CourseID WHERE StudentID = @StudentID";
+                    string query = "UPDATE Students SET FullName = @FullName, GuardianName = @GuardianName, GuardianPhone = @GuardianPhone, Notes = @Notes WHERE Id = @Id";
                     using (SqlCommand cmd = new SqlCommand(query, conn))
                     {
                         cmd.Parameters.AddWithValue("@FullName", txtName.Text.Trim());
-                        cmd.Parameters.AddWithValue("@Phone", txtPhone.Text.Trim());
-                        cmd.Parameters.AddWithValue("@CourseID", cbCourse.SelectedValue);
-                        cmd.Parameters.AddWithValue("@StudentID", selectedStudentID);
+                        cmd.Parameters.AddWithValue("@GuardianName", txtGuardianName.Text.Trim());
+                        cmd.Parameters.AddWithValue("@GuardianPhone", txtGuardianPhone.Text.Trim());
+                        cmd.Parameters.AddWithValue("@Notes", txtNotes.Text.Trim());
+                        cmd.Parameters.AddWithValue("@Id", selectedStudentID);
                         cmd.ExecuteNonQuery();
                     }
                 }
@@ -464,7 +446,7 @@ namespace SchoolCenter
                 return;
             }
 
-            DialogResult dialogResult = MessageBox.Show("هل أنت متأكد من حذف هذا الطالب نهائياً؟ سيتم حذف جميع المدفوعات التابعة له أيضاً.", "تأكيد الحذف", MessageBoxButtons.YesNo, MessageBoxIcon.Question);
+            DialogResult dialogResult = MessageBox.Show("هل أنت متأكد من حذف هذا الطالب نهائياً؟ سيتم حذف جميع الرسوم والمستحقات والمدفوعات التابعة له أيضاً.", "تأكيد الحذف", MessageBoxButtons.YesNo, MessageBoxIcon.Question);
             if (dialogResult == DialogResult.Yes)
             {
                 try
@@ -473,10 +455,10 @@ namespace SchoolCenter
                     using (SqlConnection conn = new SqlConnection(connectionString))
                     {
                         conn.Open();
-                        string query = "DELETE FROM Students WHERE StudentID = @StudentID";
+                        string query = "DELETE FROM Students WHERE Id = @Id";
                         using (SqlCommand cmd = new SqlCommand(query, conn))
                         {
-                            cmd.Parameters.AddWithValue("@StudentID", selectedStudentID);
+                            cmd.Parameters.AddWithValue("@Id", selectedStudentID);
                             cmd.ExecuteNonQuery();
                         }
                     }
@@ -515,19 +497,15 @@ namespace SchoolCenter
                     conn.Open();
                     string query = @"
                         SELECT
-                            s.StudentID,
-                            s.FullName AS [اسم الطالب],
-                            s.Phone AS [رقم الهاتف],
-                            c.CourseName AS [الدورة المسجل بها],
-                            s.RegistrationDate AS [تاريخ التسجيل],
-                            COALESCE(SUM(t.Amount), 0) AS [المبلغ المدفوع],
-                            s.CourseID
-                        FROM Students s
-                        INNER JOIN Courses c ON s.CourseID = c.CourseID
-                        LEFT JOIN FinancialTransactions t ON s.StudentID = t.StudentID
-                        WHERE s.FullName LIKE @Filter OR s.Phone LIKE @Filter
-                        GROUP BY s.StudentID, s.FullName, s.Phone, c.CourseName, s.RegistrationDate, s.CourseID
-                        ORDER BY s.StudentID DESC";
+                            Id,
+                            FullName AS [اسم الطالب],
+                            GuardianName AS [اسم ولي الأمر],
+                            GuardianPhone AS [رقم هاتف ولي الأمر],
+                            Notes AS [ملاحظات أخرى],
+                            CreatedAt AS [تاريخ التسجيل]
+                        FROM Students
+                        WHERE FullName LIKE @Filter OR GuardianPhone LIKE @Filter OR GuardianName LIKE @Filter
+                        ORDER BY Id DESC";
 
                     using (SqlCommand cmd = new SqlCommand(query, conn))
                     {
@@ -538,10 +516,8 @@ namespace SchoolCenter
                             da.Fill(dt);
                             dgvStudents.DataSource = dt;
 
-                            if (dgvStudents.Columns.Contains("StudentID"))
-                                dgvStudents.Columns["StudentID"].Visible = false;
-                            if (dgvStudents.Columns.Contains("CourseID"))
-                                dgvStudents.Columns["CourseID"].Visible = false;
+                            if (dgvStudents.Columns.Contains("Id"))
+                                dgvStudents.Columns["Id"].Visible = false;
 
                             dgvStudents.AutoSizeColumnsMode = DataGridViewAutoSizeColumnsMode.Fill;
                         }
@@ -559,14 +535,11 @@ namespace SchoolCenter
             if (e.RowIndex >= 0)
             {
                 DataGridViewRow row = dgvStudents.Rows[e.RowIndex];
-                selectedStudentID = Convert.ToInt32(row.Cells["StudentID"].Value);
+                selectedStudentID = Convert.ToInt32(row.Cells["Id"].Value);
                 txtName.Text = row.Cells["اسم الطالب"].Value.ToString();
-                txtPhone.Text = row.Cells["رقم الهاتف"].Value.ToString();
-
-                if (row.Cells["CourseID"].Value != DBNull.Value)
-                {
-                    cbCourse.SelectedValue = row.Cells["CourseID"].Value;
-                }
+                txtGuardianName.Text = row.Cells["اسم ولي الأمر"].Value.ToString();
+                txtGuardianPhone.Text = row.Cells["رقم هاتف ولي الأمر"].Value.ToString();
+                txtNotes.Text = row.Cells["ملاحظات أخرى"].Value.ToString();
             }
         }
 
