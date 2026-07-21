@@ -72,13 +72,8 @@ namespace SchoolCenter
             using (SqlConnection connection = new SqlConnection(connectionString))
             {
                 connection.Open();
-                // Get the latest balance from TreasuryLog or calculate from FinancialTransactions Credit
-                string query = @"
-                    SELECT ISNULL(
-                        (SELECT SUM(Amount) FROM TreasuryLog WHERE ActionType = 'Deposit') -
-                        (SELECT SUM(Amount) FROM TreasuryLog WHERE ActionType = 'Withdrawal'),
-                        0
-                    )";
+                // Compute SUM(Credit) from FinancialTransactions where TransactionType = 'Payment Receipt'
+                string query = "SELECT ISNULL(SUM(Credit), 0) FROM FinancialTransactions WHERE TransactionType = 'Payment Receipt'";
                 using (SqlCommand command = new SqlCommand(query, connection))
                 {
                     object result = command.ExecuteScalar();

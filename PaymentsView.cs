@@ -465,11 +465,8 @@ namespace SchoolCenter
                             {
                                 // Calculate current treasury balance to append to TreasuryLog
                                 string queryBalance = @"
-                                    SELECT ISNULL(
-                                        (SELECT SUM(Amount) FROM TreasuryLog WHERE ActionType = 'Deposit') -
-                                        (SELECT SUM(Amount) FROM TreasuryLog WHERE ActionType = 'Withdrawal'),
-                                        0
-                                    )";
+                                    SELECT ISNULL((SELECT SUM(Amount) FROM TreasuryLog WHERE ActionType = 'Deposit'), 0) -
+                                           ISNULL((SELECT SUM(Amount) FROM TreasuryLog WHERE ActionType = 'Withdrawal'), 0)";
                                 decimal currentBal = 0m;
                                 using (SqlCommand cmdBal = new SqlCommand(queryBalance, conn, trans))
                                 {

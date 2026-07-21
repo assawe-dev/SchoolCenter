@@ -409,9 +409,9 @@ namespace SchoolCenter
             //
             this.txtGlobalSearch.Font = new System.Drawing.Font("Segoe UI", 10F);
             this.txtGlobalSearch.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(100)))), ((int)(((byte)(116)))), ((int)(((byte)(139)))));
-            this.txtGlobalSearch.Location = new System.Drawing.Point(320, 22);
+            this.txtGlobalSearch.Location = new System.Drawing.Point(365, 22);
             this.txtGlobalSearch.Name = "txtGlobalSearch";
-            this.txtGlobalSearch.Size = new System.Drawing.Size(240, 30);
+            this.txtGlobalSearch.Size = new System.Drawing.Size(200, 30);
             this.txtGlobalSearch.TabIndex = 2;
             this.txtGlobalSearch.Text = "بحث سريع في المنظومة...";
             this.txtGlobalSearch.TextChanged += new System.EventHandler(this.TxtGlobalSearch_TextChanged);
@@ -426,7 +426,7 @@ namespace SchoolCenter
             this.btnQuickAddStudent.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
             this.btnQuickAddStudent.Font = new System.Drawing.Font("Segoe UI", 9.5F, System.Drawing.FontStyle.Bold);
             this.btnQuickAddStudent.ForeColor = System.Drawing.Color.White;
-            this.btnQuickAddStudent.Location = new System.Drawing.Point(205, 21);
+            this.btnQuickAddStudent.Location = new System.Drawing.Point(235, 21);
             this.btnQuickAddStudent.Name = "btnQuickAddStudent";
             this.btnQuickAddStudent.Size = new System.Drawing.Size(110, 32);
             this.btnQuickAddStudent.TabIndex = 3;
@@ -442,7 +442,7 @@ namespace SchoolCenter
             this.btnQuickPayment.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
             this.btnQuickPayment.Font = new System.Drawing.Font("Segoe UI", 9.5F, System.Drawing.FontStyle.Bold);
             this.btnQuickPayment.ForeColor = System.Drawing.Color.White;
-            this.btnQuickPayment.Location = new System.Drawing.Point(100, 21);
+            this.btnQuickPayment.Location = new System.Drawing.Point(120, 21);
             this.btnQuickPayment.Name = "btnQuickPayment";
             this.btnQuickPayment.Size = new System.Drawing.Size(100, 32);
             this.btnQuickPayment.TabIndex = 4;
@@ -458,7 +458,7 @@ namespace SchoolCenter
             this.btnLogout.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
             this.btnLogout.Font = new System.Drawing.Font("Segoe UI", 9F, System.Drawing.FontStyle.Bold);
             this.btnLogout.ForeColor = System.Drawing.Color.White;
-            this.btnLogout.Location = new System.Drawing.Point(15, 21);
+            this.btnLogout.Location = new System.Drawing.Point(25, 21);
             this.btnLogout.Name = "btnLogout";
             this.btnLogout.Size = new System.Drawing.Size(80, 32);
             this.btnLogout.TabIndex = 5;
@@ -531,16 +531,16 @@ namespace SchoolCenter
             this.cardStudents.Controls.Add(this.lblCardStudentsTitle);
             this.cardStudents.Location = new System.Drawing.Point(650, 80);
             this.cardStudents.Name = "cardStudents";
-            this.cardStudents.Size = new System.Drawing.Size(190, 120);
+            this.cardStudents.Size = new System.Drawing.Size(190, 140);
             this.cardStudents.TabIndex = 1;
             //
             // lblCardStudentsTitle
             //
             this.lblCardStudentsTitle.Font = new System.Drawing.Font("Segoe UI", 10F);
             this.lblCardStudentsTitle.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(100)))), ((int)(((byte)(116)))), ((int)(((byte)(139)))));
-            this.lblCardStudentsTitle.Location = new System.Drawing.Point(15, 12);
+            this.lblCardStudentsTitle.Location = new System.Drawing.Point(15, 20);
             this.lblCardStudentsTitle.Name = "lblCardStudentsTitle";
-            this.lblCardStudentsTitle.Size = new System.Drawing.Size(160, 20);
+            this.lblCardStudentsTitle.Size = new System.Drawing.Size(160, 24);
             this.lblCardStudentsTitle.TabIndex = 0;
             this.lblCardStudentsTitle.Text = "إجمالي الطلاب 👥";
             this.lblCardStudentsTitle.TextAlign = System.Drawing.ContentAlignment.MiddleRight;
@@ -549,7 +549,7 @@ namespace SchoolCenter
             //
             this.lblCardStudentsValue.Font = new System.Drawing.Font("Segoe UI", 20F, System.Drawing.FontStyle.Bold);
             this.lblCardStudentsValue.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(15)))), ((int)(((byte)(23)))), ((int)(((byte)(42)))));
-            this.lblCardStudentsValue.Location = new System.Drawing.Point(15, 38);
+            this.lblCardStudentsValue.Location = new System.Drawing.Point(15, 50);
             this.lblCardStudentsValue.Name = "lblCardStudentsValue";
             this.lblCardStudentsValue.Size = new System.Drawing.Size(160, 45);
             this.lblCardStudentsValue.TabIndex = 1;
@@ -560,9 +560,9 @@ namespace SchoolCenter
             //
             this.lblCardStudentsTag.Font = new System.Drawing.Font("Segoe UI", 8.5F, System.Drawing.FontStyle.Bold);
             this.lblCardStudentsTag.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(37)))), ((int)(((byte)(99)))), ((int)(((byte)(235)))));
-            this.lblCardStudentsTag.Location = new System.Drawing.Point(15, 88);
+            this.lblCardStudentsTag.Location = new System.Drawing.Point(15, 102);
             this.lblCardStudentsTag.Name = "lblCardStudentsTag";
-            this.lblCardStudentsTag.Size = new System.Drawing.Size(160, 20);
+            this.lblCardStudentsTag.Size = new System.Drawing.Size(160, 24);
             this.lblCardStudentsTag.TabIndex = 2;
             this.lblCardStudentsTag.Text = "طالب مسجل";
             this.lblCardStudentsTag.TextAlign = System.Drawing.ContentAlignment.MiddleRight;
@@ -575,16 +575,16 @@ namespace SchoolCenter
             this.cardCourses.Controls.Add(this.lblCardCoursesTitle);
             this.cardCourses.Location = new System.Drawing.Point(440, 80);
             this.cardCourses.Name = "cardCourses";
-            this.cardCourses.Size = new System.Drawing.Size(190, 120);
+            this.cardCourses.Size = new System.Drawing.Size(190, 140);
             this.cardCourses.TabIndex = 2;
             //
             // lblCardCoursesTitle
             //
             this.lblCardCoursesTitle.Font = new System.Drawing.Font("Segoe UI", 10F);
             this.lblCardCoursesTitle.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(100)))), ((int)(((byte)(116)))), ((int)(((byte)(139)))));
-            this.lblCardCoursesTitle.Location = new System.Drawing.Point(15, 12);
+            this.lblCardCoursesTitle.Location = new System.Drawing.Point(15, 20);
             this.lblCardCoursesTitle.Name = "lblCardCoursesTitle";
-            this.lblCardCoursesTitle.Size = new System.Drawing.Size(160, 20);
+            this.lblCardCoursesTitle.Size = new System.Drawing.Size(160, 24);
             this.lblCardCoursesTitle.TabIndex = 0;
             this.lblCardCoursesTitle.Text = "الدورات النشطة 📚";
             this.lblCardCoursesTitle.TextAlign = System.Drawing.ContentAlignment.MiddleRight;
@@ -593,7 +593,7 @@ namespace SchoolCenter
             //
             this.lblCardCoursesValue.Font = new System.Drawing.Font("Segoe UI", 20F, System.Drawing.FontStyle.Bold);
             this.lblCardCoursesValue.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(15)))), ((int)(((byte)(23)))), ((int)(((byte)(42)))));
-            this.lblCardCoursesValue.Location = new System.Drawing.Point(15, 38);
+            this.lblCardCoursesValue.Location = new System.Drawing.Point(15, 50);
             this.lblCardCoursesValue.Name = "lblCardCoursesValue";
             this.lblCardCoursesValue.Size = new System.Drawing.Size(160, 45);
             this.lblCardCoursesValue.TabIndex = 1;
@@ -604,9 +604,9 @@ namespace SchoolCenter
             //
             this.lblCardCoursesTag.Font = new System.Drawing.Font("Segoe UI", 8.5F, System.Drawing.FontStyle.Bold);
             this.lblCardCoursesTag.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(37)))), ((int)(((byte)(99)))), ((int)(((byte)(235)))));
-            this.lblCardCoursesTag.Location = new System.Drawing.Point(15, 88);
+            this.lblCardCoursesTag.Location = new System.Drawing.Point(15, 102);
             this.lblCardCoursesTag.Name = "lblCardCoursesTag";
-            this.lblCardCoursesTag.Size = new System.Drawing.Size(160, 20);
+            this.lblCardCoursesTag.Size = new System.Drawing.Size(160, 24);
             this.lblCardCoursesTag.TabIndex = 2;
             this.lblCardCoursesTag.Text = "دورة تدريبية";
             this.lblCardCoursesTag.TextAlign = System.Drawing.ContentAlignment.MiddleRight;
@@ -619,16 +619,16 @@ namespace SchoolCenter
             this.cardDebts.Controls.Add(this.lblCardDebtsTitle);
             this.cardDebts.Location = new System.Drawing.Point(230, 80);
             this.cardDebts.Name = "cardDebts";
-            this.cardDebts.Size = new System.Drawing.Size(190, 120);
+            this.cardDebts.Size = new System.Drawing.Size(190, 140);
             this.cardDebts.TabIndex = 3;
             //
             // lblCardDebtsTitle
             //
             this.lblCardDebtsTitle.Font = new System.Drawing.Font("Segoe UI", 10F);
             this.lblCardDebtsTitle.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(100)))), ((int)(((byte)(116)))), ((int)(((byte)(139)))));
-            this.lblCardDebtsTitle.Location = new System.Drawing.Point(15, 12);
+            this.lblCardDebtsTitle.Location = new System.Drawing.Point(15, 20);
             this.lblCardDebtsTitle.Name = "lblCardDebtsTitle";
-            this.lblCardDebtsTitle.Size = new System.Drawing.Size(160, 20);
+            this.lblCardDebtsTitle.Size = new System.Drawing.Size(160, 24);
             this.lblCardDebtsTitle.TabIndex = 0;
             this.lblCardDebtsTitle.Text = "إجمالي الديون 📊";
             this.lblCardDebtsTitle.TextAlign = System.Drawing.ContentAlignment.MiddleRight;
@@ -637,7 +637,7 @@ namespace SchoolCenter
             //
             this.lblCardDebtsValue.Font = new System.Drawing.Font("Segoe UI", 16F, System.Drawing.FontStyle.Bold);
             this.lblCardDebtsValue.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(15)))), ((int)(((byte)(23)))), ((int)(((byte)(42)))));
-            this.lblCardDebtsValue.Location = new System.Drawing.Point(15, 38);
+            this.lblCardDebtsValue.Location = new System.Drawing.Point(15, 50);
             this.lblCardDebtsValue.Name = "lblCardDebtsValue";
             this.lblCardDebtsValue.Size = new System.Drawing.Size(160, 45);
             this.lblCardDebtsValue.TabIndex = 1;
@@ -648,9 +648,9 @@ namespace SchoolCenter
             //
             this.lblCardDebtsTag.Font = new System.Drawing.Font("Segoe UI", 8.5F, System.Drawing.FontStyle.Bold);
             this.lblCardDebtsTag.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(239)))), ((int)(((byte)(68)))), ((int)(((byte)(68)))));
-            this.lblCardDebtsTag.Location = new System.Drawing.Point(15, 88);
+            this.lblCardDebtsTag.Location = new System.Drawing.Point(15, 102);
             this.lblCardDebtsTag.Name = "lblCardDebtsTag";
-            this.lblCardDebtsTag.Size = new System.Drawing.Size(160, 20);
+            this.lblCardDebtsTag.Size = new System.Drawing.Size(160, 24);
             this.lblCardDebtsTag.TabIndex = 2;
             this.lblCardDebtsTag.Text = "ديون متراكمة ⚠️";
             this.lblCardDebtsTag.TextAlign = System.Drawing.ContentAlignment.MiddleRight;
@@ -663,16 +663,16 @@ namespace SchoolCenter
             this.cardTreasury.Controls.Add(this.lblCardTreasuryTitle);
             this.cardTreasury.Location = new System.Drawing.Point(20, 80);
             this.cardTreasury.Name = "cardTreasury";
-            this.cardTreasury.Size = new System.Drawing.Size(190, 120);
+            this.cardTreasury.Size = new System.Drawing.Size(190, 140);
             this.cardTreasury.TabIndex = 4;
             //
             // lblCardTreasuryTitle
             //
             this.lblCardTreasuryTitle.Font = new System.Drawing.Font("Segoe UI", 10F);
             this.lblCardTreasuryTitle.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(100)))), ((int)(((byte)(116)))), ((int)(((byte)(139)))));
-            this.lblCardTreasuryTitle.Location = new System.Drawing.Point(15, 12);
+            this.lblCardTreasuryTitle.Location = new System.Drawing.Point(15, 20);
             this.lblCardTreasuryTitle.Name = "lblCardTreasuryTitle";
-            this.lblCardTreasuryTitle.Size = new System.Drawing.Size(160, 20);
+            this.lblCardTreasuryTitle.Size = new System.Drawing.Size(160, 24);
             this.lblCardTreasuryTitle.TabIndex = 0;
             this.lblCardTreasuryTitle.Text = "رصيد الخزينة 💳";
             this.lblCardTreasuryTitle.TextAlign = System.Drawing.ContentAlignment.MiddleRight;
@@ -681,7 +681,7 @@ namespace SchoolCenter
             //
             this.lblCardTreasuryValue.Font = new System.Drawing.Font("Segoe UI", 16F, System.Drawing.FontStyle.Bold);
             this.lblCardTreasuryValue.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(15)))), ((int)(((byte)(23)))), ((int)(((byte)(42)))));
-            this.lblCardTreasuryValue.Location = new System.Drawing.Point(15, 38);
+            this.lblCardTreasuryValue.Location = new System.Drawing.Point(15, 50);
             this.lblCardTreasuryValue.Name = "lblCardTreasuryValue";
             this.lblCardTreasuryValue.Size = new System.Drawing.Size(160, 45);
             this.lblCardTreasuryValue.TabIndex = 1;
@@ -692,9 +692,9 @@ namespace SchoolCenter
             //
             this.lblCardTreasuryTag.Font = new System.Drawing.Font("Segoe UI", 8.5F, System.Drawing.FontStyle.Bold);
             this.lblCardTreasuryTag.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(16)))), ((int)(((byte)(185)))), ((int)(((byte)(129)))));
-            this.lblCardTreasuryTag.Location = new System.Drawing.Point(15, 88);
+            this.lblCardTreasuryTag.Location = new System.Drawing.Point(15, 102);
             this.lblCardTreasuryTag.Name = "lblCardTreasuryTag";
-            this.lblCardTreasuryTag.Size = new System.Drawing.Size(160, 20);
+            this.lblCardTreasuryTag.Size = new System.Drawing.Size(160, 24);
             this.lblCardTreasuryTag.TabIndex = 2;
             this.lblCardTreasuryTag.Text = "الرصيد المتاح ✅";
             this.lblCardTreasuryTag.TextAlign = System.Drawing.ContentAlignment.MiddleRight;
@@ -704,9 +704,9 @@ namespace SchoolCenter
             this.pnlDashboardRight.BackColor = System.Drawing.Color.White;
             this.pnlDashboardRight.Controls.Add(this.dgvRecentTransactions);
             this.pnlDashboardRight.Controls.Add(this.lblDashboardRightTitle);
-            this.pnlDashboardRight.Location = new System.Drawing.Point(440, 220);
+            this.pnlDashboardRight.Location = new System.Drawing.Point(440, 240);
             this.pnlDashboardRight.Name = "pnlDashboardRight";
-            this.pnlDashboardRight.Size = new System.Drawing.Size(400, 410);
+            this.pnlDashboardRight.Size = new System.Drawing.Size(400, 390);
             this.pnlDashboardRight.TabIndex = 5;
             //
             // lblDashboardRightTitle
@@ -734,7 +734,7 @@ namespace SchoolCenter
             this.dgvRecentTransactions.Name = "dgvRecentTransactions";
             this.dgvRecentTransactions.ReadOnly = true;
             this.dgvRecentTransactions.RowHeadersVisible = false;
-            this.dgvRecentTransactions.Size = new System.Drawing.Size(370, 345);
+            this.dgvRecentTransactions.Size = new System.Drawing.Size(370, 325);
             this.dgvRecentTransactions.TabIndex = 1;
             //
             // pnlDashboardLeft
@@ -742,9 +742,9 @@ namespace SchoolCenter
             this.pnlDashboardLeft.BackColor = System.Drawing.Color.White;
             this.pnlDashboardLeft.Controls.Add(this.dgvCourseDistribution);
             this.pnlDashboardLeft.Controls.Add(this.lblDashboardLeftTitle);
-            this.pnlDashboardLeft.Location = new System.Drawing.Point(20, 220);
+            this.pnlDashboardLeft.Location = new System.Drawing.Point(20, 240);
             this.pnlDashboardLeft.Name = "pnlDashboardLeft";
-            this.pnlDashboardLeft.Size = new System.Drawing.Size(400, 410);
+            this.pnlDashboardLeft.Size = new System.Drawing.Size(400, 390);
             this.pnlDashboardLeft.TabIndex = 6;
             //
             // lblDashboardLeftTitle
@@ -772,7 +772,7 @@ namespace SchoolCenter
             this.dgvCourseDistribution.Name = "dgvCourseDistribution";
             this.dgvCourseDistribution.ReadOnly = true;
             this.dgvCourseDistribution.RowHeadersVisible = false;
-            this.dgvCourseDistribution.Size = new System.Drawing.Size(370, 345);
+            this.dgvCourseDistribution.Size = new System.Drawing.Size(370, 325);
             this.dgvCourseDistribution.TabIndex = 1;
             //
             // lblHomeTitle
@@ -886,7 +886,7 @@ namespace SchoolCenter
             this.Controls.Add(this.sidebarPanel);
             this.Name = "Form1";
             this.RightToLeft = System.Windows.Forms.RightToLeft.Yes;
-            this.RightToLeftLayout = true;
+            this.RightToLeftLayout = false;
             this.Text = "منظومة مركز الدورات التعليمية - لوحة التحكم";
             this.Load += new System.EventHandler(this.Form1_Load);
             this.sidebarPanel.ResumeLayout(false);
