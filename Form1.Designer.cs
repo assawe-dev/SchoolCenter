@@ -30,6 +30,7 @@ namespace SchoolCenter
         {
             this.sidebarPanel = new System.Windows.Forms.Panel();
             this.btnSettings = new System.Windows.Forms.Button();
+            this.btnUsers = new System.Windows.Forms.Button();
             this.btnPayments = new System.Windows.Forms.Button();
             this.btnBalanceReport = new System.Windows.Forms.Button();
             this.btnStudentDues = new System.Windows.Forms.Button();
@@ -40,6 +41,9 @@ namespace SchoolCenter
             this.lblStatus = new System.Windows.Forms.Label();
             this.logoPanel = new System.Windows.Forms.Panel();
             this.lblLogo = new System.Windows.Forms.Label();
+            this.headerPanel = new System.Windows.Forms.Panel();
+            this.lblUserInfo = new System.Windows.Forms.Label();
+            this.btnLogout = new System.Windows.Forms.Button();
             this.mainContentPanel = new System.Windows.Forms.Panel();
             this.homeViewPanel = new System.Windows.Forms.Panel();
             this.pnlWarning = new System.Windows.Forms.Panel();
@@ -59,6 +63,7 @@ namespace SchoolCenter
             this.coursesViewPanel = new System.Windows.Forms.Panel();
             this.studentDuesViewPanel = new System.Windows.Forms.Panel();
             this.balanceReportViewPanel = new System.Windows.Forms.Panel();
+            this.usersViewPanel = new System.Windows.Forms.Panel();
 
             this.paymentsViewPanel = new System.Windows.Forms.Panel();
             this.uPaymentsView = new SchoolCenter.PaymentsView();
@@ -67,10 +72,12 @@ namespace SchoolCenter
             this.uCoursesView = new SchoolCenter.CoursesView();
             this.uStudentDuesView = new SchoolCenter.StudentDuesView();
             this.uBalanceReportView = new SchoolCenter.BalanceReportView();
+            this.uUsersView = new SchoolCenter.UsersView();
 
             this.sidebarPanel.SuspendLayout();
             this.statusPanel.SuspendLayout();
             this.logoPanel.SuspendLayout();
+            this.headerPanel.SuspendLayout();
             this.mainContentPanel.SuspendLayout();
             this.homeViewPanel.SuspendLayout();
             this.pnlWarning.SuspendLayout();
@@ -82,12 +89,14 @@ namespace SchoolCenter
             this.studentDuesViewPanel.SuspendLayout();
             this.balanceReportViewPanel.SuspendLayout();
             this.paymentsViewPanel.SuspendLayout();
+            this.usersViewPanel.SuspendLayout();
             this.SuspendLayout();
             // 
             // sidebarPanel
             //
             this.sidebarPanel.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(44)))), ((int)(((byte)(62)))), ((int)(((byte)(80)))));
             this.sidebarPanel.Controls.Add(this.btnSettings);
+            this.sidebarPanel.Controls.Add(this.btnUsers);
             this.sidebarPanel.Controls.Add(this.btnPayments);
             this.sidebarPanel.Controls.Add(this.btnBalanceReport);
             this.sidebarPanel.Controls.Add(this.btnStudentDues);
@@ -101,6 +110,40 @@ namespace SchoolCenter
             this.sidebarPanel.Name = "sidebarPanel";
             this.sidebarPanel.Size = new System.Drawing.Size(240, 700);
             this.sidebarPanel.TabIndex = 0;
+            //
+            // btnSettings
+            //
+            this.btnSettings.Cursor = System.Windows.Forms.Cursors.Hand;
+            this.btnSettings.Dock = System.Windows.Forms.DockStyle.Top;
+            this.btnSettings.FlatAppearance.BorderSize = 0;
+            this.btnSettings.FlatAppearance.MouseOverBackColor = System.Drawing.Color.FromArgb(((int)(((byte)(52)))), ((int)(((byte)(152)))), ((int)(((byte)(219)))));
+            this.btnSettings.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
+            this.btnSettings.Font = new System.Drawing.Font("Segoe UI", 11F, System.Drawing.FontStyle.Bold);
+            this.btnSettings.ForeColor = System.Drawing.Color.White;
+            this.btnSettings.Location = new System.Drawing.Point(0, 430);
+            this.btnSettings.Name = "btnSettings";
+            this.btnSettings.Size = new System.Drawing.Size(240, 50);
+            this.btnSettings.TabIndex = 8;
+            this.btnSettings.Text = "إعدادات الاتصال";
+            this.btnSettings.UseVisualStyleBackColor = true;
+            this.btnSettings.Click += new System.EventHandler(this.BtnSettings_Click);
+            //
+            // btnUsers
+            //
+            this.btnUsers.Cursor = System.Windows.Forms.Cursors.Hand;
+            this.btnUsers.Dock = System.Windows.Forms.DockStyle.Top;
+            this.btnUsers.FlatAppearance.BorderSize = 0;
+            this.btnUsers.FlatAppearance.MouseOverBackColor = System.Drawing.Color.FromArgb(((int)(((byte)(52)))), ((int)(((byte)(152)))), ((int)(((byte)(219)))));
+            this.btnUsers.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
+            this.btnUsers.Font = new System.Drawing.Font("Segoe UI", 11F, System.Drawing.FontStyle.Bold);
+            this.btnUsers.ForeColor = System.Drawing.Color.White;
+            this.btnUsers.Location = new System.Drawing.Point(0, 380);
+            this.btnUsers.Name = "btnUsers";
+            this.btnUsers.Size = new System.Drawing.Size(240, 50);
+            this.btnUsers.TabIndex = 7;
+            this.btnUsers.Text = "إدارة المستخدمين والصلاحيات";
+            this.btnUsers.UseVisualStyleBackColor = true;
+            this.btnUsers.Click += new System.EventHandler(this.BtnUsers_Click);
             //
             // btnPayments
             //
@@ -118,23 +161,6 @@ namespace SchoolCenter
             this.btnPayments.Text = "إيصالات السداد والخزينة";
             this.btnPayments.UseVisualStyleBackColor = true;
             this.btnPayments.Click += new System.EventHandler(this.BtnPayments_Click);
-            //
-            // btnSettings
-            //
-            this.btnSettings.Cursor = System.Windows.Forms.Cursors.Hand;
-            this.btnSettings.Dock = System.Windows.Forms.DockStyle.Top;
-            this.btnSettings.FlatAppearance.BorderSize = 0;
-            this.btnSettings.FlatAppearance.MouseOverBackColor = System.Drawing.Color.FromArgb(((int)(((byte)(52)))), ((int)(((byte)(152)))), ((int)(((byte)(219)))));
-            this.btnSettings.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
-            this.btnSettings.Font = new System.Drawing.Font("Segoe UI", 11F, System.Drawing.FontStyle.Bold);
-            this.btnSettings.ForeColor = System.Drawing.Color.White;
-            this.btnSettings.Location = new System.Drawing.Point(0, 380);
-            this.btnSettings.Name = "btnSettings";
-            this.btnSettings.Size = new System.Drawing.Size(240, 50);
-            this.btnSettings.TabIndex = 7;
-            this.btnSettings.Text = "إعدادات الاتصال";
-            this.btnSettings.UseVisualStyleBackColor = true;
-            this.btnSettings.Click += new System.EventHandler(this.BtnSettings_Click);
             //
             // btnBalanceReport
             //
@@ -267,6 +293,48 @@ namespace SchoolCenter
             //
             // mainContentPanel
             //
+            //
+            // headerPanel
+            //
+            this.headerPanel.BackColor = System.Drawing.Color.White;
+            this.headerPanel.Controls.Add(this.btnLogout);
+            this.headerPanel.Controls.Add(this.lblUserInfo);
+            this.headerPanel.Dock = System.Windows.Forms.DockStyle.Top;
+            this.headerPanel.Location = new System.Drawing.Point(0, 0);
+            this.headerPanel.Name = "headerPanel";
+            this.headerPanel.Size = new System.Drawing.Size(860, 50);
+            this.headerPanel.TabIndex = 0;
+            //
+            // lblUserInfo
+            //
+            this.lblUserInfo.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
+            this.lblUserInfo.Font = new System.Drawing.Font("Segoe UI", 10F, System.Drawing.FontStyle.Bold);
+            this.lblUserInfo.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(44)))), ((int)(((byte)(62)))), ((int)(((byte)(80)))));
+            this.lblUserInfo.Location = new System.Drawing.Point(500, 12);
+            this.lblUserInfo.Name = "lblUserInfo";
+            this.lblUserInfo.Size = new System.Drawing.Size(340, 25);
+            this.lblUserInfo.TabIndex = 0;
+            this.lblUserInfo.Text = "المستخدم الحالي: -";
+            this.lblUserInfo.TextAlign = System.Drawing.ContentAlignment.MiddleRight;
+            //
+            // btnLogout
+            //
+            this.btnLogout.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(231)))), ((int)(((byte)(76)))), ((int)(((byte)(60)))));
+            this.btnLogout.Cursor = System.Windows.Forms.Cursors.Hand;
+            this.btnLogout.FlatAppearance.BorderSize = 0;
+            this.btnLogout.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
+            this.btnLogout.Font = new System.Drawing.Font("Segoe UI", 9.5F, System.Drawing.FontStyle.Bold);
+            this.btnLogout.ForeColor = System.Drawing.Color.White;
+            this.btnLogout.Location = new System.Drawing.Point(20, 10);
+            this.btnLogout.Name = "btnLogout";
+            this.btnLogout.Size = new System.Drawing.Size(120, 30);
+            this.btnLogout.TabIndex = 1;
+            this.btnLogout.Text = "تسجيل الخروج 🚪";
+            this.btnLogout.UseVisualStyleBackColor = false;
+            this.btnLogout.Click += new System.EventHandler(this.BtnLogout_Click);
+            //
+            // mainContentPanel
+            //
             this.mainContentPanel.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(248)))), ((int)(((byte)(249)))), ((int)(((byte)(250)))));
             this.mainContentPanel.Controls.Add(this.homeViewPanel);
             this.mainContentPanel.Controls.Add(this.studentsViewPanel);
@@ -274,10 +342,11 @@ namespace SchoolCenter
             this.mainContentPanel.Controls.Add(this.studentDuesViewPanel);
             this.mainContentPanel.Controls.Add(this.balanceReportViewPanel);
             this.mainContentPanel.Controls.Add(this.paymentsViewPanel);
+            this.mainContentPanel.Controls.Add(this.usersViewPanel);
             this.mainContentPanel.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.mainContentPanel.Location = new System.Drawing.Point(0, 0);
+            this.mainContentPanel.Location = new System.Drawing.Point(0, 50);
             this.mainContentPanel.Name = "mainContentPanel";
-            this.mainContentPanel.Size = new System.Drawing.Size(860, 700);
+            this.mainContentPanel.Size = new System.Drawing.Size(860, 650);
             this.mainContentPanel.TabIndex = 1;
             //
             // homeViewPanel
@@ -525,12 +594,28 @@ namespace SchoolCenter
             //
             this.uPaymentsView.Dock = System.Windows.Forms.DockStyle.Fill;
             //
+            // usersViewPanel
+            //
+            this.usersViewPanel.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(248)))), ((int)(((byte)(249)))), ((int)(((byte)(250)))));
+            this.usersViewPanel.Controls.Add(this.uUsersView);
+            this.usersViewPanel.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.usersViewPanel.Location = new System.Drawing.Point(0, 0);
+            this.usersViewPanel.Name = "usersViewPanel";
+            this.usersViewPanel.Size = new System.Drawing.Size(860, 650);
+            this.usersViewPanel.TabIndex = 6;
+            this.usersViewPanel.Visible = false;
+            //
+            // uUsersView
+            //
+            this.uUsersView.Dock = System.Windows.Forms.DockStyle.Fill;
+            //
             // Form1
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(7F, 16F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(1100, 700);
             this.Controls.Add(this.mainContentPanel);
+            this.Controls.Add(this.headerPanel);
             this.Controls.Add(this.sidebarPanel);
             this.Name = "Form1";
             this.RightToLeft = System.Windows.Forms.RightToLeft.Yes;
@@ -540,6 +625,7 @@ namespace SchoolCenter
             this.sidebarPanel.ResumeLayout(false);
             this.statusPanel.ResumeLayout(false);
             this.logoPanel.ResumeLayout(false);
+            this.headerPanel.ResumeLayout(false);
             this.mainContentPanel.ResumeLayout(false);
             this.homeViewPanel.ResumeLayout(false);
             this.homeViewPanel.PerformLayout();
@@ -555,6 +641,7 @@ namespace SchoolCenter
             this.studentDuesViewPanel.ResumeLayout(false);
             this.balanceReportViewPanel.ResumeLayout(false);
             this.paymentsViewPanel.ResumeLayout(false);
+            this.usersViewPanel.ResumeLayout(false);
             this.ResumeLayout(false);
 
         }
@@ -572,6 +659,9 @@ namespace SchoolCenter
         private System.Windows.Forms.Button btnSettings;
         private System.Windows.Forms.Panel statusPanel;
         private System.Windows.Forms.Label lblStatus;
+        private System.Windows.Forms.Panel headerPanel;
+        private System.Windows.Forms.Label lblUserInfo;
+        private System.Windows.Forms.Button btnLogout;
         private System.Windows.Forms.Panel mainContentPanel;
         private System.Windows.Forms.Panel homeViewPanel;
         private System.Windows.Forms.Label lblHomeTitle;
@@ -592,12 +682,15 @@ namespace SchoolCenter
         private System.Windows.Forms.Panel studentDuesViewPanel;
         private System.Windows.Forms.Panel balanceReportViewPanel;
         private System.Windows.Forms.Panel paymentsViewPanel;
+        private System.Windows.Forms.Panel usersViewPanel;
         private System.Windows.Forms.Button btnPayments;
+        private System.Windows.Forms.Button btnUsers;
 
         private SchoolCenter.StudentsView uStudentsView;
         private SchoolCenter.CoursesView uCoursesView;
         private SchoolCenter.StudentDuesView uStudentDuesView;
         private SchoolCenter.BalanceReportView uBalanceReportView;
         private SchoolCenter.PaymentsView uPaymentsView;
+        private SchoolCenter.UsersView uUsersView;
     }
 }

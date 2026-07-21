@@ -149,12 +149,38 @@ namespace SchoolCenter
                     cmd.ExecuteNonQuery();
                 }
 
+                // 5.5. إنشاء جدول صلاحيات المستخدمين UserPermissions
+                string createUserPermissionsTable = @"
+                    IF NOT EXISTS (SELECT * FROM sys.tables WHERE name = 'UserPermissions')
+                    BEGIN
+                        CREATE TABLE UserPermissions (
+                            PermissionID INT IDENTITY(1,1) PRIMARY KEY,
+                            UserID INT NOT NULL,
+                            CanManageStudents BIT DEFAULT 1 NOT NULL,    -- إدارة الطلاب
+                            CanManageCourses BIT DEFAULT 1 NOT NULL,     -- إدارة الدورات
+                            CanAssignDues BIT DEFAULT 1 NOT NULL,        -- إضافة المستحقات والديون
+                            CanReceivePayments BIT DEFAULT 1 NOT NULL,   -- سندات القبض والخزينة
+                            CanViewReports BIT DEFAULT 0 NOT NULL,       -- تقارير الأرصدة والتصدير
+                            CanManageUsers BIT DEFAULT 0 NOT NULL,       -- إدارة المستخدمين والصلاحيات
+                            CONSTRAINT FK_Permissions_Users FOREIGN KEY (UserID) REFERENCES Users(UserID) ON DELETE CASCADE
+                        );
+                    END";
+                using (SqlCommand cmd = new SqlCommand(createUserPermissionsTable, connection))
+                {
+                    cmd.ExecuteNonQuery();
+                }
+
                 // 6. إدخال مستخدم افتراضي إذا كان جدول المستخدمين فارغاً
                 string seedUsers = @"
                     IF NOT EXISTS (SELECT * FROM Users)
                     BEGIN
+                        DECLARE @NewUserID INT;
                         INSERT INTO Users (Username, PasswordHash, Role, IsActive) VALUES
-                        (N'admin', N'admin123', N'Administrator', 1);
+                        (N'admin', N'admin123', N'Admin', 1);
+                        SET @NewUserID = SCOPE_IDENTITY();
+
+                        INSERT INTO UserPermissions (UserID, CanManageStudents, CanManageCourses, CanAssignDues, CanReceivePayments, CanViewReports, CanManageUsers)
+                        VALUES (@NewUserID, 1, 1, 1, 1, 1, 1);
                     END";
                 using (SqlCommand cmd = new SqlCommand(seedUsers, connection))
                 {
