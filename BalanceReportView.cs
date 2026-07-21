@@ -201,14 +201,14 @@ namespace SchoolCenter
             //
             this.dgvReport.AllowUserToAddRows = false;
             this.dgvReport.AllowUserToDeleteRows = false;
-            this.dgvReport.AlternatingRowsDefaultCellStyle.BackColor = Color.FromArgb(242, 244, 244);
+            this.dgvReport.AlternatingRowsDefaultCellStyle.BackColor = Color.FromArgb(248, 250, 252);
             this.dgvReport.BackgroundColor = Color.White;
             this.dgvReport.BorderStyle = BorderStyle.None;
-            this.dgvReport.ColumnHeadersDefaultCellStyle.BackColor = Color.FromArgb(44, 62, 80);
+            this.dgvReport.ColumnHeadersDefaultCellStyle.BackColor = Color.FromArgb(37, 99, 235); // #2563EB
             this.dgvReport.ColumnHeadersDefaultCellStyle.Font = new Font("Segoe UI", 10F, FontStyle.Bold);
             this.dgvReport.ColumnHeadersDefaultCellStyle.ForeColor = Color.White;
-            this.dgvReport.DefaultCellStyle.SelectionBackColor = Color.FromArgb(52, 152, 219);
-            this.dgvReport.DefaultCellStyle.SelectionForeColor = Color.White;
+            this.dgvReport.DefaultCellStyle.SelectionBackColor = Color.FromArgb(239, 246, 255);
+            this.dgvReport.DefaultCellStyle.SelectionForeColor = Color.FromArgb(37, 99, 235);
             this.dgvReport.EnableHeadersVisualStyles = false;
             this.dgvReport.Dock = DockStyle.Fill;
             this.dgvReport.Location = new Point(0, 0);
@@ -276,8 +276,11 @@ namespace SchoolCenter
                                 dgvReport.Columns["StudentID"].Visible = false;
 
                             dgvReport.Columns["إجمالي المستحقات"].DefaultCellStyle.Format = "N2";
+                            dgvReport.Columns["إجمالي المستحقات"].DefaultCellStyle.Alignment = DataGridViewContentAlignment.MiddleRight;
                             dgvReport.Columns["إجمالي المدفوعات"].DefaultCellStyle.Format = "N2";
+                            dgvReport.Columns["إجمالي المدفوعات"].DefaultCellStyle.Alignment = DataGridViewContentAlignment.MiddleRight;
                             dgvReport.Columns["الديون المتبقية"].DefaultCellStyle.Format = "N2";
+                            dgvReport.Columns["الديون المتبقية"].DefaultCellStyle.Alignment = DataGridViewContentAlignment.MiddleRight;
 
                             dgvReport.AutoSizeColumnsMode = DataGridViewAutoSizeColumnsMode.Fill;
                         }
@@ -336,8 +339,11 @@ namespace SchoolCenter
                                 dgvReport.Columns["StudentID"].Visible = false;
 
                             dgvReport.Columns["إجمالي المستحقات"].DefaultCellStyle.Format = "N2";
+                            dgvReport.Columns["إجمالي المستحقات"].DefaultCellStyle.Alignment = DataGridViewContentAlignment.MiddleRight;
                             dgvReport.Columns["إجمالي المدفوعات"].DefaultCellStyle.Format = "N2";
+                            dgvReport.Columns["إجمالي المدفوعات"].DefaultCellStyle.Alignment = DataGridViewContentAlignment.MiddleRight;
                             dgvReport.Columns["الديون المتبقية"].DefaultCellStyle.Format = "N2";
+                            dgvReport.Columns["الديون المتبقية"].DefaultCellStyle.Alignment = DataGridViewContentAlignment.MiddleRight;
 
                             dgvReport.AutoSizeColumnsMode = DataGridViewAutoSizeColumnsMode.Fill;
                         }

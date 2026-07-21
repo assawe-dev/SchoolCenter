@@ -12,6 +12,7 @@ namespace SchoolCenter
         private Panel pnlInput;
         private Label lblStudent;
         private ComboBox cbStudent;
+        private Label lblCurrentBalance;
         private Label lblAmount;
         private TextBox txtAmount;
         private Label lblDate;
@@ -49,6 +50,7 @@ namespace SchoolCenter
             this.pnlInput = new Panel();
             this.lblStudent = new Label();
             this.cbStudent = new ComboBox();
+            this.lblCurrentBalance = new Label();
             this.lblAmount = new Label();
             this.txtAmount = new TextBox();
             this.lblDate = new Label();
@@ -90,6 +92,7 @@ namespace SchoolCenter
             this.pnlInput.Anchor = ((AnchorStyles)(((AnchorStyles.Top | AnchorStyles.Left)
             | AnchorStyles.Right)));
             this.pnlInput.BackColor = Color.White;
+            this.pnlInput.Controls.Add(this.lblCurrentBalance);
             this.pnlInput.Controls.Add(this.btnPrint);
             this.pnlInput.Controls.Add(this.btnSave);
             this.pnlInput.Controls.Add(this.txtNotes);
@@ -119,11 +122,28 @@ namespace SchoolCenter
             //
             // cbStudent
             //
-            this.cbStudent.DropDownStyle = ComboBoxStyle.DropDownList;
+            this.cbStudent.AutoCompleteMode = AutoCompleteMode.SuggestAppend;
+            this.cbStudent.AutoCompleteSource = AutoCompleteSource.ListItems;
+            this.cbStudent.DropDownStyle = ComboBoxStyle.DropDown;
             this.cbStudent.FormattingEnabled = true;
             this.cbStudent.Location = new Point(410, 17);
             this.cbStudent.Name = "cbStudent";
             this.cbStudent.Size = new Size(260, 31);
+            this.cbStudent.TabIndex = 1;
+            this.cbStudent.SelectedIndexChanged += new EventHandler(this.CbStudent_SelectedIndexChanged);
+            this.cbStudent.SelectionChangeCommitted += new EventHandler(this.CbStudent_SelectionChangeCommitted);
+            this.cbStudent.KeyDown += new KeyEventHandler(this.CbStudent_KeyDown);
+
+            //
+            // lblCurrentBalance
+            //
+            this.lblCurrentBalance.Font = new Font("Segoe UI", 9.5F, FontStyle.Bold);
+            this.lblCurrentBalance.ForeColor = Color.FromArgb(100, 116, 139);
+            this.lblCurrentBalance.Location = new Point(560, 110);
+            this.lblCurrentBalance.Name = "lblCurrentBalance";
+            this.lblCurrentBalance.Size = new Size(210, 35);
+            this.lblCurrentBalance.Text = "الرصيد الحالي المستحق: 0.00 د.ل";
+            this.lblCurrentBalance.TextAlign = ContentAlignment.MiddleRight;
 
             //
             // lblAmount
@@ -142,6 +162,7 @@ namespace SchoolCenter
             this.txtAmount.Location = new Point(110, 17);
             this.txtAmount.Name = "txtAmount";
             this.txtAmount.Size = new Size(190, 30);
+            this.txtAmount.TabIndex = 2;
 
             //
             // lblDate
@@ -162,6 +183,7 @@ namespace SchoolCenter
             this.dtpDate.Location = new Point(410, 62);
             this.dtpDate.Name = "dtpDate";
             this.dtpDate.Size = new Size(260, 30);
+            this.dtpDate.TabIndex = 3;
 
             //
             // lblNotes
@@ -180,6 +202,7 @@ namespace SchoolCenter
             this.txtNotes.Location = new Point(110, 62);
             this.txtNotes.Name = "txtNotes";
             this.txtNotes.Size = new Size(190, 30);
+            this.txtNotes.TabIndex = 4;
 
             //
             // btnSave
@@ -193,6 +216,7 @@ namespace SchoolCenter
             this.btnSave.Location = new Point(410, 110);
             this.btnSave.Name = "btnSave";
             this.btnSave.Size = new Size(140, 35);
+            this.btnSave.TabIndex = 5;
             this.btnSave.Text = "تسجيل الإيصال";
             this.btnSave.UseVisualStyleBackColor = false;
             this.btnSave.Click += new EventHandler(this.BtnSave_Click);
@@ -209,6 +233,7 @@ namespace SchoolCenter
             this.btnPrint.Location = new Point(250, 110);
             this.btnPrint.Name = "btnPrint";
             this.btnPrint.Size = new Size(140, 35);
+            this.btnPrint.TabIndex = 6;
             this.btnPrint.Text = "طباعة آخر إيصال 🖨";
             this.btnPrint.UseVisualStyleBackColor = false;
             this.btnPrint.Click += new EventHandler(this.BtnPrint_Click);
@@ -265,14 +290,14 @@ namespace SchoolCenter
             //
             this.dgvFinancials.AllowUserToAddRows = false;
             this.dgvFinancials.AllowUserToDeleteRows = false;
-            this.dgvFinancials.AlternatingRowsDefaultCellStyle.BackColor = Color.FromArgb(242, 244, 244);
+            this.dgvFinancials.AlternatingRowsDefaultCellStyle.BackColor = Color.FromArgb(248, 250, 252); // Zebra row
             this.dgvFinancials.BackgroundColor = Color.White;
             this.dgvFinancials.BorderStyle = BorderStyle.None;
-            this.dgvFinancials.ColumnHeadersDefaultCellStyle.BackColor = Color.FromArgb(44, 62, 80);
+            this.dgvFinancials.ColumnHeadersDefaultCellStyle.BackColor = Color.FromArgb(37, 99, 235); // #2563EB
             this.dgvFinancials.ColumnHeadersDefaultCellStyle.Font = new Font("Segoe UI", 10F, FontStyle.Bold);
             this.dgvFinancials.ColumnHeadersDefaultCellStyle.ForeColor = Color.White;
-            this.dgvFinancials.DefaultCellStyle.SelectionBackColor = Color.FromArgb(52, 152, 219);
-            this.dgvFinancials.DefaultCellStyle.SelectionForeColor = Color.White;
+            this.dgvFinancials.DefaultCellStyle.SelectionBackColor = Color.FromArgb(239, 246, 255);
+            this.dgvFinancials.DefaultCellStyle.SelectionForeColor = Color.FromArgb(37, 99, 235);
             this.dgvFinancials.EnableHeadersVisualStyles = false;
             this.dgvFinancials.Dock = DockStyle.Fill;
             this.dgvFinancials.Location = new Point(0, 0);
@@ -288,6 +313,95 @@ namespace SchoolCenter
             this.pnlGrid.ResumeLayout(false);
             ((System.ComponentModel.ISupportInitialize)(this.dgvFinancials)).EndInit();
             this.ResumeLayout(false);
+        }
+
+        private void CbStudent_SelectedIndexChanged(object sender, EventArgs e)
+        {
+            UpdateCurrentBalance();
+        }
+
+        private void CbStudent_SelectionChangeCommitted(object sender, EventArgs e)
+        {
+            txtAmount.Focus();
+        }
+
+        private void CbStudent_KeyDown(object sender, KeyEventArgs e)
+        {
+            if (e.KeyCode == Keys.Enter)
+            {
+                e.SuppressKeyPress = true; // Prevents generic beep sound
+                txtAmount.Focus();
+            }
+        }
+
+        private void UpdateCurrentBalance()
+        {
+            if (cbStudent.SelectedValue == null)
+            {
+                lblCurrentBalance.Text = "الرصيد الحالي المستحق: -";
+                lblCurrentBalance.ForeColor = Color.FromArgb(100, 116, 139);
+                return;
+            }
+
+            int studentID;
+            if (cbStudent.SelectedValue is DataRowView)
+            {
+                try
+                {
+                    studentID = Convert.ToInt32(((DataRowView)cbStudent.SelectedValue)["StudentID"]);
+                }
+                catch
+                {
+                    lblCurrentBalance.Text = "الرصيد الحالي المستحق: -";
+                    lblCurrentBalance.ForeColor = Color.FromArgb(100, 116, 139);
+                    return;
+                }
+            }
+            else
+            {
+                if (!int.TryParse(cbStudent.SelectedValue.ToString(), out studentID))
+                {
+                    lblCurrentBalance.Text = "الرصيد الحالي المستحق: -";
+                    lblCurrentBalance.ForeColor = Color.FromArgb(100, 116, 139);
+                    return;
+                }
+            }
+
+            try
+            {
+                string connectionString = DbConnectionManager.GetConnectionString();
+                using (SqlConnection conn = new SqlConnection(connectionString))
+                {
+                    conn.Open();
+                    string query = "SELECT ISNULL(SUM(Debit), 0) - ISNULL(SUM(Credit), 0) FROM FinancialTransactions WHERE StudentID = @StudentID";
+                    using (SqlCommand cmd = new SqlCommand(query, conn))
+                    {
+                        cmd.Parameters.AddWithValue("@StudentID", studentID);
+                        object result = cmd.ExecuteScalar();
+                        decimal balance = 0m;
+                        if (result != null && result != DBNull.Value)
+                        {
+                            balance = Convert.ToDecimal(result);
+                        }
+
+                        lblCurrentBalance.Text = string.Format("الرصيد الحالي المستحق: {0:N2} د.ل", balance);
+                        if (balance > 0)
+                        {
+                            lblCurrentBalance.ForeColor = Color.FromArgb(239, 68, 68); // Red for debt
+                        }
+                        else
+                        {
+                            lblCurrentBalance.ForeColor = Color.FromArgb(16, 185, 129); // Green for zero/credit
+                        }
+                    }
+                }
+            }
+            catch (Exception ex)
+            {
+                System.Diagnostics.Debug.WriteLine("UpdateCurrentBalance failed: " + ex.Message);
+                lblCurrentBalance.Text = "الرصيد الحالي المستحق: خطأ";
+                lblCurrentBalance.ForeColor = Color.FromArgb(239, 68, 68);
+            }
         }
 
         public void SetSearchText(string text)
@@ -332,6 +446,7 @@ namespace SchoolCenter
                             da.Fill(dt);
                             dgvFinancials.DataSource = dt;
                             dgvFinancials.AutoSizeColumnsMode = DataGridViewAutoSizeColumnsMode.Fill;
+                            StyleGrid();
                         }
                     }
                 }
@@ -366,10 +481,31 @@ namespace SchoolCenter
                         }
                     }
                 }
+                UpdateCurrentBalance();
             }
             catch (Exception ex)
             {
                 System.Diagnostics.Debug.WriteLine("LoadStudentsList failed: " + ex.Message);
+            }
+        }
+
+        private void StyleGrid()
+        {
+            try
+            {
+                if (dgvFinancials.Columns.Contains("قيمة السداد"))
+                {
+                    dgvFinancials.Columns["قيمة السداد"].DefaultCellStyle.Format = "N2";
+                    dgvFinancials.Columns["قيمة السداد"].DefaultCellStyle.Alignment = DataGridViewContentAlignment.MiddleRight;
+                }
+                if (dgvFinancials.Columns.Contains("تاريخ السداد"))
+                {
+                    dgvFinancials.Columns["تاريخ السداد"].DefaultCellStyle.Format = "yyyy/MM/dd HH:mm";
+                }
+            }
+            catch (Exception ex)
+            {
+                System.Diagnostics.Debug.WriteLine("StyleGrid failed: " + ex.Message);
             }
         }
 
@@ -401,6 +537,7 @@ namespace SchoolCenter
                             da.Fill(dt);
                             dgvFinancials.DataSource = dt;
                             dgvFinancials.AutoSizeColumnsMode = DataGridViewAutoSizeColumnsMode.Fill;
+                            StyleGrid();
                         }
                     }
                 }
@@ -439,7 +576,8 @@ namespace SchoolCenter
                             // 1. Insert into FinancialTransactions
                             // TransactionType = 'Payment Receipt'
                             // Debit = 0.00, Credit = Paid Amount
-                            // UserID = 1 (default admin)
+                            // UserID = UserSession.CurrentUserID if valid, otherwise seeded admin (1)
+                            int userId = UserSession.CurrentUserID > 0 ? UserSession.CurrentUserID : 1;
                             string queryTx = @"
                                 INSERT INTO FinancialTransactions (StudentID, TransactionType, Debit, Credit, TransactionDate, Notes, UserID)
                                 VALUES (@StudentID, 'Payment Receipt', 0.00, @Credit, @TransactionDate, @Notes, @UserID);
@@ -452,7 +590,7 @@ namespace SchoolCenter
                                 cmd.Parameters.AddWithValue("@Credit", amount);
                                 cmd.Parameters.AddWithValue("@TransactionDate", dtpDate.Value);
                                 cmd.Parameters.AddWithValue("@Notes", string.IsNullOrEmpty(txtNotes.Text) ? "إيصال سداد رسوم" : txtNotes.Text.Trim());
-                                cmd.Parameters.AddWithValue("@UserID", 1); // seeded admin
+                                cmd.Parameters.AddWithValue("@UserID", userId);
 
                                 object scalarResult = cmd.ExecuteScalar();
                                 if (scalarResult != null && scalarResult != DBNull.Value)
@@ -510,6 +648,7 @@ namespace SchoolCenter
                 txtAmount.Clear();
                 txtNotes.Clear();
                 LoadTransactions();
+                UpdateCurrentBalance();
                 OnDataSaved();
             }
             catch (Exception ex)

@@ -138,6 +138,7 @@ namespace SchoolCenter
             this.txtUsername.Name = "txtUsername";
             this.txtUsername.Size = new Size(220, 30);
             this.txtUsername.TabIndex = 0;
+            this.txtUsername.KeyDown += new KeyEventHandler(this.Control_KeyDown);
 
             //
             // lblPassword
@@ -159,6 +160,7 @@ namespace SchoolCenter
             this.txtPassword.Size = new Size(220, 30);
             this.txtPassword.TabIndex = 1;
             this.txtPassword.UseSystemPasswordChar = true;
+            this.txtPassword.KeyDown += new KeyEventHandler(this.Control_KeyDown);
 
             //
             // lblRole
@@ -185,6 +187,7 @@ namespace SchoolCenter
             this.cmbRole.Name = "cmbRole";
             this.cmbRole.Size = new Size(220, 31);
             this.cmbRole.TabIndex = 2;
+            this.cmbRole.KeyDown += new KeyEventHandler(this.Control_KeyDown);
 
             //
             // chkIsActive
@@ -399,14 +402,14 @@ namespace SchoolCenter
             //
             this.dgvUsers.AllowUserToAddRows = false;
             this.dgvUsers.AllowUserToDeleteRows = false;
-            this.dgvUsers.AlternatingRowsDefaultCellStyle.BackColor = Color.FromArgb(242, 244, 244);
+            this.dgvUsers.AlternatingRowsDefaultCellStyle.BackColor = Color.FromArgb(248, 250, 252);
             this.dgvUsers.BackgroundColor = Color.White;
             this.dgvUsers.BorderStyle = BorderStyle.None;
-            this.dgvUsers.ColumnHeadersDefaultCellStyle.BackColor = Color.FromArgb(44, 62, 80);
+            this.dgvUsers.ColumnHeadersDefaultCellStyle.BackColor = Color.FromArgb(37, 99, 235); // #2563EB
             this.dgvUsers.ColumnHeadersDefaultCellStyle.Font = new Font("Segoe UI", 10F, FontStyle.Bold);
             this.dgvUsers.ColumnHeadersDefaultCellStyle.ForeColor = Color.White;
-            this.dgvUsers.DefaultCellStyle.SelectionBackColor = Color.FromArgb(52, 152, 219);
-            this.dgvUsers.DefaultCellStyle.SelectionForeColor = Color.White;
+            this.dgvUsers.DefaultCellStyle.SelectionBackColor = Color.FromArgb(239, 246, 255);
+            this.dgvUsers.DefaultCellStyle.SelectionForeColor = Color.FromArgb(37, 99, 235);
             this.dgvUsers.EnableHeadersVisualStyles = false;
             this.dgvUsers.Dock = DockStyle.Fill;
             this.dgvUsers.Location = new Point(0, 0);
@@ -836,6 +839,15 @@ namespace SchoolCenter
                 {
                     System.Diagnostics.Debug.WriteLine("Fetch permissions failed: " + ex.Message);
                 }
+            }
+        }
+
+        private void Control_KeyDown(object sender, KeyEventArgs e)
+        {
+            if (e.KeyCode == Keys.Enter)
+            {
+                e.SuppressKeyPress = true; // Prevents generic beep sound
+                this.SelectNextControl((Control)sender, true, true, true, true);
             }
         }
 
