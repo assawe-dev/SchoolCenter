@@ -788,7 +788,7 @@ namespace SchoolCenter
             //
             // studentsViewPanel
             //
-            this.studentsViewPanel.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(248)))), ((int)(((byte)(249)))), ((int)(((byte)(250)))));
+            this.studentsViewPanel.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(248)))), ((int)(((byte)(250)))), ((int)(((byte)(252)))));
             this.studentsViewPanel.Controls.Add(this.uStudentsView);
             this.studentsViewPanel.Dock = System.Windows.Forms.DockStyle.Fill;
             this.studentsViewPanel.Location = new System.Drawing.Point(0, 0);
@@ -803,7 +803,7 @@ namespace SchoolCenter
             //
             // coursesViewPanel
             //
-            this.coursesViewPanel.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(248)))), ((int)(((byte)(249)))), ((int)(((byte)(250)))));
+            this.coursesViewPanel.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(248)))), ((int)(((byte)(250)))), ((int)(((byte)(252)))));
             this.coursesViewPanel.Controls.Add(this.uCoursesView);
             this.coursesViewPanel.Dock = System.Windows.Forms.DockStyle.Fill;
             this.coursesViewPanel.Location = new System.Drawing.Point(0, 0);
@@ -818,7 +818,7 @@ namespace SchoolCenter
             //
             // studentDuesViewPanel
             //
-            this.studentDuesViewPanel.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(248)))), ((int)(((byte)(249)))), ((int)(((byte)(250)))));
+            this.studentDuesViewPanel.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(248)))), ((int)(((byte)(250)))), ((int)(((byte)(252)))));
             this.studentDuesViewPanel.Controls.Add(this.uStudentDuesView);
             this.studentDuesViewPanel.Dock = System.Windows.Forms.DockStyle.Fill;
             this.studentDuesViewPanel.Location = new System.Drawing.Point(0, 0);
@@ -833,7 +833,7 @@ namespace SchoolCenter
             //
             // balanceReportViewPanel
             //
-            this.balanceReportViewPanel.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(248)))), ((int)(((byte)(249)))), ((int)(((byte)(250)))));
+            this.balanceReportViewPanel.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(248)))), ((int)(((byte)(250)))), ((int)(((byte)(252)))));
             this.balanceReportViewPanel.Controls.Add(this.uBalanceReportView);
             this.balanceReportViewPanel.Dock = System.Windows.Forms.DockStyle.Fill;
             this.balanceReportViewPanel.Location = new System.Drawing.Point(0, 0);
@@ -848,7 +848,7 @@ namespace SchoolCenter
             //
             // paymentsViewPanel
             //
-            this.paymentsViewPanel.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(248)))), ((int)(((byte)(249)))), ((int)(((byte)(250)))));
+            this.paymentsViewPanel.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(248)))), ((int)(((byte)(250)))), ((int)(((byte)(252)))));
             this.paymentsViewPanel.Controls.Add(this.uPaymentsView);
             this.paymentsViewPanel.Dock = System.Windows.Forms.DockStyle.Fill;
             this.paymentsViewPanel.Location = new System.Drawing.Point(0, 0);
@@ -863,7 +863,7 @@ namespace SchoolCenter
             //
             // usersViewPanel
             //
-            this.usersViewPanel.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(248)))), ((int)(((byte)(249)))), ((int)(((byte)(250)))));
+            this.usersViewPanel.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(248)))), ((int)(((byte)(250)))), ((int)(((byte)(252)))));
             this.usersViewPanel.Controls.Add(this.uUsersView);
             this.usersViewPanel.Dock = System.Windows.Forms.DockStyle.Fill;
             this.usersViewPanel.Location = new System.Drawing.Point(0, 0);

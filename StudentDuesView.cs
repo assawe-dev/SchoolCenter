@@ -61,7 +61,7 @@ namespace SchoolCenter
             //
             // StudentDuesView
             //
-            this.BackColor = Color.FromArgb(248, 249, 250); // Off-White
+            this.BackColor = Color.FromArgb(248, 250, 252); // Modern SaaS #F8FAFC
             this.Controls.Add(this.pnlGrid);
             this.Controls.Add(this.pnlInput);
             this.Dock = DockStyle.Fill;
