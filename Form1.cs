@@ -1,4 +1,6 @@
 using System;
+using System.Data;
+using System.Data.SqlClient;
 using System.Drawing;
 using System.IO;
 using System.Windows.Forms;
@@ -31,6 +33,14 @@ namespace SchoolCenter
         {
             try
             {
+                // Bind paint events to draw nice subtle borders
+                cardStudents.Paint += DrawCardBorder;
+                cardCourses.Paint += DrawCardBorder;
+                cardTreasury.Paint += DrawCardBorder;
+                cardDebts.Paint += DrawCardBorder;
+                pnlDashboardRight.Paint += DrawCardBorder;
+                pnlDashboardLeft.Paint += DrawCardBorder;
+
                 // Verify or create the external DB configuration file.
                 string connectionString = DbConnectionManager.GetConnectionString();
 
@@ -69,7 +79,8 @@ namespace SchoolCenter
                 };
 
                 // Display currently logged-in user information
-                lblUserInfo.Text = string.Format("المستخدم الحالي: {0} ({1})", UserSession.Username, UserSession.Role);
+                lblUserInfo.Text = string.Format("مرحباً بك، {0}", UserSession.Username);
+                lblRoleBadge.Text = UserSession.Role == "Admin" ? "مسؤول النظام 🎓" : "المحاسب المالي 💰";
 
                 // Apply role-based screen-level permissions
                 btnStudents.Visible = UserSession.CanManageStudents;
@@ -108,16 +119,20 @@ namespace SchoolCenter
             {
                 pnlWarning.Visible = false;
                 lblStatus.Text = "حالة الاتصال: متصل";
-                lblStatus.ForeColor = Color.FromArgb(46, 204, 113); // Soft Success Green
+                lblStatus.ForeColor = Color.FromArgb(16, 185, 129); // Success Green #10B981
 
                 FinancialService financialService = new FinancialService();
                 int totalStudents = financialService.GetTotalStudents();
+                int totalCourses = financialService.GetTotalCourses();
                 decimal treasuryBalance = financialService.GetCurrentTreasuryBalance();
                 decimal totalOutstandingDebts = financialService.GetTotalOutstandingDebts();
 
                 lblCardStudentsValue.Text = totalStudents.ToString();
+                lblCardCoursesValue.Text = totalCourses.ToString();
                 lblCardTreasuryValue.Text = treasuryBalance.ToString("N2") + " د.ل";
                 lblCardDebtsValue.Text = totalOutstandingDebts.ToString("N2") + " د.ل";
+
+                LoadRecentActivity();
             }
             catch (Exception ex)
             {
@@ -125,11 +140,114 @@ namespace SchoolCenter
                 pnlWarning.Visible = true;
                 lblWarningText.Text = "تنبيه: تعذر الاتصال بقاعدة البيانات. يرجى التحقق من ملف الإعدادات db_config.txt.\n" + ex.Message;
                 lblStatus.Text = "حالة الاتصال: غير متصل";
-                lblStatus.ForeColor = Color.FromArgb(231, 76, 60); // Soft Danger Red
+                lblStatus.ForeColor = Color.FromArgb(239, 68, 68); // Danger Red #EF4444
 
                 lblCardStudentsValue.Text = "غير متوفر";
+                lblCardCoursesValue.Text = "غير متوفر";
                 lblCardTreasuryValue.Text = "غير متوفر";
                 lblCardDebtsValue.Text = "غير متوفر";
+            }
+        }
+
+        private void LoadRecentActivity()
+        {
+            try
+            {
+                string connectionString = DbConnectionManager.GetConnectionString();
+                using (SqlConnection conn = new SqlConnection(connectionString))
+                {
+                    conn.Open();
+
+                    // 1. Fetch recent transactions/registrations
+                    string recentQuery = @"
+                        SELECT TOP 7
+                            s.StudentName AS [الطالب],
+                            CASE
+                                WHEN t.TransactionType = 'Fee Charge' THEN N'تعيين دورة'
+                                WHEN t.TransactionType = 'Payment Receipt' THEN N'سداد دفعة'
+                                WHEN t.TransactionType = 'Opening Balance' THEN N'رصيد افتتاح سابق'
+                                ELSE t.TransactionType
+                            END AS [العملية],
+                            CASE
+                                WHEN t.Debit > 0 THEN t.Debit
+                                ELSE t.Credit
+                            END AS [القيمة (د.ل)],
+                            FORMAT(t.TransactionDate, 'dd/MM HH:mm') AS [الوقت]
+                        FROM FinancialTransactions t
+                        INNER JOIN Students s ON t.StudentID = s.StudentID
+                        ORDER BY t.TransactionID DESC";
+
+                    using (SqlCommand cmd = new SqlCommand(recentQuery, conn))
+                    {
+                        using (SqlDataAdapter da = new SqlDataAdapter(cmd))
+                        {
+                            DataTable dt = new DataTable();
+                            da.Fill(dt);
+                            dgvRecentTransactions.DataSource = dt;
+                        }
+                    }
+
+                    // 2. Fetch active courses list & enrollments/cost
+                    string courseQuery = @"
+                        SELECT TOP 7
+                            CourseName AS [اسم الدورة],
+                            Cost AS [السعر المعتمد (د.ل)]
+                        FROM Courses
+                        ORDER BY CourseID DESC";
+
+                    using (SqlCommand cmd = new SqlCommand(courseQuery, conn))
+                    {
+                        using (SqlDataAdapter da = new SqlDataAdapter(cmd))
+                        {
+                            DataTable dt = new DataTable();
+                            da.Fill(dt);
+                            dgvCourseDistribution.DataSource = dt;
+                        }
+                    }
+
+                    // Format columns modes
+                    dgvRecentTransactions.AutoSizeColumnsMode = DataGridViewAutoSizeColumnsMode.Fill;
+                    dgvCourseDistribution.AutoSizeColumnsMode = DataGridViewAutoSizeColumnsMode.Fill;
+
+                    // Format grids
+                    StyleDashboardGrid(dgvRecentTransactions);
+                    StyleDashboardGrid(dgvCourseDistribution);
+                }
+            }
+            catch (Exception ex)
+            {
+                System.Diagnostics.Debug.WriteLine("LoadRecentActivity failed: " + ex.Message);
+            }
+        }
+
+        private void StyleDashboardGrid(DataGridView dgv)
+        {
+            dgv.EnableHeadersVisualStyles = false;
+            dgv.BackgroundColor = Color.White;
+            dgv.BorderStyle = BorderStyle.None;
+            dgv.RowHeadersVisible = false;
+            dgv.AllowUserToResizeRows = false;
+            dgv.SelectionMode = DataGridViewSelectionMode.FullRowSelect;
+
+            // Header styling
+            dgv.ColumnHeadersDefaultCellStyle.BackColor = Color.FromArgb(241, 245, 249);
+            dgv.ColumnHeadersDefaultCellStyle.ForeColor = Color.FromArgb(15, 23, 42);
+            dgv.ColumnHeadersDefaultCellStyle.SelectionBackColor = Color.FromArgb(241, 245, 249);
+            dgv.ColumnHeadersHeight = 35;
+
+            // Row styling
+            dgv.DefaultCellStyle.SelectionBackColor = Color.FromArgb(239, 246, 255); // light blue selection
+            dgv.DefaultCellStyle.SelectionForeColor = Color.FromArgb(37, 99, 235);
+            dgv.DefaultCellStyle.BackColor = Color.White;
+            dgv.DefaultCellStyle.ForeColor = Color.FromArgb(15, 23, 42);
+            dgv.AlternatingRowsDefaultCellStyle.BackColor = Color.FromArgb(248, 250, 252);
+        }
+
+        private void DrawCardBorder(object sender, PaintEventArgs e)
+        {
+            using (Pen p = new Pen(Color.FromArgb(226, 232, 240), 1))
+            {
+                e.Graphics.DrawRectangle(p, 0, 0, ((Panel)sender).Width - 1, ((Panel)sender).Height - 1);
             }
         }
 
@@ -152,18 +270,25 @@ namespace SchoolCenter
         /// </summary>
         private void SetActiveButton(Button activeBtn)
         {
-            // Reset all buttons to default sidebar dark color
-            btnHome.BackColor = Color.FromArgb(44, 62, 80);
-            btnStudents.BackColor = Color.FromArgb(44, 62, 80);
-            btnCourses.BackColor = Color.FromArgb(44, 62, 80);
-            btnStudentDues.BackColor = Color.FromArgb(44, 62, 80);
-            btnBalanceReport.BackColor = Color.FromArgb(44, 62, 80);
-            btnPayments.BackColor = Color.FromArgb(44, 62, 80);
-            btnUsers.BackColor = Color.FromArgb(44, 62, 80);
-            btnSettings.BackColor = Color.FromArgb(44, 62, 80);
+            Color darkText = Color.FromArgb(51, 65, 85);      // #334155
+            Color hoverBg = Color.FromArgb(226, 232, 240);    // #E2E8F0
 
-            // Highlight the selected button with the Accent blue color
-            activeBtn.BackColor = Color.FromArgb(52, 152, 219); // #3498DB
+            Button[] buttons = { btnHome, btnStudents, btnCourses, btnStudentDues, btnBalanceReport, btnPayments, btnUsers, btnSettings };
+            foreach (var btn in buttons)
+            {
+                if (btn == null) continue;
+                btn.BackColor = Color.Transparent;
+                btn.ForeColor = darkText;
+                btn.FlatAppearance.MouseOverBackColor = hoverBg;
+            }
+
+            // Highlight the selected button with the Accent blue color (#2563EB)
+            if (activeBtn != null)
+            {
+                activeBtn.BackColor = Color.FromArgb(37, 99, 235); // #2563EB
+                activeBtn.ForeColor = Color.White;
+                activeBtn.FlatAppearance.MouseOverBackColor = Color.FromArgb(37, 99, 235);
+            }
         }
 
         private void BtnHome_Click(object sender, EventArgs e)
@@ -252,6 +377,67 @@ namespace SchoolCenter
         private void BtnRefreshData_Click(object sender, EventArgs e)
         {
             LoadDashboardData();
+        }
+
+        private void TxtGlobalSearch_Enter(object sender, EventArgs e)
+        {
+            if (txtGlobalSearch.Text == "بحث سريع في المنظومة...")
+            {
+                txtGlobalSearch.Text = "";
+                txtGlobalSearch.ForeColor = Color.FromArgb(15, 23, 42); // #0F172A
+            }
+        }
+
+        private void TxtGlobalSearch_Leave(object sender, EventArgs e)
+        {
+            if (string.IsNullOrWhiteSpace(txtGlobalSearch.Text))
+            {
+                txtGlobalSearch.Text = "بحث سريع في المنظومة...";
+                txtGlobalSearch.ForeColor = Color.FromArgb(100, 116, 139); // #64748B
+            }
+        }
+
+        private void TxtGlobalSearch_TextChanged(object sender, EventArgs e)
+        {
+            string searchVal = txtGlobalSearch.Text.Trim();
+            if (searchVal == "بحث سريع في المنظومة...")
+                searchVal = "";
+
+            uStudentsView.SetSearchText(searchVal);
+            uCoursesView.SetSearchText(searchVal);
+            uPaymentsView.SetSearchText(searchVal);
+            uBalanceReportView.SetSearchText(searchVal);
+            uUsersView.SetSearchText(searchVal);
+        }
+
+        private void BtnQuickAddStudent_Click(object sender, EventArgs e)
+        {
+            // Switch to students tab and focus student name
+            SetActiveButton(btnStudents);
+            ShowPanel(studentsViewPanel);
+            uStudentsView.LoadStudents();
+
+            // Find txtName control in uStudentsView to focus it!
+            var txtNameCtrl = uStudentsView.Controls.Find("txtName", true);
+            if (txtNameCtrl.Length > 0 && txtNameCtrl[0] is TextBox)
+            {
+                txtNameCtrl[0].Focus();
+            }
+        }
+
+        private void BtnQuickPayment_Click(object sender, EventArgs e)
+        {
+            // Switch to payments tab and focus amount textbox
+            SetActiveButton(btnPayments);
+            ShowPanel(paymentsViewPanel);
+            uPaymentsView.LoadStudentsList();
+            uPaymentsView.LoadTransactions();
+
+            var txtAmountCtrl = uPaymentsView.Controls.Find("txtAmount", true);
+            if (txtAmountCtrl.Length > 0 && txtAmountCtrl[0] is TextBox)
+            {
+                txtAmountCtrl[0].Focus();
+            }
         }
     }
 }

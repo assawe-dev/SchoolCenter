@@ -720,6 +720,11 @@ namespace SchoolCenter
             }
         }
 
+        public void SetSearchText(string text)
+        {
+            txtSearch.Text = text;
+        }
+
         private void TxtSearch_TextChanged(object sender, EventArgs e)
         {
             string filterText = txtSearch.Text.Trim();

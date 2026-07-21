@@ -28,6 +28,28 @@ namespace SchoolCenter
         }
 
         /// <summary>
+        /// Retrieves the total number of active courses.
+        /// </summary>
+        public int GetTotalCourses()
+        {
+            string connectionString = DbConnectionManager.GetConnectionString();
+            using (SqlConnection connection = new SqlConnection(connectionString))
+            {
+                connection.Open();
+                string query = "SELECT COUNT(*) FROM Courses";
+                using (SqlCommand command = new SqlCommand(query, connection))
+                {
+                    object result = command.ExecuteScalar();
+                    if (result != null && result != DBNull.Value)
+                    {
+                        return Convert.ToInt32(result);
+                    }
+                    return 0;
+                }
+            }
+        }
+
+        /// <summary>
         /// Retrieves the current treasury balance from TreasuryLog (sum of all log entries).
         /// Wait, wait. Is it the sum of ActionType = 'Deposit' minus ActionType = 'Withdrawal',
         /// or can we query the latest CurrentBalance from TreasuryLog,
