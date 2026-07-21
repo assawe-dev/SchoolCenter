@@ -28,7 +28,7 @@ namespace SchoolCenter
         }
 
         /// <summary>
-        /// Retrieves the current treasury balance.
+        /// Retrieves the current treasury balance from FinancialTransactions.
         /// </summary>
         public decimal GetCurrentTreasuryBalance()
         {
@@ -36,9 +36,7 @@ namespace SchoolCenter
             using (SqlConnection connection = new SqlConnection(connectionString))
             {
                 connection.Open();
-                // A typical query to get the current treasury balance.
-                // We sum up the transaction amounts (assuming positive for credit/income, negative for debit/expenses) or select from a Treasury table.
-                string query = "SELECT COALESCE(SUM(Amount), 0) FROM Payments";
+                string query = "SELECT COALESCE(SUM(Amount), 0) FROM FinancialTransactions";
                 using (SqlCommand command = new SqlCommand(query, connection))
                 {
                     object result = command.ExecuteScalar();

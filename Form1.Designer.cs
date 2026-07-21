@@ -53,11 +53,9 @@ namespace SchoolCenter
             this.lblCardStudentsTitle = new System.Windows.Forms.Label();
             this.lblHomeTitle = new System.Windows.Forms.Label();
             this.studentsViewPanel = new System.Windows.Forms.Panel();
-            this.dgvStudents = new System.Windows.Forms.DataGridView();
-            this.lblStudentsTitle = new System.Windows.Forms.Label();
             this.financialsViewPanel = new System.Windows.Forms.Panel();
-            this.dgvFinancials = new System.Windows.Forms.DataGridView();
-            this.lblFinancialsTitle = new System.Windows.Forms.Label();
+            this.uStudentsView = new SchoolCenter.StudentsView();
+            this.uFinancialsView = new SchoolCenter.FinancialsView();
             this.sidebarPanel.SuspendLayout();
             this.statusPanel.SuspendLayout();
             this.logoPanel.SuspendLayout();
@@ -68,9 +66,7 @@ namespace SchoolCenter
             this.cardTreasury.SuspendLayout();
             this.cardStudents.SuspendLayout();
             this.studentsViewPanel.SuspendLayout();
-            ((System.ComponentModel.ISupportInitialize)(this.dgvStudents)).BeginInit();
             this.financialsViewPanel.SuspendLayout();
-            ((System.ComponentModel.ISupportInitialize)(this.dgvFinancials)).BeginInit();
             this.SuspendLayout();
             // 
             // sidebarPanel
@@ -377,8 +373,7 @@ namespace SchoolCenter
             // studentsViewPanel
             //
             this.studentsViewPanel.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(248)))), ((int)(((byte)(249)))), ((int)(((byte)(250)))));
-            this.studentsViewPanel.Controls.Add(this.dgvStudents);
-            this.studentsViewPanel.Controls.Add(this.lblStudentsTitle);
+            this.studentsViewPanel.Controls.Add(this.uStudentsView);
             this.studentsViewPanel.Dock = System.Windows.Forms.DockStyle.Fill;
             this.studentsViewPanel.Location = new System.Drawing.Point(0, 0);
             this.studentsViewPanel.Name = "studentsViewPanel";
@@ -386,79 +381,16 @@ namespace SchoolCenter
             this.studentsViewPanel.TabIndex = 1;
             this.studentsViewPanel.Visible = false;
             //
-            // dgvStudents
-            //
-            this.dgvStudents.AllowUserToAddRows = false;
-            this.dgvStudents.AllowUserToDeleteRows = false;
-            this.dgvStudents.AlternatingRowsDefaultCellStyle.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(242)))), ((int)(((byte)(244)))), ((int)(((byte)(244)))));
-            this.dgvStudents.BackgroundColor = System.Drawing.Color.White;
-            this.dgvStudents.BorderStyle = System.Windows.Forms.BorderStyle.None;
-            this.dgvStudents.ColumnHeadersDefaultCellStyle.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(44)))), ((int)(((byte)(62)))), ((int)(((byte)(80)))));
-            this.dgvStudents.ColumnHeadersDefaultCellStyle.Font = new System.Drawing.Font("Segoe UI", 10F, System.Drawing.FontStyle.Bold);
-            this.dgvStudents.ColumnHeadersDefaultCellStyle.ForeColor = System.Drawing.Color.White;
-            this.dgvStudents.DefaultCellStyle.SelectionBackColor = System.Drawing.Color.FromArgb(((int)(((byte)(52)))), ((int)(((byte)(152)))), ((int)(((byte)(219)))));
-            this.dgvStudents.DefaultCellStyle.SelectionForeColor = System.Drawing.Color.White;
-            this.dgvStudents.EnableHeadersVisualStyles = false;
-            this.dgvStudents.Location = new System.Drawing.Point(20, 80);
-            this.dgvStudents.Name = "dgvStudents";
-            this.dgvStudents.ReadOnly = true;
-            this.dgvStudents.RowHeadersVisible = false;
-            this.dgvStudents.Size = new System.Drawing.Size(780, 500);
-            this.dgvStudents.TabIndex = 1;
-            //
-            // lblStudentsTitle
-            //
-            this.lblStudentsTitle.AutoSize = true;
-            this.lblStudentsTitle.Font = new System.Drawing.Font("Segoe UI", 16F, System.Drawing.FontStyle.Bold);
-            this.lblStudentsTitle.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(44)))), ((int)(((byte)(62)))), ((int)(((byte)(80)))));
-            this.lblStudentsTitle.Location = new System.Drawing.Point(20, 20);
-            this.lblStudentsTitle.Name = "lblStudentsTitle";
-            this.lblStudentsTitle.Size = new System.Drawing.Size(155, 37);
-            this.lblStudentsTitle.TabIndex = 0;
-            this.lblStudentsTitle.Text = "قائمة الطلاب";
-            //
             // financialsViewPanel
             //
             this.financialsViewPanel.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(248)))), ((int)(((byte)(249)))), ((int)(((byte)(250)))));
-            this.financialsViewPanel.Controls.Add(this.dgvFinancials);
-            this.financialsViewPanel.Controls.Add(this.lblFinancialsTitle);
+            this.financialsViewPanel.Controls.Add(this.uFinancialsView);
             this.financialsViewPanel.Dock = System.Windows.Forms.DockStyle.Fill;
             this.financialsViewPanel.Location = new System.Drawing.Point(0, 0);
             this.financialsViewPanel.Name = "financialsViewPanel";
             this.financialsViewPanel.Size = new System.Drawing.Size(860, 700);
             this.financialsViewPanel.TabIndex = 2;
             this.financialsViewPanel.Visible = false;
-            //
-            // dgvFinancials
-            //
-            this.dgvFinancials.AllowUserToAddRows = false;
-            this.dgvFinancials.AllowUserToDeleteRows = false;
-            this.dgvFinancials.AlternatingRowsDefaultCellStyle.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(242)))), ((int)(((byte)(244)))), ((int)(((byte)(244)))));
-            this.dgvFinancials.BackgroundColor = System.Drawing.Color.White;
-            this.dgvFinancials.BorderStyle = System.Windows.Forms.BorderStyle.None;
-            this.dgvFinancials.ColumnHeadersDefaultCellStyle.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(44)))), ((int)(((byte)(62)))), ((int)(((byte)(80)))));
-            this.dgvFinancials.ColumnHeadersDefaultCellStyle.Font = new System.Drawing.Font("Segoe UI", 10F, System.Drawing.FontStyle.Bold);
-            this.dgvFinancials.ColumnHeadersDefaultCellStyle.ForeColor = System.Drawing.Color.White;
-            this.dgvFinancials.DefaultCellStyle.SelectionBackColor = System.Drawing.Color.FromArgb(((int)(((byte)(52)))), ((int)(((byte)(152)))), ((int)(((byte)(219)))));
-            this.dgvFinancials.DefaultCellStyle.SelectionForeColor = System.Drawing.Color.White;
-            this.dgvFinancials.EnableHeadersVisualStyles = false;
-            this.dgvFinancials.Location = new System.Drawing.Point(20, 80);
-            this.dgvFinancials.Name = "dgvFinancials";
-            this.dgvFinancials.ReadOnly = true;
-            this.dgvFinancials.RowHeadersVisible = false;
-            this.dgvFinancials.Size = new System.Drawing.Size(780, 500);
-            this.dgvFinancials.TabIndex = 1;
-            //
-            // lblFinancialsTitle
-            //
-            this.lblFinancialsTitle.AutoSize = true;
-            this.lblFinancialsTitle.Font = new System.Drawing.Font("Segoe UI", 16F, System.Drawing.FontStyle.Bold);
-            this.lblFinancialsTitle.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(44)))), ((int)(((byte)(62)))), ((int)(((byte)(80)))));
-            this.lblFinancialsTitle.Location = new System.Drawing.Point(20, 20);
-            this.lblFinancialsTitle.Name = "lblFinancialsTitle";
-            this.lblFinancialsTitle.Size = new System.Drawing.Size(161, 37);
-            this.lblFinancialsTitle.TabIndex = 0;
-            this.lblFinancialsTitle.Text = "الحركة المالية";
             //
             // Form1
             // 
@@ -486,11 +418,7 @@ namespace SchoolCenter
             this.cardStudents.ResumeLayout(false);
             this.cardStudents.PerformLayout();
             this.studentsViewPanel.ResumeLayout(false);
-            this.studentsViewPanel.PerformLayout();
-            ((System.ComponentModel.ISupportInitialize)(this.dgvStudents)).EndInit();
             this.financialsViewPanel.ResumeLayout(false);
-            this.financialsViewPanel.PerformLayout();
-            ((System.ComponentModel.ISupportInitialize)(this.dgvFinancials)).EndInit();
             this.ResumeLayout(false);
 
         }
@@ -522,10 +450,8 @@ namespace SchoolCenter
         private System.Windows.Forms.Panel pnlWarning;
         private System.Windows.Forms.Label lblWarningText;
         private System.Windows.Forms.Panel studentsViewPanel;
-        private System.Windows.Forms.Label lblStudentsTitle;
-        private System.Windows.Forms.DataGridView dgvStudents;
         private System.Windows.Forms.Panel financialsViewPanel;
-        private System.Windows.Forms.Label lblFinancialsTitle;
-        private System.Windows.Forms.DataGridView dgvFinancials;
+        private SchoolCenter.StudentsView uStudentsView;
+        private SchoolCenter.FinancialsView uFinancialsView;
     }
 }
