@@ -48,6 +48,12 @@
   <ItemGroup>
     <Compile Include="DbConnectionManager.cs" />
     <Compile Include="FinancialService.cs" />
+    <Compile Include="StudentsView.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Include="FinancialsView.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
     <Compile Include="Form1.cs">
       <SubType>Form</SubType>
     </Compile>

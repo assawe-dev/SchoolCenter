@@ -33,6 +33,19 @@ namespace SchoolCenter
                 // Verify or create the external DB configuration file.
                 string connectionString = DbConnectionManager.GetConnectionString();
 
+                // Initialize Database and Tables if they don't exist
+                DbConnectionManager.InitializeDatabase();
+
+                // Wire up data saved event handlers
+                uStudentsView.DataSaved += (s, ev) => {
+                    LoadDashboardData();
+                    uFinancialsView.LoadStudentsList();
+                };
+                uFinancialsView.DataSaved += (s, ev) => {
+                    LoadDashboardData();
+                    uStudentsView.LoadStudents();
+                };
+
                 // Initialize the Home View as the active view
                 SetActiveButton(btnHome);
                 ShowPanel(homeViewPanel);
@@ -120,12 +133,15 @@ namespace SchoolCenter
         {
             SetActiveButton(btnStudents);
             ShowPanel(studentsViewPanel);
+            uStudentsView.LoadStudents();
         }
 
         private void BtnFinancials_Click(object sender, EventArgs e)
         {
             SetActiveButton(btnFinancials);
             ShowPanel(financialsViewPanel);
+            uFinancialsView.LoadStudentsList();
+            uFinancialsView.LoadTransactions();
         }
 
         private void BtnSettings_Click(object sender, EventArgs e)

@@ -10,6 +10,83 @@ namespace SchoolCenter
         private static string _connectionString = null;
 
         /// <summary>
+        /// تهيئة قاعدة البيانات وإنشاء الجداول إذا لم تكن موجودة مع إدخال بيانات افتراضية للدورات
+        /// </summary>
+        public static void InitializeDatabase()
+        {
+            string connectionString = GetConnectionString();
+            using (SqlConnection connection = new SqlConnection(connectionString))
+            {
+                connection.Open();
+
+                // 1. إنشاء جدول الدورات
+                string createCoursesTable = @"
+                    IF NOT EXISTS (SELECT * FROM sys.tables WHERE name = 'Courses')
+                    BEGIN
+                        CREATE TABLE Courses (
+                            CourseID INT IDENTITY(1,1) PRIMARY KEY,
+                            CourseName NVARCHAR(100) NOT NULL,
+                            CourseFees DECIMAL(18, 2) NOT NULL
+                        );
+                    END";
+                using (SqlCommand cmd = new SqlCommand(createCoursesTable, connection))
+                {
+                    cmd.ExecuteNonQuery();
+                }
+
+                // 2. إنشاء جدول الطلاب
+                string createStudentsTable = @"
+                    IF NOT EXISTS (SELECT * FROM sys.tables WHERE name = 'Students')
+                    BEGIN
+                        CREATE TABLE Students (
+                            StudentID INT IDENTITY(1,1) PRIMARY KEY,
+                            FullName NVARCHAR(100) NOT NULL,
+                            Phone NVARCHAR(50) NOT NULL,
+                            CourseID INT NOT NULL FOREIGN KEY REFERENCES Courses(CourseID),
+                            RegistrationDate DATETIME NOT NULL
+                        );
+                    END";
+                using (SqlCommand cmd = new SqlCommand(createStudentsTable, connection))
+                {
+                    cmd.ExecuteNonQuery();
+                }
+
+                // 3. إنشاء جدول المعاملات المالية
+                string createTransactionsTable = @"
+                    IF NOT EXISTS (SELECT * FROM sys.tables WHERE name = 'FinancialTransactions')
+                    BEGIN
+                        CREATE TABLE FinancialTransactions (
+                            TransactionID INT IDENTITY(1,1) PRIMARY KEY,
+                            StudentID INT NOT NULL FOREIGN KEY REFERENCES Students(StudentID) ON DELETE CASCADE,
+                            Amount DECIMAL(18, 2) NOT NULL,
+                            TransactionDate DATETIME NOT NULL,
+                            Notes NVARCHAR(250) NULL
+                        );
+                    END";
+                using (SqlCommand cmd = new SqlCommand(createTransactionsTable, connection))
+                {
+                    cmd.ExecuteNonQuery();
+                }
+
+                // 4. إدخال دورات افتراضية إذا كان الجدول فارغاً
+                string seedCourses = @"
+                    IF NOT EXISTS (SELECT * FROM Courses)
+                    BEGIN
+                        INSERT INTO Courses (CourseName, CourseFees) VALUES
+                        (N'لغة إنجليزية - مستوى مبتدئ', 150.00),
+                        (N'لغة إنجليزية - مستوى متوسط', 200.00),
+                        (N'برمجة وتطوير تطبيقات سطح المكتب', 350.00),
+                        (N'أساسيات شبكات الحاسوب', 250.00),
+                        (N'التصميم الجرافيكي والملتيميديا', 300.00);
+                    END";
+                using (SqlCommand cmd = new SqlCommand(seedCourses, connection))
+                {
+                    cmd.ExecuteNonQuery();
+                }
+            }
+        }
+
+        /// <summary>
         /// جلب نص الاتصال بقاعدة البيانات من الملف الخارجي db_config.txt
         /// </summary>
         public static string GetConnectionString()
