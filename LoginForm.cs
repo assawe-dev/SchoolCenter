@@ -127,5 +127,19 @@ namespace SchoolCenter
                 e.SuppressKeyPress = true;
             }
         }
+
+        private void BtnTogglePassword_Click(object sender, EventArgs e)
+        {
+            if (txtPassword.UseSystemPasswordChar)
+            {
+                txtPassword.UseSystemPasswordChar = false;
+                btnTogglePassword.Text = "🙈";
+            }
+            else
+            {
+                txtPassword.UseSystemPasswordChar = true;
+                btnTogglePassword.Text = "👁️";
+            }
+        }
     }
 }
