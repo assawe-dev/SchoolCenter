@@ -65,7 +65,7 @@ namespace SchoolCenter
             this.Controls.Add(this.pnlGrid);
             this.Controls.Add(this.pnlInput);
             this.Dock = DockStyle.Fill;
-            this.Font = new Font("Segoe UI", 10F);
+            this.Font = new Font("Cairo", 10F);
             this.Name = "StudentDuesView";
             this.RightToLeft = RightToLeft.Yes;
             this.Size = new Size(820, 600);
@@ -95,8 +95,8 @@ namespace SchoolCenter
             // lblStudent
             //
             this.lblStudent.AutoSize = true;
-            this.lblStudent.Font = new Font("Segoe UI", 10F, FontStyle.Bold);
-            this.lblStudent.ForeColor = Color.FromArgb(44, 62, 80);
+            this.lblStudent.Font = new Font("Cairo", 10F, FontStyle.Bold);
+            this.lblStudent.ForeColor = Color.FromArgb(15, 23, 42);
             this.lblStudent.Location = new Point(650, 18);
             this.lblStudent.Name = "lblStudent";
             this.lblStudent.Size = new Size(110, 23);
@@ -115,8 +115,8 @@ namespace SchoolCenter
             // lblCourse
             //
             this.lblCourse.AutoSize = true;
-            this.lblCourse.Font = new Font("Segoe UI", 10F, FontStyle.Bold);
-            this.lblCourse.ForeColor = Color.FromArgb(44, 62, 80);
+            this.lblCourse.Font = new Font("Cairo", 10F, FontStyle.Bold);
+            this.lblCourse.ForeColor = Color.FromArgb(15, 23, 42);
             this.lblCourse.Location = new Point(650, 58);
             this.lblCourse.Name = "lblCourse";
             this.lblCourse.Size = new Size(110, 23);
@@ -136,8 +136,8 @@ namespace SchoolCenter
             // lblDueAmount
             //
             this.lblDueAmount.AutoSize = true;
-            this.lblDueAmount.Font = new Font("Segoe UI", 10F, FontStyle.Bold);
-            this.lblDueAmount.ForeColor = Color.FromArgb(44, 62, 80);
+            this.lblDueAmount.Font = new Font("Cairo", 10F, FontStyle.Bold);
+            this.lblDueAmount.ForeColor = Color.FromArgb(15, 23, 42);
             this.lblDueAmount.Location = new Point(650, 98);
             this.lblDueAmount.Name = "lblDueAmount";
             this.lblDueAmount.Size = new Size(110, 23);
@@ -155,8 +155,8 @@ namespace SchoolCenter
             // lblNotes
             //
             this.lblNotes.AutoSize = true;
-            this.lblNotes.Font = new Font("Segoe UI", 10F, FontStyle.Bold);
-            this.lblNotes.ForeColor = Color.FromArgb(44, 62, 80);
+            this.lblNotes.Font = new Font("Cairo", 10F, FontStyle.Bold);
+            this.lblNotes.ForeColor = Color.FromArgb(15, 23, 42);
             this.lblNotes.Location = new Point(650, 138);
             this.lblNotes.Name = "lblNotes";
             this.lblNotes.Size = new Size(110, 23);
@@ -172,11 +172,11 @@ namespace SchoolCenter
             //
             // btnSave
             //
-            this.btnSave.BackColor = Color.FromArgb(52, 152, 219); // Modern Action Blue
+            this.btnSave.BackColor = Color.FromArgb(37, 99, 235); // Accent Blue #2563EB
             this.btnSave.Cursor = Cursors.Hand;
             this.btnSave.FlatAppearance.BorderSize = 0;
             this.btnSave.FlatStyle = FlatStyle.Flat;
-            this.btnSave.Font = new Font("Segoe UI", 10F, FontStyle.Bold);
+            this.btnSave.Font = new Font("Cairo", 10F, FontStyle.Bold);
             this.btnSave.ForeColor = Color.White;
             this.btnSave.Location = new Point(410, 185);
             this.btnSave.Name = "btnSave";
@@ -188,11 +188,11 @@ namespace SchoolCenter
             //
             // btnClear
             //
-            this.btnClear.BackColor = Color.FromArgb(127, 140, 141); // Gray
+            this.btnClear.BackColor = Color.FromArgb(100, 116, 139); // Gray #64748B
             this.btnClear.Cursor = Cursors.Hand;
             this.btnClear.FlatAppearance.BorderSize = 0;
             this.btnClear.FlatStyle = FlatStyle.Flat;
-            this.btnClear.Font = new Font("Segoe UI", 10F, FontStyle.Bold);
+            this.btnClear.Font = new Font("Cairo", 10F, FontStyle.Bold);
             this.btnClear.ForeColor = Color.White;
             this.btnClear.Location = new Point(230, 185);
             this.btnClear.Name = "btnClear";

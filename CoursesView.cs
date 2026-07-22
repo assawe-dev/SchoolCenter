@@ -69,7 +69,7 @@ namespace SchoolCenter
             this.Controls.Add(this.pnlSearch);
             this.Controls.Add(this.pnlInput);
             this.Dock = DockStyle.Fill;
-            this.Font = new Font("Segoe UI", 10F);
+            this.Font = new Font("Cairo", 10F);
             this.Name = "CoursesView";
             this.RightToLeft = RightToLeft.Yes;
             this.Size = new Size(820, 600);
@@ -97,8 +97,8 @@ namespace SchoolCenter
             // lblCourseName
             //
             this.lblCourseName.AutoSize = true;
-            this.lblCourseName.Font = new Font("Segoe UI", 10F, FontStyle.Bold);
-            this.lblCourseName.ForeColor = Color.FromArgb(44, 62, 80);
+            this.lblCourseName.Font = new Font("Cairo", 10F, FontStyle.Bold);
+            this.lblCourseName.ForeColor = Color.FromArgb(15, 23, 42);
             this.lblCourseName.Location = new Point(650, 25);
             this.lblCourseName.Name = "lblCourseName";
             this.lblCourseName.Size = new Size(110, 23);
@@ -115,8 +115,8 @@ namespace SchoolCenter
             // lblCourseCost
             //
             this.lblCourseCost.AutoSize = true;
-            this.lblCourseCost.Font = new Font("Segoe UI", 10F, FontStyle.Bold);
-            this.lblCourseCost.ForeColor = Color.FromArgb(44, 62, 80);
+            this.lblCourseCost.Font = new Font("Cairo", 10F, FontStyle.Bold);
+            this.lblCourseCost.ForeColor = Color.FromArgb(15, 23, 42);
             this.lblCourseCost.Location = new Point(240, 25);
             this.lblCourseCost.Name = "lblCourseCost";
             this.lblCourseCost.Size = new Size(115, 23);
@@ -132,11 +132,11 @@ namespace SchoolCenter
             //
             // btnAdd
             //
-            this.btnAdd.BackColor = Color.FromArgb(52, 152, 219); // Modern Action Blue
+            this.btnAdd.BackColor = Color.FromArgb(37, 99, 235); // Accent Blue #2563EB
             this.btnAdd.Cursor = Cursors.Hand;
             this.btnAdd.FlatAppearance.BorderSize = 0;
             this.btnAdd.FlatStyle = FlatStyle.Flat;
-            this.btnAdd.Font = new Font("Segoe UI", 10F, FontStyle.Bold);
+            this.btnAdd.Font = new Font("Cairo", 10F, FontStyle.Bold);
             this.btnAdd.ForeColor = Color.White;
             this.btnAdd.Location = new Point(520, 85);
             this.btnAdd.Name = "btnAdd";
@@ -148,11 +148,11 @@ namespace SchoolCenter
             //
             // btnUpdate
             //
-            this.btnUpdate.BackColor = Color.FromArgb(46, 204, 113); // Soft Success Green
+            this.btnUpdate.BackColor = Color.FromArgb(16, 185, 129); // Success green #10B981
             this.btnUpdate.Cursor = Cursors.Hand;
             this.btnUpdate.FlatAppearance.BorderSize = 0;
             this.btnUpdate.FlatStyle = FlatStyle.Flat;
-            this.btnUpdate.Font = new Font("Segoe UI", 10F, FontStyle.Bold);
+            this.btnUpdate.Font = new Font("Cairo", 10F, FontStyle.Bold);
             this.btnUpdate.ForeColor = Color.White;
             this.btnUpdate.Location = new Point(390, 85);
             this.btnUpdate.Name = "btnUpdate";
@@ -164,11 +164,11 @@ namespace SchoolCenter
             //
             // btnDelete
             //
-            this.btnDelete.BackColor = Color.FromArgb(231, 76, 60); // Soft Danger Red
+            this.btnDelete.BackColor = Color.FromArgb(239, 68, 68); // Soft danger red #EF4444
             this.btnDelete.Cursor = Cursors.Hand;
             this.btnDelete.FlatAppearance.BorderSize = 0;
             this.btnDelete.FlatStyle = FlatStyle.Flat;
-            this.btnDelete.Font = new Font("Segoe UI", 10F, FontStyle.Bold);
+            this.btnDelete.Font = new Font("Cairo", 10F, FontStyle.Bold);
             this.btnDelete.ForeColor = Color.White;
             this.btnDelete.Location = new Point(260, 85);
             this.btnDelete.Name = "btnDelete";
@@ -180,11 +180,11 @@ namespace SchoolCenter
             //
             // btnClear
             //
-            this.btnClear.BackColor = Color.FromArgb(127, 140, 141); // Gray
+            this.btnClear.BackColor = Color.FromArgb(100, 116, 139); // Muted gray #64748B
             this.btnClear.Cursor = Cursors.Hand;
             this.btnClear.FlatAppearance.BorderSize = 0;
             this.btnClear.FlatStyle = FlatStyle.Flat;
-            this.btnClear.Font = new Font("Segoe UI", 10F, FontStyle.Bold);
+            this.btnClear.Font = new Font("Cairo", 10F, FontStyle.Bold);
             this.btnClear.ForeColor = Color.White;
             this.btnClear.Location = new Point(130, 85);
             this.btnClear.Name = "btnClear";
@@ -211,8 +211,8 @@ namespace SchoolCenter
             //
             this.lblSearch.Anchor = ((AnchorStyles)((AnchorStyles.Top | AnchorStyles.Right)));
             this.lblSearch.AutoSize = true;
-            this.lblSearch.Font = new Font("Segoe UI", 10F, FontStyle.Bold);
-            this.lblSearch.ForeColor = Color.FromArgb(44, 62, 80);
+            this.lblSearch.Font = new Font("Cairo", 10F, FontStyle.Bold);
+            this.lblSearch.ForeColor = Color.FromArgb(15, 23, 42);
             this.lblSearch.Location = new Point(620, 13);
             this.lblSearch.Name = "lblSearch";
             this.lblSearch.Size = new Size(140, 23);

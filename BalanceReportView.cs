@@ -67,7 +67,7 @@ namespace SchoolCenter
             this.Controls.Add(this.pnlSearch);
             this.Controls.Add(this.pnlHeader);
             this.Dock = DockStyle.Fill;
-            this.Font = new Font("Segoe UI", 10F);
+            this.Font = new Font("Cairo", 10F);
             this.Name = "BalanceReportView";
             this.RightToLeft = RightToLeft.Yes;
             this.Size = new Size(820, 600);
@@ -90,8 +90,8 @@ namespace SchoolCenter
             //
             this.lblTitle.Anchor = ((AnchorStyles)((AnchorStyles.Top | AnchorStyles.Right)));
             this.lblTitle.AutoSize = true;
-            this.lblTitle.Font = new Font("Segoe UI", 13F, FontStyle.Bold);
-            this.lblTitle.ForeColor = Color.FromArgb(44, 62, 80);
+            this.lblTitle.Font = new Font("Cairo", 13F, FontStyle.Bold);
+            this.lblTitle.ForeColor = Color.FromArgb(15, 23, 42);
             this.lblTitle.Location = new Point(500, 18);
             this.lblTitle.Name = "lblTitle";
             this.lblTitle.Size = new Size(250, 30);
@@ -100,11 +100,11 @@ namespace SchoolCenter
             //
             // btnExport
             //
-            this.btnExport.BackColor = Color.FromArgb(46, 204, 113); // Success Green
+            this.btnExport.BackColor = Color.FromArgb(16, 185, 129); // Modern Green #10B981
             this.btnExport.Cursor = Cursors.Hand;
             this.btnExport.FlatAppearance.BorderSize = 0;
             this.btnExport.FlatStyle = FlatStyle.Flat;
-            this.btnExport.Font = new Font("Segoe UI", 10F, FontStyle.Bold);
+            this.btnExport.Font = new Font("Cairo", 10F, FontStyle.Bold);
             this.btnExport.ForeColor = Color.White;
             this.btnExport.Location = new Point(20, 13);
             this.btnExport.Name = "btnExport";
@@ -118,7 +118,7 @@ namespace SchoolCenter
             //
             this.pnlSummary.Anchor = ((AnchorStyles)(((AnchorStyles.Bottom | AnchorStyles.Left)
             | AnchorStyles.Right)));
-            this.pnlSummary.BackColor = Color.FromArgb(231, 76, 60); // Danger/Warning Color
+            this.pnlSummary.BackColor = Color.FromArgb(239, 68, 68); // Soft Red #EF4444
             this.pnlSummary.Controls.Add(this.lblTotalDebtValue);
             this.pnlSummary.Controls.Add(this.lblTotalDebtTitle);
             this.pnlSummary.Location = new Point(20, 505);
@@ -131,7 +131,7 @@ namespace SchoolCenter
             //
             this.lblTotalDebtTitle.Anchor = ((AnchorStyles)((AnchorStyles.Top | AnchorStyles.Right)));
             this.lblTotalDebtTitle.AutoSize = true;
-            this.lblTotalDebtTitle.Font = new Font("Segoe UI", 13F, FontStyle.Bold);
+            this.lblTotalDebtTitle.Font = new Font("Cairo", 13F, FontStyle.Bold);
             this.lblTotalDebtTitle.ForeColor = Color.White;
             this.lblTotalDebtTitle.Location = new Point(500, 22);
             this.lblTotalDebtTitle.Name = "lblTotalDebtTitle";
@@ -141,7 +141,7 @@ namespace SchoolCenter
             //
             // lblTotalDebtValue
             //
-            this.lblTotalDebtValue.Font = new Font("Segoe UI", 18F, FontStyle.Bold);
+            this.lblTotalDebtValue.Font = new Font("Cairo", 18F, FontStyle.Bold);
             this.lblTotalDebtValue.ForeColor = Color.White;
             this.lblTotalDebtValue.Location = new Point(20, 15);
             this.lblTotalDebtValue.Name = "lblTotalDebtValue";
@@ -167,8 +167,8 @@ namespace SchoolCenter
             //
             this.lblSearch.Anchor = ((AnchorStyles)((AnchorStyles.Top | AnchorStyles.Right)));
             this.lblSearch.AutoSize = true;
-            this.lblSearch.Font = new Font("Segoe UI", 10F, FontStyle.Bold);
-            this.lblSearch.ForeColor = Color.FromArgb(44, 62, 80);
+            this.lblSearch.Font = new Font("Cairo", 10F, FontStyle.Bold);
+            this.lblSearch.ForeColor = Color.FromArgb(15, 23, 42);
             this.lblSearch.Location = new Point(540, 13);
             this.lblSearch.Name = "lblSearch";
             this.lblSearch.Size = new Size(220, 23);

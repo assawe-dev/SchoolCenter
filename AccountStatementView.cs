@@ -92,7 +92,7 @@ namespace SchoolCenter
             this.Controls.Add(this.pnlFooter);
             this.Controls.Add(this.pnlInput);
             this.Dock = DockStyle.Fill;
-            this.Font = new Font("Segoe UI", 10F);
+            this.Font = new Font("Cairo", 10F);
             this.Name = "AccountStatementView";
             this.RightToLeft = RightToLeft.Yes;
             this.Size = new Size(820, 600);
@@ -108,6 +108,7 @@ namespace SchoolCenter
             this.pnlInput.Controls.Add(this.lblToDate);
             this.pnlInput.Controls.Add(this.dtpFromDate);
             this.pnlInput.Controls.Add(this.lblFromDate);
+            this.cmbStudents.Font = new Font("Cairo", 10F);
             this.pnlInput.Controls.Add(this.cmbStudents);
             this.pnlInput.Controls.Add(this.lblStudent);
             this.pnlInput.Location = new Point(20, 20);
@@ -119,7 +120,7 @@ namespace SchoolCenter
             // lblStudent
             //
             this.lblStudent.AutoSize = true;
-            this.lblStudent.Font = new Font("Segoe UI", 10F, FontStyle.Bold);
+            this.lblStudent.Font = new Font("Cairo", 10F, FontStyle.Bold);
             this.lblStudent.ForeColor = Color.FromArgb(15, 23, 42);
             this.lblStudent.Location = new Point(680, 20);
             this.lblStudent.Name = "lblStudent";
@@ -143,7 +144,7 @@ namespace SchoolCenter
             // lblFromDate
             //
             this.lblFromDate.AutoSize = true;
-            this.lblFromDate.Font = new Font("Segoe UI", 9.5F, FontStyle.Bold);
+            this.lblFromDate.Font = new Font("Cairo", 9.5F, FontStyle.Bold);
             this.lblFromDate.ForeColor = Color.FromArgb(100, 116, 139);
             this.lblFromDate.Location = new Point(310, 20);
             this.lblFromDate.Name = "lblFromDate";
@@ -164,7 +165,7 @@ namespace SchoolCenter
             // lblToDate
             //
             this.lblToDate.AutoSize = true;
-            this.lblToDate.Font = new Font("Segoe UI", 9.5F, FontStyle.Bold);
+            this.lblToDate.Font = new Font("Cairo", 9.5F, FontStyle.Bold);
             this.lblToDate.ForeColor = Color.FromArgb(100, 116, 139);
             this.lblToDate.Location = new Point(310, 65);
             this.lblToDate.Name = "lblToDate";
@@ -188,7 +189,7 @@ namespace SchoolCenter
             this.btnFilter.Cursor = Cursors.Hand;
             this.btnFilter.FlatAppearance.BorderSize = 0;
             this.btnFilter.FlatStyle = FlatStyle.Flat;
-            this.btnFilter.Font = new Font("Segoe UI", 10F, FontStyle.Bold);
+            this.btnFilter.Font = new Font("Cairo", 10F, FontStyle.Bold);
             this.btnFilter.ForeColor = Color.White;
             this.btnFilter.Location = new Point(410, 61);
             this.btnFilter.Name = "btnFilter";
@@ -205,7 +206,7 @@ namespace SchoolCenter
             this.btnPrintExport.Cursor = Cursors.Hand;
             this.btnPrintExport.FlatAppearance.BorderSize = 0;
             this.btnPrintExport.FlatStyle = FlatStyle.Flat;
-            this.btnPrintExport.Font = new Font("Segoe UI", 10F, FontStyle.Bold);
+            this.btnPrintExport.Font = new Font("Cairo", 10F, FontStyle.Bold);
             this.btnPrintExport.ForeColor = Color.White;
             this.btnPrintExport.Location = new Point(540, 61);
             this.btnPrintExport.Name = "btnPrintExport";
