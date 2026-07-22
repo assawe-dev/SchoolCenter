@@ -81,7 +81,7 @@ namespace SchoolCenter
             this.Controls.Add(this.pnlSearch);
             this.Controls.Add(this.pnlInput);
             this.Dock = DockStyle.Fill;
-            this.Font = new Font("Segoe UI", 10F);
+            this.Font = new Font("Cairo", 10F);
             this.Name = "PaymentsView";
             this.RightToLeft = RightToLeft.Yes;
             this.Size = new Size(820, 600);
@@ -112,8 +112,8 @@ namespace SchoolCenter
             // lblStudent
             //
             this.lblStudent.AutoSize = true;
-            this.lblStudent.Font = new Font("Segoe UI", 10F, FontStyle.Bold);
-            this.lblStudent.ForeColor = Color.FromArgb(44, 62, 80);
+            this.lblStudent.Font = new Font("Cairo", 10F, FontStyle.Bold);
+            this.lblStudent.ForeColor = Color.FromArgb(15, 23, 42);
             this.lblStudent.Location = new Point(680, 20);
             this.lblStudent.Name = "lblStudent";
             this.lblStudent.Size = new Size(82, 23);
@@ -137,7 +137,7 @@ namespace SchoolCenter
             //
             // lblCurrentBalance
             //
-            this.lblCurrentBalance.Font = new Font("Segoe UI", 9.5F, FontStyle.Bold);
+            this.lblCurrentBalance.Font = new Font("Cairo", 9.5F, FontStyle.Bold);
             this.lblCurrentBalance.ForeColor = Color.FromArgb(100, 116, 139);
             this.lblCurrentBalance.Location = new Point(560, 110);
             this.lblCurrentBalance.Name = "lblCurrentBalance";
@@ -149,8 +149,8 @@ namespace SchoolCenter
             // lblAmount
             //
             this.lblAmount.AutoSize = true;
-            this.lblAmount.Font = new Font("Segoe UI", 10F, FontStyle.Bold);
-            this.lblAmount.ForeColor = Color.FromArgb(44, 62, 80);
+            this.lblAmount.Font = new Font("Cairo", 10F, FontStyle.Bold);
+            this.lblAmount.ForeColor = Color.FromArgb(15, 23, 42);
             this.lblAmount.Location = new Point(310, 20);
             this.lblAmount.Name = "lblAmount";
             this.lblAmount.Size = new Size(94, 23);
@@ -168,8 +168,8 @@ namespace SchoolCenter
             // lblDate
             //
             this.lblDate.AutoSize = true;
-            this.lblDate.Font = new Font("Segoe UI", 10F, FontStyle.Bold);
-            this.lblDate.ForeColor = Color.FromArgb(44, 62, 80);
+            this.lblDate.Font = new Font("Cairo", 10F, FontStyle.Bold);
+            this.lblDate.ForeColor = Color.FromArgb(15, 23, 42);
             this.lblDate.Location = new Point(680, 65);
             this.lblDate.Name = "lblDate";
             this.lblDate.Size = new Size(93, 23);
@@ -189,8 +189,8 @@ namespace SchoolCenter
             // lblNotes
             //
             this.lblNotes.AutoSize = true;
-            this.lblNotes.Font = new Font("Segoe UI", 10F, FontStyle.Bold);
-            this.lblNotes.ForeColor = Color.FromArgb(44, 62, 80);
+            this.lblNotes.Font = new Font("Cairo", 10F, FontStyle.Bold);
+            this.lblNotes.ForeColor = Color.FromArgb(15, 23, 42);
             this.lblNotes.Location = new Point(310, 65);
             this.lblNotes.Name = "lblNotes";
             this.lblNotes.Size = new Size(76, 23);
@@ -207,11 +207,11 @@ namespace SchoolCenter
             //
             // btnSave
             //
-            this.btnSave.BackColor = Color.FromArgb(46, 204, 113); // Soft Green for success/confirm
+            this.btnSave.BackColor = Color.FromArgb(16, 185, 129); // Modern Green #10B981
             this.btnSave.Cursor = Cursors.Hand;
             this.btnSave.FlatAppearance.BorderSize = 0;
             this.btnSave.FlatStyle = FlatStyle.Flat;
-            this.btnSave.Font = new Font("Segoe UI", 10F, FontStyle.Bold);
+            this.btnSave.Font = new Font("Cairo", 10F, FontStyle.Bold);
             this.btnSave.ForeColor = Color.White;
             this.btnSave.Location = new Point(410, 110);
             this.btnSave.Name = "btnSave";
@@ -224,11 +224,11 @@ namespace SchoolCenter
             //
             // btnPrint
             //
-            this.btnPrint.BackColor = Color.FromArgb(52, 152, 219); // Action Blue
+            this.btnPrint.BackColor = Color.FromArgb(37, 99, 235); // Accent Blue #2563EB
             this.btnPrint.Cursor = Cursors.Hand;
             this.btnPrint.FlatAppearance.BorderSize = 0;
             this.btnPrint.FlatStyle = FlatStyle.Flat;
-            this.btnPrint.Font = new Font("Segoe UI", 10F, FontStyle.Bold);
+            this.btnPrint.Font = new Font("Cairo", 10F, FontStyle.Bold);
             this.btnPrint.ForeColor = Color.White;
             this.btnPrint.Location = new Point(250, 110);
             this.btnPrint.Name = "btnPrint";
@@ -256,8 +256,8 @@ namespace SchoolCenter
             //
             this.lblSearch.Anchor = ((AnchorStyles)((AnchorStyles.Top | AnchorStyles.Right)));
             this.lblSearch.AutoSize = true;
-            this.lblSearch.Font = new Font("Segoe UI", 10F, FontStyle.Bold);
-            this.lblSearch.ForeColor = Color.FromArgb(44, 62, 80);
+            this.lblSearch.Font = new Font("Cairo", 10F, FontStyle.Bold);
+            this.lblSearch.ForeColor = Color.FromArgb(15, 23, 42);
             this.lblSearch.Location = new Point(540, 13);
             this.lblSearch.Name = "lblSearch";
             this.lblSearch.Size = new Size(220, 23);

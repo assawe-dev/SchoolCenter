@@ -93,7 +93,7 @@ namespace SchoolCenter
             this.Controls.Add(this.pnlSearch);
             this.Controls.Add(this.pnlInput);
             this.Dock = DockStyle.Fill;
-            this.Font = new Font("Segoe UI", 10F);
+            this.Font = new Font("Cairo", 10F);
             this.Name = "UsersView";
             this.RightToLeft = RightToLeft.Yes;
             this.Size = new Size(820, 600);
@@ -123,8 +123,8 @@ namespace SchoolCenter
             // lblUsername
             //
             this.lblUsername.AutoSize = true;
-            this.lblUsername.Font = new Font("Segoe UI", 10F, FontStyle.Bold);
-            this.lblUsername.ForeColor = Color.FromArgb(44, 62, 80);
+            this.lblUsername.Font = new Font("Cairo", 10F, FontStyle.Bold);
+            this.lblUsername.ForeColor = Color.FromArgb(15, 23, 42);
             this.lblUsername.Location = new Point(640, 20);
             this.lblUsername.Name = "lblUsername";
             this.lblUsername.Size = new Size(125, 23);
@@ -144,8 +144,8 @@ namespace SchoolCenter
             // lblPassword
             //
             this.lblPassword.AutoSize = true;
-            this.lblPassword.Font = new Font("Segoe UI", 10F, FontStyle.Bold);
-            this.lblPassword.ForeColor = Color.FromArgb(44, 62, 80);
+            this.lblPassword.Font = new Font("Cairo", 10F, FontStyle.Bold);
+            this.lblPassword.ForeColor = Color.FromArgb(15, 23, 42);
             this.lblPassword.Location = new Point(640, 65);
             this.lblPassword.Name = "lblPassword";
             this.lblPassword.Size = new Size(94, 23);
@@ -166,8 +166,8 @@ namespace SchoolCenter
             // lblRole
             //
             this.lblRole.AutoSize = true;
-            this.lblRole.Font = new Font("Segoe UI", 10F, FontStyle.Bold);
-            this.lblRole.ForeColor = Color.FromArgb(44, 62, 80);
+            this.lblRole.Font = new Font("Cairo", 10F, FontStyle.Bold);
+            this.lblRole.ForeColor = Color.FromArgb(15, 23, 42);
             this.lblRole.Location = new Point(640, 110);
             this.lblRole.Name = "lblRole";
             this.lblRole.Size = new Size(59, 23);
@@ -195,8 +195,8 @@ namespace SchoolCenter
             this.chkIsActive.AutoSize = true;
             this.chkIsActive.Checked = true;
             this.chkIsActive.CheckState = CheckState.Checked;
-            this.chkIsActive.Font = new Font("Segoe UI", 10F, FontStyle.Bold);
-            this.chkIsActive.ForeColor = Color.FromArgb(44, 62, 80);
+            this.chkIsActive.Font = new Font("Cairo", 10F, FontStyle.Bold);
+            this.chkIsActive.ForeColor = Color.FromArgb(15, 23, 42);
             this.chkIsActive.Location = new Point(553, 155);
             this.chkIsActive.Name = "chkIsActive";
             this.chkIsActive.Size = new Size(77, 27);
@@ -213,8 +213,8 @@ namespace SchoolCenter
             this.grpPermissions.Controls.Add(this.chkCanReceivePayments);
             this.grpPermissions.Controls.Add(this.chkCanViewReports);
             this.grpPermissions.Controls.Add(this.chkCanManageUsers);
-            this.grpPermissions.Font = new Font("Segoe UI", 9.5F, FontStyle.Bold);
-            this.grpPermissions.ForeColor = Color.FromArgb(44, 62, 80);
+            this.grpPermissions.Font = new Font("Cairo", 9.5F, FontStyle.Bold);
+            this.grpPermissions.ForeColor = Color.FromArgb(15, 23, 42);
             this.grpPermissions.Location = new Point(20, 10);
             this.grpPermissions.Name = "grpPermissions";
             this.grpPermissions.Size = new Size(370, 220);
@@ -228,7 +228,7 @@ namespace SchoolCenter
             this.chkCanManageStudents.AutoSize = true;
             this.chkCanManageStudents.Checked = true;
             this.chkCanManageStudents.CheckState = CheckState.Checked;
-            this.chkCanManageStudents.Font = new Font("Segoe UI", 9F);
+            this.chkCanManageStudents.Font = new Font("Cairo", 9F);
             this.chkCanManageStudents.Location = new Point(190, 35);
             this.chkCanManageStudents.Name = "chkCanManageStudents";
             this.chkCanManageStudents.Size = new Size(160, 24);
@@ -242,7 +242,7 @@ namespace SchoolCenter
             this.chkCanManageCourses.AutoSize = true;
             this.chkCanManageCourses.Checked = true;
             this.chkCanManageCourses.CheckState = CheckState.Checked;
-            this.chkCanManageCourses.Font = new Font("Segoe UI", 9F);
+            this.chkCanManageCourses.Font = new Font("Cairo", 9F);
             this.chkCanManageCourses.Location = new Point(190, 75);
             this.chkCanManageCourses.Name = "chkCanManageCourses";
             this.chkCanManageCourses.Size = new Size(160, 24);
@@ -256,7 +256,7 @@ namespace SchoolCenter
             this.chkCanAssignDues.AutoSize = true;
             this.chkCanAssignDues.Checked = true;
             this.chkCanAssignDues.CheckState = CheckState.Checked;
-            this.chkCanAssignDues.Font = new Font("Segoe UI", 9F);
+            this.chkCanAssignDues.Font = new Font("Cairo", 9F);
             this.chkCanAssignDues.Location = new Point(190, 115);
             this.chkCanAssignDues.Name = "chkCanAssignDues";
             this.chkCanAssignDues.Size = new Size(160, 24);
@@ -270,7 +270,7 @@ namespace SchoolCenter
             this.chkCanReceivePayments.AutoSize = true;
             this.chkCanReceivePayments.Checked = true;
             this.chkCanReceivePayments.CheckState = CheckState.Checked;
-            this.chkCanReceivePayments.Font = new Font("Segoe UI", 9F);
+            this.chkCanReceivePayments.Font = new Font("Cairo", 9F);
             this.chkCanReceivePayments.Location = new Point(15, 35);
             this.chkCanReceivePayments.Name = "chkCanReceivePayments";
             this.chkCanReceivePayments.Size = new Size(165, 24);
@@ -282,7 +282,7 @@ namespace SchoolCenter
             // chkCanViewReports
             //
             this.chkCanViewReports.AutoSize = true;
-            this.chkCanViewReports.Font = new Font("Segoe UI", 9F);
+            this.chkCanViewReports.Font = new Font("Cairo", 9F);
             this.chkCanViewReports.Location = new Point(15, 75);
             this.chkCanViewReports.Name = "chkCanViewReports";
             this.chkCanViewReports.Size = new Size(165, 24);
@@ -294,7 +294,7 @@ namespace SchoolCenter
             // chkCanManageUsers
             //
             this.chkCanManageUsers.AutoSize = true;
-            this.chkCanManageUsers.Font = new Font("Segoe UI", 9F);
+            this.chkCanManageUsers.Font = new Font("Cairo", 9F);
             this.chkCanManageUsers.Location = new Point(15, 115);
             this.chkCanManageUsers.Name = "chkCanManageUsers";
             this.chkCanManageUsers.Size = new Size(165, 24);
@@ -305,11 +305,11 @@ namespace SchoolCenter
             //
             // btnSave
             //
-            this.btnSave.BackColor = Color.FromArgb(52, 152, 219); // Modern Blue
+            this.btnSave.BackColor = Color.FromArgb(37, 99, 235); // Accent Blue #2563EB
             this.btnSave.Cursor = Cursors.Hand;
             this.btnSave.FlatAppearance.BorderSize = 0;
             this.btnSave.FlatStyle = FlatStyle.Flat;
-            this.btnSave.Font = new Font("Segoe UI", 10F, FontStyle.Bold);
+            this.btnSave.Font = new Font("Cairo", 10F, FontStyle.Bold);
             this.btnSave.ForeColor = Color.White;
             this.btnSave.Location = new Point(640, 195);
             this.btnSave.Name = "btnSave";
@@ -322,11 +322,11 @@ namespace SchoolCenter
             //
             // btnUpdate
             //
-            this.btnUpdate.BackColor = Color.FromArgb(46, 204, 113); // Soft Success Green
+            this.btnUpdate.BackColor = Color.FromArgb(16, 185, 129); // Modern Green #10B981
             this.btnUpdate.Cursor = Cursors.Hand;
             this.btnUpdate.FlatAppearance.BorderSize = 0;
             this.btnUpdate.FlatStyle = FlatStyle.Flat;
-            this.btnUpdate.Font = new Font("Segoe UI", 10F, FontStyle.Bold);
+            this.btnUpdate.Font = new Font("Cairo", 10F, FontStyle.Bold);
             this.btnUpdate.ForeColor = Color.White;
             this.btnUpdate.Location = new Point(510, 195);
             this.btnUpdate.Name = "btnUpdate";
@@ -339,11 +339,11 @@ namespace SchoolCenter
             //
             // btnClear
             //
-            this.btnClear.BackColor = Color.FromArgb(127, 140, 141); // Gray
+            this.btnClear.BackColor = Color.FromArgb(100, 116, 139); // Gray #64748B
             this.btnClear.Cursor = Cursors.Hand;
             this.btnClear.FlatAppearance.BorderSize = 0;
             this.btnClear.FlatStyle = FlatStyle.Flat;
-            this.btnClear.Font = new Font("Segoe UI", 10F, FontStyle.Bold);
+            this.btnClear.Font = new Font("Cairo", 10F, FontStyle.Bold);
             this.btnClear.ForeColor = Color.White;
             this.btnClear.Location = new Point(410, 195);
             this.btnClear.Name = "btnClear";
@@ -370,8 +370,8 @@ namespace SchoolCenter
             //
             this.lblSearch.Anchor = ((AnchorStyles)((AnchorStyles.Top | AnchorStyles.Right)));
             this.lblSearch.AutoSize = true;
-            this.lblSearch.Font = new Font("Segoe UI", 10F, FontStyle.Bold);
-            this.lblSearch.ForeColor = Color.FromArgb(44, 62, 80);
+            this.lblSearch.Font = new Font("Cairo", 10F, FontStyle.Bold);
+            this.lblSearch.ForeColor = Color.FromArgb(15, 23, 42);
             this.lblSearch.Location = new Point(620, 13);
             this.lblSearch.Name = "lblSearch";
             this.lblSearch.Size = new Size(140, 23);
