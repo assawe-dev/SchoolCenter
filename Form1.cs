@@ -33,6 +33,9 @@ namespace SchoolCenter
         {
             try
             {
+                // Set automatically maximized upon load
+                this.WindowState = FormWindowState.Maximized;
+
                 // Explicitly set Right-to-Left layout flow and docking
                 this.RightToLeftLayout = false;
                 sidebarPanel.Dock = DockStyle.Right;
