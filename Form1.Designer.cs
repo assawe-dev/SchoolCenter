@@ -106,6 +106,9 @@ namespace SchoolCenter
             this.accountStatementViewPanel = new System.Windows.Forms.Panel();
             this.uAccountStatementView = new SchoolCenter.AccountStatementView();
 
+            this.settingsViewPanel = new System.Windows.Forms.Panel();
+            this.uSettingsView = new SchoolCenter.SettingsView();
+
             this.uStudentsView = new SchoolCenter.StudentsView();
             this.uCoursesView = new SchoolCenter.CoursesView();
             this.uStudentDuesView = new SchoolCenter.StudentDuesView();
@@ -643,6 +646,7 @@ namespace SchoolCenter
             this.mainContentPanel.Controls.Add(this.paymentsViewPanel);
             this.mainContentPanel.Controls.Add(this.usersViewPanel);
             this.mainContentPanel.Controls.Add(this.accountStatementViewPanel);
+            this.mainContentPanel.Controls.Add(this.settingsViewPanel);
             this.mainContentPanel.Dock = System.Windows.Forms.DockStyle.Fill;
             this.mainContentPanel.Location = new System.Drawing.Point(0, 50);
             this.mainContentPanel.Name = "mainContentPanel";
@@ -1104,6 +1108,21 @@ namespace SchoolCenter
             //
             this.uAccountStatementView.Dock = System.Windows.Forms.DockStyle.Fill;
             //
+            // settingsViewPanel
+            //
+            this.settingsViewPanel.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(248)))), ((int)(((byte)(250)))), ((int)(((byte)(252)))));
+            this.settingsViewPanel.Controls.Add(this.uSettingsView);
+            this.settingsViewPanel.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.settingsViewPanel.Location = new System.Drawing.Point(0, 0);
+            this.settingsViewPanel.Name = "settingsViewPanel";
+            this.settingsViewPanel.Size = new System.Drawing.Size(860, 650);
+            this.settingsViewPanel.TabIndex = 8;
+            this.settingsViewPanel.Visible = false;
+            //
+            // uSettingsView
+            //
+            this.uSettingsView.Dock = System.Windows.Forms.DockStyle.Fill;
+            //
             // Form1
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(7F, 16F);
@@ -1227,6 +1246,9 @@ namespace SchoolCenter
         private System.Windows.Forms.Button btnAccountStatement;
         private System.Windows.Forms.Panel accountStatementViewPanel;
         private SchoolCenter.AccountStatementView uAccountStatementView;
+
+        private System.Windows.Forms.Panel settingsViewPanel;
+        private SchoolCenter.SettingsView uSettingsView;
 
         private SchoolCenter.StudentsView uStudentsView;
         private SchoolCenter.CoursesView uCoursesView;
