@@ -54,6 +54,11 @@ namespace SchoolCenter
                 sidebarPanel.Dock = DockStyle.Right;
                 mainContentPanel.Dock = DockStyle.Fill;
 
+                // Ensure warning panel is properly parented, docked, and z-ordered
+                pnlWarning.Parent = homeViewPanel;
+                pnlWarning.Dock = DockStyle.Top;
+                pnlWarning.BringToFront();
+
                 // Bind paint events to draw nice subtle borders
                 headerPanel.Paint += DrawHeaderBottomBorder;
                 cardStudents.Paint += DrawCardBorder;
@@ -176,6 +181,8 @@ namespace SchoolCenter
             {
                 // Display database load exceptions gracefully within the UI.
                 pnlWarning.Visible = true;
+                pnlWarning.Dock = DockStyle.Top;
+                pnlWarning.BringToFront();
                 lblWarningText.Text = "تنبيه: تعذر الاتصال بقاعدة البيانات. يرجى التحقق من ملف الإعدادات db_config.txt.\n" + ex.Message;
                 lblStatus.Text = "حالة الاتصال: غير متصل";
                 lblStatus.ForeColor = Color.FromArgb(239, 68, 68); // Danger Red #EF4444
