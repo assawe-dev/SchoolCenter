@@ -194,6 +194,33 @@ namespace SchoolCenter
                     cmd.ExecuteNonQuery();
                 }
 
+                // 5.6. إنشاء جدول إعدادات النظام SystemSettings
+                string createSystemSettingsTable = @"
+                    IF NOT EXISTS (SELECT * FROM sys.tables WHERE name = 'SystemSettings')
+                    BEGIN
+                        CREATE TABLE SystemSettings (
+                            SettingID INT PRIMARY KEY DEFAULT 1,
+                            CenterName NVARCHAR(200) NOT NULL,
+                            LogoData VARBINARY(MAX) NULL
+                        );
+                    END";
+                using (SqlCommand cmd = new SqlCommand(createSystemSettingsTable, connection))
+                {
+                    cmd.ExecuteNonQuery();
+                }
+
+                // 5.7. إدخال إعدادات النظام الافتراضية إذا كان جدول الإعدادات فارغاً
+                string seedSettings = @"
+                    IF NOT EXISTS (SELECT * FROM SystemSettings)
+                    BEGIN
+                        INSERT INTO SystemSettings (SettingID, CenterName, LogoData)
+                        VALUES (1, N'منظومة مركز الدورات التعليمية', NULL);
+                    END";
+                using (SqlCommand cmd = new SqlCommand(seedSettings, connection))
+                {
+                    cmd.ExecuteNonQuery();
+                }
+
                 // 6. إدخال مستخدم افتراضي إذا كان جدول المستخدمين فارغاً
                 string seedUsers = @"
                     IF NOT EXISTS (SELECT * FROM Users)

@@ -31,8 +31,9 @@ namespace SchoolCenter
             this.tlpSplit = new System.Windows.Forms.TableLayoutPanel();
             this.pnlBrand = new System.Windows.Forms.Panel();
             this.pnlBrandCenter = new System.Windows.Forms.Panel();
-            this.lblBrandIcon = new System.Windows.Forms.Label();
-            this.lblBrandTitle = new System.Windows.Forms.Label();
+            this.lblCenterHeader = new System.Windows.Forms.Label();
+            this.picCenterLogo = new System.Windows.Forms.PictureBox();
+            this.lblCenterTitle = new System.Windows.Forms.Label();
             this.lblBrandSubtitle = new System.Windows.Forms.Label();
             this.pnlLoginContainer = new System.Windows.Forms.Panel();
             this.pnlLoginCard = new System.Windows.Forms.Panel();
@@ -48,7 +49,7 @@ namespace SchoolCenter
             this.chkRememberMe = new System.Windows.Forms.CheckBox();
             this.lnkForgotPassword = new System.Windows.Forms.LinkLabel();
             this.btnLogin = new System.Windows.Forms.Button();
-            this.btnExit = new System.Windows.Forms.Button();
+            this.btnExitApp = new System.Windows.Forms.Button();
             this.lblError = new System.Windows.Forms.Label();
             this.tlpSplit.SuspendLayout();
             this.pnlBrand.SuspendLayout();
@@ -87,41 +88,51 @@ namespace SchoolCenter
             // pnlBrandCenter
             //
             this.pnlBrandCenter.Anchor = System.Windows.Forms.AnchorStyles.None;
-            this.pnlBrandCenter.Controls.Add(this.lblBrandIcon);
-            this.pnlBrandCenter.Controls.Add(this.lblBrandTitle);
+            this.pnlBrandCenter.Controls.Add(this.lblCenterHeader);
+            this.pnlBrandCenter.Controls.Add(this.picCenterLogo);
+            this.pnlBrandCenter.Controls.Add(this.lblCenterTitle);
             this.pnlBrandCenter.Controls.Add(this.lblBrandSubtitle);
             this.pnlBrandCenter.Location = new System.Drawing.Point(34, 122);
             this.pnlBrandCenter.Name = "pnlBrandCenter";
             this.pnlBrandCenter.Size = new System.Drawing.Size(400, 350);
             this.pnlBrandCenter.TabIndex = 0;
             //
-            // lblBrandIcon
+            // lblCenterHeader
             //
-            this.lblBrandIcon.Font = new System.Drawing.Font("Segoe UI", 64F);
-            this.lblBrandIcon.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(15)))), ((int)(((byte)(23)))), ((int)(((byte)(42)))));
-            this.lblBrandIcon.Location = new System.Drawing.Point(0, 10);
-            this.lblBrandIcon.Name = "lblBrandIcon";
-            this.lblBrandIcon.Size = new System.Drawing.Size(400, 120);
-            this.lblBrandIcon.TabIndex = 0;
-            this.lblBrandIcon.Text = "🏫";
-            this.lblBrandIcon.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
+            this.lblCenterHeader.Font = new System.Drawing.Font("Cairo", 11F, System.Drawing.FontStyle.Bold);
+            this.lblCenterHeader.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(37)))), ((int)(((byte)(99)))), ((int)(((byte)(235)))));
+            this.lblCenterHeader.Location = new System.Drawing.Point(0, 10);
+            this.lblCenterHeader.Name = "lblCenterHeader";
+            this.lblCenterHeader.Size = new System.Drawing.Size(400, 30);
+            this.lblCenterHeader.TabIndex = 3;
+            this.lblCenterHeader.Text = "اسم المنظمة";
+            this.lblCenterHeader.TextAlign = System.Drawing.ContentAlignment.TopRight;
             //
-            // lblBrandTitle
+            // picCenterLogo
             //
-            this.lblBrandTitle.Font = new System.Drawing.Font("Cairo", 18F, System.Drawing.FontStyle.Bold);
-            this.lblBrandTitle.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(15)))), ((int)(((byte)(23)))), ((int)(((byte)(42)))));
-            this.lblBrandTitle.Location = new System.Drawing.Point(0, 145);
-            this.lblBrandTitle.Name = "lblBrandTitle";
-            this.lblBrandTitle.Size = new System.Drawing.Size(400, 50);
-            this.lblBrandTitle.TabIndex = 1;
-            this.lblBrandTitle.Text = "منظومة مركز الدورات التعليمية";
-            this.lblBrandTitle.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
+            this.picCenterLogo.Location = new System.Drawing.Point(0, 50);
+            this.picCenterLogo.Name = "picCenterLogo";
+            this.picCenterLogo.Size = new System.Drawing.Size(400, 120);
+            this.picCenterLogo.SizeMode = System.Windows.Forms.PictureBoxSizeMode.Zoom;
+            this.picCenterLogo.TabIndex = 0;
+            this.picCenterLogo.TabStop = false;
+            //
+            // lblCenterTitle
+            //
+            this.lblCenterTitle.Font = new System.Drawing.Font("Cairo", 18F, System.Drawing.FontStyle.Bold);
+            this.lblCenterTitle.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(15)))), ((int)(((byte)(23)))), ((int)(((byte)(42)))));
+            this.lblCenterTitle.Location = new System.Drawing.Point(0, 185);
+            this.lblCenterTitle.Name = "lblCenterTitle";
+            this.lblCenterTitle.Size = new System.Drawing.Size(400, 50);
+            this.lblCenterTitle.TabIndex = 1;
+            this.lblCenterTitle.Text = "اسم المنظمة";
+            this.lblCenterTitle.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
             //
             // lblBrandSubtitle
             //
             this.lblBrandSubtitle.Font = new System.Drawing.Font("Cairo", 10.5F);
             this.lblBrandSubtitle.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(100)))), ((int)(((byte)(116)))), ((int)(((byte)(139)))));
-            this.lblBrandSubtitle.Location = new System.Drawing.Point(0, 205);
+            this.lblBrandSubtitle.Location = new System.Drawing.Point(0, 245);
             this.lblBrandSubtitle.Name = "lblBrandSubtitle";
             this.lblBrandSubtitle.Size = new System.Drawing.Size(400, 60);
             this.lblBrandSubtitle.TabIndex = 2;
@@ -143,7 +154,7 @@ namespace SchoolCenter
             this.pnlLoginCard.Anchor = System.Windows.Forms.AnchorStyles.None;
             this.pnlLoginCard.BackColor = System.Drawing.Color.White;
             this.pnlLoginCard.Controls.Add(this.lblError);
-            this.pnlLoginCard.Controls.Add(this.btnExit);
+            this.pnlLoginCard.Controls.Add(this.btnExitApp);
             this.pnlLoginCard.Controls.Add(this.btnLogin);
             this.pnlLoginCard.Controls.Add(this.pnlOptions);
             this.pnlLoginCard.Controls.Add(this.pnlPasswordWrapper);
@@ -307,22 +318,22 @@ namespace SchoolCenter
             this.btnLogin.UseVisualStyleBackColor = false;
             this.btnLogin.Click += new System.EventHandler(this.BtnLogin_Click);
             //
-            // btnExit
+            // btnExitApp
             //
-            this.btnExit.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(100)))), ((int)(((byte)(116)))), ((int)(((byte)(139))))); // Muted Gray #64748B
-            this.btnExit.Cursor = System.Windows.Forms.Cursors.Hand;
-            this.btnExit.FlatAppearance.BorderSize = 0;
-            this.btnExit.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
-            this.btnExit.Font = new System.Drawing.Font("Cairo", 10F, System.Drawing.FontStyle.Bold);
-            this.btnExit.ForeColor = System.Drawing.Color.White;
-            this.btnExit.Location = new System.Drawing.Point(20, 395);
-            this.btnExit.Name = "btnExit";
-            this.btnExit.Size = new System.Drawing.Size(340, 36);
-            this.btnExit.TabIndex = 3;
-            this.btnExit.TabStop = false;
-            this.btnExit.Text = "إغلاق المنظومة";
-            this.btnExit.UseVisualStyleBackColor = false;
-            this.btnExit.Click += new System.EventHandler(this.BtnExit_Click);
+            this.btnExitApp.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(100)))), ((int)(((byte)(116)))), ((int)(((byte)(139))))); // Muted Gray #64748B
+            this.btnExitApp.Cursor = System.Windows.Forms.Cursors.Hand;
+            this.btnExitApp.FlatAppearance.BorderSize = 0;
+            this.btnExitApp.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
+            this.btnExitApp.Font = new System.Drawing.Font("Cairo", 10F, System.Drawing.FontStyle.Bold);
+            this.btnExitApp.ForeColor = System.Drawing.Color.White;
+            this.btnExitApp.Location = new System.Drawing.Point(20, 395);
+            this.btnExitApp.Name = "btnExitApp";
+            this.btnExitApp.Size = new System.Drawing.Size(340, 36);
+            this.btnExitApp.TabIndex = 3;
+            this.btnExitApp.TabStop = false;
+            this.btnExitApp.Text = "إغلاق المنظومة";
+            this.btnExitApp.UseVisualStyleBackColor = false;
+            this.btnExitApp.Click += new System.EventHandler(this.BtnExitApp_Click);
             //
             // lblError
             //
@@ -369,8 +380,9 @@ namespace SchoolCenter
         private System.Windows.Forms.TableLayoutPanel tlpSplit;
         private System.Windows.Forms.Panel pnlBrand;
         private System.Windows.Forms.Panel pnlBrandCenter;
-        private System.Windows.Forms.Label lblBrandIcon;
-        private System.Windows.Forms.Label lblBrandTitle;
+        private System.Windows.Forms.Label lblCenterHeader;
+        private System.Windows.Forms.PictureBox picCenterLogo;
+        private System.Windows.Forms.Label lblCenterTitle;
         private System.Windows.Forms.Label lblBrandSubtitle;
         private System.Windows.Forms.Panel pnlLoginContainer;
         private System.Windows.Forms.Panel pnlLoginCard;
@@ -386,7 +398,7 @@ namespace SchoolCenter
         private System.Windows.Forms.CheckBox chkRememberMe;
         private System.Windows.Forms.LinkLabel lnkForgotPassword;
         private System.Windows.Forms.Button btnLogin;
-        private System.Windows.Forms.Button btnExit;
+        private System.Windows.Forms.Button btnExitApp;
         private System.Windows.Forms.Label lblError;
     }
 }

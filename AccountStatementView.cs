@@ -281,7 +281,7 @@ namespace SchoolCenter
             this.lblTotalChargedTitle.Location = new Point(10, 10);
             this.lblTotalChargedTitle.Name = "lblTotalChargedTitle";
             this.lblTotalChargedTitle.Size = new Size(210, 25);
-            this.lblTotalChargedTitle.Text = "إجمالي المطلوب (المستحق)";
+            this.lblTotalChargedTitle.Text = "إجمالي المطلوب";
             this.lblTotalChargedTitle.TextAlign = ContentAlignment.MiddleRight;
 
             //
@@ -349,7 +349,7 @@ namespace SchoolCenter
             this.lblFinalBalanceTitle.Location = new Point(10, 10);
             this.lblFinalBalanceTitle.Name = "lblFinalBalanceTitle";
             this.lblFinalBalanceTitle.Size = new Size(210, 25);
-            this.lblFinalBalanceTitle.Text = "الرصيد النهائي المتبقي";
+            this.lblFinalBalanceTitle.Text = "الرصيد المتبقي النهائي";
             this.lblFinalBalanceTitle.TextAlign = ContentAlignment.MiddleRight;
 
             //
@@ -485,13 +485,13 @@ namespace SchoolCenter
 
                             // We need to construct a DataTable with a running balance column
                             DataTable displayTable = new DataTable();
-                            displayTable.Columns.Add("التاريخ", typeof(string));
-                            displayTable.Columns.Add("نوع العملية", typeof(string));
+                            displayTable.Columns.Add("تاريخ الحركة", typeof(string));
+                            displayTable.Columns.Add("نوع الحركة", typeof(string));
                             displayTable.Columns.Add("البيان / الملاحظات", typeof(string));
-                            displayTable.Columns.Add("المطلوب (مدين)", typeof(string));
-                            displayTable.Columns.Add("المدفوع (دائن)", typeof(string));
-                            displayTable.Columns.Add("الرصيد التراكمي", typeof(string));
-                            displayTable.Columns.Add("الموظف", typeof(string));
+                            displayTable.Columns.Add("المطلوب / مدين", typeof(string));
+                            displayTable.Columns.Add("المدفوع / دائن", typeof(string));
+                            displayTable.Columns.Add("الرصيد المتبقي التراكمي", typeof(string));
+                            displayTable.Columns.Add("الموظف المسؤول", typeof(string));
 
                             decimal runningBalance = 0;
                             decimal totalCharged = 0;
@@ -532,9 +532,9 @@ namespace SchoolCenter
                             // Right align the numerical columns
                             if (dgvStatement.Columns.Count >= 6)
                             {
-                                dgvStatement.Columns["المطلوب (مدين)"].DefaultCellStyle.Alignment = DataGridViewContentAlignment.MiddleRight;
-                                dgvStatement.Columns["المدفوع (دائن)"].DefaultCellStyle.Alignment = DataGridViewContentAlignment.MiddleRight;
-                                dgvStatement.Columns["الرصيد التراكمي"].DefaultCellStyle.Alignment = DataGridViewContentAlignment.MiddleRight;
+                                dgvStatement.Columns["المطلوب / مدين"].DefaultCellStyle.Alignment = DataGridViewContentAlignment.MiddleRight;
+                                dgvStatement.Columns["المدفوع / دائن"].DefaultCellStyle.Alignment = DataGridViewContentAlignment.MiddleRight;
+                                dgvStatement.Columns["الرصيد المتبقي التراكمي"].DefaultCellStyle.Alignment = DataGridViewContentAlignment.MiddleRight;
                             }
 
                             dgvStatement.AutoSizeColumnsMode = DataGridViewAutoSizeColumnsMode.Fill;
@@ -603,7 +603,7 @@ namespace SchoolCenter
                     sb.AppendLine();
                     sb.AppendLine(string.Format("{0},,,,,{1}", EscapeCsvField("إجمالي المطلوب"), EscapeCsvField(lblTotalChargedValue.Text)));
                     sb.AppendLine(string.Format("{0},,,,,{1}", EscapeCsvField("إجمالي المدفوع"), EscapeCsvField(lblTotalPaidValue.Text)));
-                    sb.AppendLine(string.Format("{0},,,,,{1}", EscapeCsvField("الرصيد النهائي المتبقي"), EscapeCsvField(lblFinalBalanceValue.Text)));
+                    sb.AppendLine(string.Format("{0},,,,,{1}", EscapeCsvField("الرصيد المتبقي النهائي"), EscapeCsvField(lblFinalBalanceValue.Text)));
 
                     // Write with UTF-8 BOM so Excel opens Arabic correctly
                     using (StreamWriter sw = new StreamWriter(sfd.FileName, false, new UTF8Encoding(true)))

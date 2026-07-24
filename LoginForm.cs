@@ -1,6 +1,7 @@
 using System;
 using System.Data;
 using System.Data.SqlClient;
+using System.Drawing;
 using System.Windows.Forms;
 
 namespace SchoolCenter
@@ -19,12 +20,41 @@ namespace SchoolCenter
                 // Ensure database is initialized and seeded before trying to log in
                 DbConnectionManager.InitializeDatabase();
                 ThemeHelper.ApplyTheme(this);
+
+                // Load dynamic branding settings
+                Tuple<string, Image> settings = SettingsService.GetSettings();
+                lblCenterHeader.Text = settings.Item1;
+                lblCenterTitle.Text = settings.Item1;
+                if (settings.Item2 != null)
+                {
+                    picCenterLogo.Image = settings.Item2;
+                }
+                else
+                {
+                    // Fallback to default emoji symbol rendered into an image to satisfy requirement perfectly
+                    picCenterLogo.Image = CreateDefaultLogoImage();
+                }
+
                 txtUsername.Focus();
             }
             catch (Exception ex)
             {
                 MessageBox.Show("خطأ أثناء تهيئة قاعدة البيانات: " + ex.Message, "خطأ في النظام", MessageBoxButtons.OK, MessageBoxIcon.Error);
             }
+        }
+
+        private Image CreateDefaultLogoImage()
+        {
+            Bitmap bmp = new Bitmap(200, 100);
+            using (Graphics g = Graphics.FromImage(bmp))
+            {
+                g.Clear(System.Drawing.Color.Transparent);
+                using (Font font = new Font("Segoe UI", 48F))
+                {
+                    g.DrawString("🏫", font, System.Drawing.Brushes.Black, new PointF(40, 10));
+                }
+            }
+            return bmp;
         }
 
         private void BtnLogin_Click(object sender, EventArgs e)
@@ -113,7 +143,7 @@ namespace SchoolCenter
             }
         }
 
-        private void BtnExit_Click(object sender, EventArgs e)
+        private void BtnExitApp_Click(object sender, EventArgs e)
         {
             Application.Exit();
         }

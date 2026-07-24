@@ -29,6 +29,19 @@ namespace SchoolCenter
             }
         }
 
+        private void LoadBranding()
+        {
+            try
+            {
+                Tuple<string, Image> settings = SettingsService.GetSettings();
+                lblLogo.Text = "⚡ " + settings.Item1;
+            }
+            catch (Exception ex)
+            {
+                System.Diagnostics.Debug.WriteLine("LoadBranding failed: " + ex.Message);
+            }
+        }
+
         private void Form1_Load(object sender, EventArgs e)
         {
             try
@@ -56,7 +69,13 @@ namespace SchoolCenter
                 // Initialize Database and Tables if they don't exist
                 DbConnectionManager.InitializeDatabase();
 
+                // Load dynamic branding
+                LoadBranding();
+
                 // Wire up data saved event handlers to keep everything in sync
+                uSettingsView.DataSaved += (s, ev) => {
+                    LoadBranding();
+                };
                 uStudentsView.DataSaved += (s, ev) => {
                     LoadDashboardData();
                     uStudentDuesView.LoadStudents();
@@ -107,6 +126,7 @@ namespace SchoolCenter
                 btnBalanceReport.Visible = UserSession.CanViewReports;
                 btnAccountStatement.Visible = UserSession.CanViewReports;
                 btnUsers.Visible = (UserSession.Role == "Admin" && UserSession.CanManageUsers);
+                btnSettings.Visible = (UserSession.Role == "Admin");
 
                 // Initialize the Home View as the active view
                 SetActiveButton(btnHome);
@@ -404,6 +424,7 @@ namespace SchoolCenter
             paymentsViewPanel.Visible = (activePanel == paymentsViewPanel);
             usersViewPanel.Visible = (activePanel == usersViewPanel);
             accountStatementViewPanel.Visible = (activePanel == accountStatementViewPanel);
+            settingsViewPanel.Visible = (activePanel == settingsViewPanel);
 
             // Dynamically update the header bar page title and page subtitle
             if (activePanel == homeViewPanel)
@@ -445,6 +466,11 @@ namespace SchoolCenter
             {
                 lblPageTitle.Text = "كشف حساب طالب";
                 lblPageSubtitle.Text = "عرض تفصيلي للعمليات المالية والحركات السابقة للطالب";
+            }
+            else if (activePanel == settingsViewPanel)
+            {
+                lblPageTitle.Text = "إعدادات الهوية";
+                lblPageSubtitle.Text = "تخصيص شعار واسم مركز الدورات التعليمية";
             }
         }
 
@@ -530,26 +556,7 @@ namespace SchoolCenter
         private void BtnSettings_Click(object sender, EventArgs e)
         {
             SetActiveButton(btnSettings);
-
-            // Open the external db_config.txt file dynamically in Notepad for convenience.
-            string configPath = Path.Combine(AppDomain.CurrentDomain.BaseDirectory, "db_config.txt");
-            if (File.Exists(configPath))
-            {
-                try
-                {
-                    System.Diagnostics.Process.Start("notepad.exe", configPath);
-                }
-                catch
-                {
-                    MessageBox.Show("يرجى تعديل إعدادات الاتصال مباشرة من ملف 'db_config.txt' الموجود في مجلد المنظومة الرئيسي.",
-                        "إعدادات الاتصال", MessageBoxButtons.OK, MessageBoxIcon.Information);
-                }
-            }
-            else
-            {
-                MessageBox.Show("ملف إعدادات الاتصال 'db_config.txt' غير موجود. يرجى إعادة تشغيل المنظومة ليتم إنشاؤه تلقائياً.",
-                    "خطأ", MessageBoxButtons.OK, MessageBoxIcon.Warning);
-            }
+            ShowPanel(settingsViewPanel);
         }
 
         private void BtnUsers_Click(object sender, EventArgs e)
