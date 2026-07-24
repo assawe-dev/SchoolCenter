@@ -158,8 +158,10 @@ namespace SchoolCenter
             this.sidebarPanel.Controls.Add(this.btnHome);
             this.sidebarPanel.Controls.Add(this.lblCatMain);
             this.sidebarPanel.Controls.Add(this.logoPanel);
+            this.sidebarPanel.AutoScroll = true;
             this.sidebarPanel.Dock = System.Windows.Forms.DockStyle.Right;
             this.sidebarPanel.Location = new System.Drawing.Point(840, 0);
+            this.sidebarPanel.Margin = new System.Windows.Forms.Padding(0);
             this.sidebarPanel.Name = "sidebarPanel";
             this.sidebarPanel.Size = new System.Drawing.Size(260, 700);
             this.sidebarPanel.TabIndex = 0;
@@ -175,7 +177,7 @@ namespace SchoolCenter
             this.btnSettings.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(241)))), ((int)(((byte)(245)))), ((int)(((byte)(249)))));
             this.btnSettings.Location = new System.Drawing.Point(0, 430);
             this.btnSettings.Name = "btnSettings";
-            this.btnSettings.Size = new System.Drawing.Size(260, 45);
+            this.btnSettings.Size = new System.Drawing.Size(260, 40);
             this.btnSettings.TabIndex = 8;
             this.btnSettings.Text = "  الإعدادات ⚙️";
             this.btnSettings.TextAlign = System.Drawing.ContentAlignment.MiddleRight;
@@ -193,7 +195,7 @@ namespace SchoolCenter
             this.btnUsers.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(241)))), ((int)(((byte)(245)))), ((int)(((byte)(249)))));
             this.btnUsers.Location = new System.Drawing.Point(0, 380);
             this.btnUsers.Name = "btnUsers";
-            this.btnUsers.Size = new System.Drawing.Size(260, 45);
+            this.btnUsers.Size = new System.Drawing.Size(260, 40);
             this.btnUsers.TabIndex = 7;
             this.btnUsers.Text = "  إدارة المستخدمين 👤";
             this.btnUsers.TextAlign = System.Drawing.ContentAlignment.MiddleRight;
@@ -211,7 +213,7 @@ namespace SchoolCenter
             this.btnPayments.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(241)))), ((int)(((byte)(245)))), ((int)(((byte)(249)))));
             this.btnPayments.Location = new System.Drawing.Point(0, 330);
             this.btnPayments.Name = "btnPayments";
-            this.btnPayments.Size = new System.Drawing.Size(260, 45);
+            this.btnPayments.Size = new System.Drawing.Size(260, 40);
             this.btnPayments.TabIndex = 6;
             this.btnPayments.Text = "  إيصالات السداد 💳";
             this.btnPayments.TextAlign = System.Drawing.ContentAlignment.MiddleRight;
@@ -229,7 +231,7 @@ namespace SchoolCenter
             this.btnBalanceReport.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(241)))), ((int)(((byte)(245)))), ((int)(((byte)(249)))));
             this.btnBalanceReport.Location = new System.Drawing.Point(0, 280);
             this.btnBalanceReport.Name = "btnBalanceReport";
-            this.btnBalanceReport.Size = new System.Drawing.Size(260, 45);
+            this.btnBalanceReport.Size = new System.Drawing.Size(260, 40);
             this.btnBalanceReport.TabIndex = 5;
             this.btnBalanceReport.Text = "  تقارير الأرصدة 📈";
             this.btnBalanceReport.TextAlign = System.Drawing.ContentAlignment.MiddleRight;
@@ -247,7 +249,7 @@ namespace SchoolCenter
             this.btnAccountStatement.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(241)))), ((int)(((byte)(245)))), ((int)(((byte)(249)))));
             this.btnAccountStatement.Location = new System.Drawing.Point(0, 310);
             this.btnAccountStatement.Name = "btnAccountStatement";
-            this.btnAccountStatement.Size = new System.Drawing.Size(260, 45);
+            this.btnAccountStatement.Size = new System.Drawing.Size(260, 40);
             this.btnAccountStatement.TabIndex = 13;
             this.btnAccountStatement.Text = "  كشف حساب طالب 🧾";
             this.btnAccountStatement.TextAlign = System.Drawing.ContentAlignment.MiddleRight;
@@ -265,7 +267,7 @@ namespace SchoolCenter
             this.btnStudentDues.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(241)))), ((int)(((byte)(245)))), ((int)(((byte)(249)))));
             this.btnStudentDues.Location = new System.Drawing.Point(0, 230);
             this.btnStudentDues.Name = "btnStudentDues";
-            this.btnStudentDues.Size = new System.Drawing.Size(260, 45);
+            this.btnStudentDues.Size = new System.Drawing.Size(260, 40);
             this.btnStudentDues.TabIndex = 4;
             this.btnStudentDues.Text = "  تعيين المستحقات 💸";
             this.btnStudentDues.TextAlign = System.Drawing.ContentAlignment.MiddleRight;
@@ -283,7 +285,7 @@ namespace SchoolCenter
             this.btnCourses.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(241)))), ((int)(((byte)(245)))), ((int)(((byte)(249)))));
             this.btnCourses.Location = new System.Drawing.Point(0, 180);
             this.btnCourses.Name = "btnCourses";
-            this.btnCourses.Size = new System.Drawing.Size(260, 45);
+            this.btnCourses.Size = new System.Drawing.Size(260, 40);
             this.btnCourses.TabIndex = 3;
             this.btnCourses.Text = "  إدارة الدورات 📚";
             this.btnCourses.TextAlign = System.Drawing.ContentAlignment.MiddleRight;
@@ -301,7 +303,7 @@ namespace SchoolCenter
             this.btnStudents.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(241)))), ((int)(((byte)(245)))), ((int)(((byte)(249)))));
             this.btnStudents.Location = new System.Drawing.Point(0, 130);
             this.btnStudents.Name = "btnStudents";
-            this.btnStudents.Size = new System.Drawing.Size(260, 45);
+            this.btnStudents.Size = new System.Drawing.Size(260, 40);
             this.btnStudents.TabIndex = 2;
             this.btnStudents.Text = "  إدارة الطلاب 👥";
             this.btnStudents.TextAlign = System.Drawing.ContentAlignment.MiddleRight;
@@ -355,7 +357,7 @@ namespace SchoolCenter
             this.btnHome.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(241)))), ((int)(((byte)(245)))), ((int)(((byte)(249)))));
             this.btnHome.Location = new System.Drawing.Point(0, 80);
             this.btnHome.Name = "btnHome";
-            this.btnHome.Size = new System.Drawing.Size(260, 45);
+            this.btnHome.Size = new System.Drawing.Size(260, 40);
             this.btnHome.TabIndex = 1;
             this.btnHome.Text = "  لوحة التحكم 📊";
             this.btnHome.TextAlign = System.Drawing.ContentAlignment.MiddleRight;
@@ -1131,7 +1133,9 @@ namespace SchoolCenter
             this.Controls.Add(this.mainContentPanel);
             this.Controls.Add(this.headerPanel);
             this.Controls.Add(this.sidebarPanel);
+            this.MinimumSize = new System.Drawing.Size(1024, 768);
             this.Name = "Form1";
+            this.Padding = new System.Windows.Forms.Padding(0);
             this.RightToLeft = System.Windows.Forms.RightToLeft.Yes;
             this.RightToLeftLayout = false;
             this.Text = "منظومة مركز الدورات التعليمية - لوحة التحكم";
