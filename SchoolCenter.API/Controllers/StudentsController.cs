@@ -2,33 +2,81 @@ using System;
 using System.Collections.Generic;
 using System.Data;
 using System.Data.SqlClient;
-using Microsoft.AspNetCore.Mvc;
+using System.Web.Http;
 
 namespace SchoolCenter.API.Controllers
 {
-    [ApiController]
-    [Route("api/[controller]")]
-    public class StudentsController : ControllerBase
+    [RoutePrefix("api/students")]
+    public class StudentsController : ApiController
     {
-        private readonly IConfiguration _configuration;
-
-        public StudentsController(IConfiguration configuration)
-        {
-            _configuration = configuration;
-        }
-
         private string GetConnectionString()
         {
-            var connStr = _configuration.GetConnectionString("DefaultConnection");
-            if (string.IsNullOrEmpty(connStr))
+            var connStrSetting = System.Configuration.ConfigurationManager.ConnectionStrings["DefaultConnection"];
+            if (connStrSetting != null && !string.IsNullOrEmpty(connStrSetting.ConnectionString))
             {
-                return "Server=.\\SQLEXPRESS;Database=SchoolCenterDB;Integrated Security=True;TrustServerCertificate=True";
+                return connStrSetting.ConnectionString;
             }
-            return connStr;
+
+            // Fallback to db_config.txt in the application directory or parent directory
+            try
+            {
+                string configPath = System.IO.Path.Combine(System.AppDomain.CurrentDomain.BaseDirectory, "db_config.txt");
+                if (!System.IO.File.Exists(configPath))
+                {
+                    configPath = System.IO.Path.Combine(System.IO.Directory.GetParent(System.AppDomain.CurrentDomain.BaseDirectory).FullName, "db_config.txt");
+                }
+
+                if (System.IO.File.Exists(configPath))
+                {
+                    var builder = new SqlConnectionStringBuilder();
+                    string[] lines = System.IO.File.ReadAllLines(configPath);
+                    foreach (string line in lines)
+                    {
+                        if (string.IsNullOrWhiteSpace(line) || line.Trim().StartsWith("#"))
+                            continue;
+                        int delimiterIndex = line.IndexOf('=');
+                        if (delimiterIndex > 0)
+                        {
+                            string key = line.Substring(0, delimiterIndex).Trim().ToUpper();
+                            string value = line.Substring(delimiterIndex + 1).Trim();
+                            switch (key)
+                            {
+                                case "SERVER":
+                                case "DATA SOURCE":
+                                    builder.DataSource = value;
+                                    break;
+                                case "DATABASE":
+                                case "INITIAL CATALOG":
+                                    builder.InitialCatalog = value;
+                                    break;
+                                case "INTEGRATED_SECURITY":
+                                case "INTEGRATED SECURITY":
+                                    bool integrated;
+                                    if (bool.TryParse(value, out integrated))
+                                        builder.IntegratedSecurity = integrated;
+                                    break;
+                                case "USER ID":
+                                    builder.UserID = value;
+                                    break;
+                                case "PASSWORD":
+                                    builder.Password = value;
+                                    break;
+                            }
+                        }
+                    }
+                    builder.ConnectTimeout = 15;
+                    builder.Pooling = true;
+                    return builder.ConnectionString;
+                }
+            }
+            catch { }
+
+            return "Server=.\\SQLEXPRESS;Database=SchoolCenterDB;Integrated Security=True;";
         }
 
         [HttpGet]
-        public IActionResult GetStudents([FromQuery] string? search)
+        [Route("")]
+        public IHttpActionResult GetStudents(string search = null)
         {
             try
             {
@@ -106,16 +154,17 @@ namespace SchoolCenter.API.Controllers
             }
             catch (Exception ex)
             {
-                return StatusCode(500, new { message = "حدث خطأ أثناء جلب قائمة الطلاب", error = ex.Message });
+                return Content(System.Net.HttpStatusCode.InternalServerError, new { message = "حدث خطأ أثناء جلب قائمة الطلاب", error = ex.Message });
             }
         }
 
-        [HttpGet("{id}")]
-        public IActionResult GetStudent(int id)
+        [HttpGet]
+        [Route("{id:int}", Name = "GetStudentById")]
+        public IHttpActionResult GetStudent(int id)
         {
             try
             {
-                StudentResponse? student = null;
+                StudentResponse student = null;
 
                 using (SqlConnection conn = new SqlConnection(GetConnectionString()))
                 {
@@ -176,19 +225,20 @@ namespace SchoolCenter.API.Controllers
 
                 if (student == null)
                 {
-                    return NotFound(new { message = "الطالب غير موجود" });
+                    return Content(System.Net.HttpStatusCode.NotFound, new { message = "الطالب غير موجود" });
                 }
 
                 return Ok(student);
             }
             catch (Exception ex)
             {
-                return StatusCode(500, new { message = "حدث خطأ أثناء جلب بيانات الطالب", error = ex.Message });
+                return Content(System.Net.HttpStatusCode.InternalServerError, new { message = "حدث خطأ أثناء جلب بيانات الطالب", error = ex.Message });
             }
         }
 
-        [HttpGet("{id}/balance")]
-        public IActionResult GetStudentBalance(int id)
+        [HttpGet]
+        [Route("{id:int}/balance")]
+        public IHttpActionResult GetStudentBalance(int id)
         {
             try
             {
@@ -209,7 +259,7 @@ namespace SchoolCenter.API.Controllers
 
                     if (!studentExists)
                     {
-                        return NotFound(new { message = "الطالب غير موجود" });
+                        return Content(System.Net.HttpStatusCode.NotFound, new { message = "الطالب غير موجود" });
                     }
 
                     // Calculate outstanding balance: ISNULL(SUM(Debit), 0) - ISNULL(SUM(Credit), 0)
@@ -229,16 +279,17 @@ namespace SchoolCenter.API.Controllers
             }
             catch (Exception ex)
             {
-                return StatusCode(500, new { message = "حدث خطأ أثناء احتساب رصيد الطالب", error = ex.Message });
+                return Content(System.Net.HttpStatusCode.InternalServerError, new { message = "حدث خطأ أثناء احتساب رصيد الطالب", error = ex.Message });
             }
         }
 
         [HttpPost]
-        public IActionResult CreateStudent([FromBody] StudentRequest request)
+        [Route("")]
+        public IHttpActionResult CreateStudent([FromBody] StudentRequest request)
         {
             if (request == null || string.IsNullOrWhiteSpace(request.StudentName) || string.IsNullOrWhiteSpace(request.ParentPhone))
             {
-                return BadRequest(new { message = "يرجى إدخال اسم الطالب ورقم هاتف ولي الأمر" });
+                return BadRequest("يرجى إدخال اسم الطالب ورقم هاتف ولي الأمر");
             }
 
             try
@@ -256,10 +307,10 @@ namespace SchoolCenter.API.Controllers
                             using (SqlCommand cmd = new SqlCommand(query, conn, trans))
                             {
                                 cmd.Parameters.AddWithValue("@StudentName", request.StudentName.Trim());
-                                cmd.Parameters.AddWithValue("@GuardianName", request.GuardianName.Trim());
+                                cmd.Parameters.AddWithValue("@GuardianName", request.GuardianName != null ? request.GuardianName.Trim() : string.Empty);
                                 cmd.Parameters.AddWithValue("@ParentPhone", request.ParentPhone.Trim());
                                 cmd.Parameters.AddWithValue("@RegistrationDate", DateTime.Now);
-                                cmd.Parameters.AddWithValue("@Notes", request.Notes.Trim());
+                                cmd.Parameters.AddWithValue("@Notes", request.Notes != null ? request.Notes.Trim() : string.Empty);
                                 object result = cmd.ExecuteScalar();
                                 if (result != null && result != DBNull.Value)
                                 {
@@ -271,7 +322,7 @@ namespace SchoolCenter.API.Controllers
                             {
                                 decimal debit = 0;
                                 decimal credit = 0;
-                                if (request.BalanceType.Equals("Debit", StringComparison.OrdinalIgnoreCase))
+                                if (!string.IsNullOrEmpty(request.BalanceType) && request.BalanceType.Equals("Debit", StringComparison.OrdinalIgnoreCase))
                                 {
                                     debit = request.OpeningBalanceAmount;
                                 }
@@ -296,28 +347,29 @@ namespace SchoolCenter.API.Controllers
                             }
 
                             trans.Commit();
-                            return CreatedAtAction(nameof(GetStudent), new { id = newStudentID }, new { studentID = newStudentID, message = "تم إضافة الطالب بنجاح" });
+                            return CreatedAtRoute("GetStudentById", new { id = newStudentID }, new { studentID = newStudentID, message = "تم إضافة الطالب بنجاح" });
                         }
                         catch (Exception ex)
                         {
                             trans.Rollback();
-                            return StatusCode(500, new { message = "حدث خطأ أثناء حفظ بيانات الطالب والرصيد السابق", error = ex.Message });
+                            return Content(System.Net.HttpStatusCode.InternalServerError, new { message = "حدث خطأ أثناء حفظ بيانات الطالب والرصيد السابق", error = ex.Message });
                         }
                     }
                 }
             }
             catch (Exception ex)
             {
-                return StatusCode(500, new { message = "حدث خطأ في السيرفر", error = ex.Message });
+                return Content(System.Net.HttpStatusCode.InternalServerError, new { message = "حدث خطأ في السيرفر", error = ex.Message });
             }
         }
 
-        [HttpPut("{id}")]
-        public IActionResult UpdateStudent(int id, [FromBody] StudentRequest request)
+        [HttpPut]
+        [Route("{id:int}")]
+        public IHttpActionResult UpdateStudent(int id, [FromBody] StudentRequest request)
         {
             if (request == null || string.IsNullOrWhiteSpace(request.StudentName) || string.IsNullOrWhiteSpace(request.ParentPhone))
             {
-                return BadRequest(new { message = "يرجى إدخال اسم الطالب ورقم هاتف ولي الأمر" });
+                return BadRequest("يرجى إدخال اسم الطالب ورقم هاتف ولي الأمر");
             }
 
             try
@@ -333,7 +385,7 @@ namespace SchoolCenter.API.Controllers
                         checkCmd.Parameters.AddWithValue("@StudentID", id);
                         if (Convert.ToInt32(checkCmd.ExecuteScalar()) == 0)
                         {
-                            return NotFound(new { message = "الطالب غير موجود" });
+                            return Content(System.Net.HttpStatusCode.NotFound, new { message = "الطالب غير موجود" });
                         }
                     }
 
@@ -346,9 +398,9 @@ namespace SchoolCenter.API.Controllers
                             using (SqlCommand cmd = new SqlCommand(query, conn, trans))
                             {
                                 cmd.Parameters.AddWithValue("@StudentName", request.StudentName.Trim());
-                                cmd.Parameters.AddWithValue("@GuardianName", request.GuardianName.Trim());
+                                cmd.Parameters.AddWithValue("@GuardianName", request.GuardianName != null ? request.GuardianName.Trim() : string.Empty);
                                 cmd.Parameters.AddWithValue("@ParentPhone", request.ParentPhone.Trim());
-                                cmd.Parameters.AddWithValue("@Notes", request.Notes.Trim());
+                                cmd.Parameters.AddWithValue("@Notes", request.Notes != null ? request.Notes.Trim() : string.Empty);
                                 cmd.Parameters.AddWithValue("@StudentID", id);
                                 cmd.ExecuteNonQuery();
                             }
@@ -370,7 +422,7 @@ namespace SchoolCenter.API.Controllers
                             {
                                 decimal debit = 0;
                                 decimal credit = 0;
-                                if (request.BalanceType.Equals("Debit", StringComparison.OrdinalIgnoreCase))
+                                if (!string.IsNullOrEmpty(request.BalanceType) && request.BalanceType.Equals("Debit", StringComparison.OrdinalIgnoreCase))
                                 {
                                     debit = request.OpeningBalanceAmount;
                                 }
@@ -427,19 +479,20 @@ namespace SchoolCenter.API.Controllers
                         catch (Exception ex)
                         {
                             trans.Rollback();
-                            return StatusCode(500, new { message = "حدث خطأ أثناء تعديل بيانات الطالب ورصيده السابق", error = ex.Message });
+                            return Content(System.Net.HttpStatusCode.InternalServerError, new { message = "حدث خطأ أثناء تعديل بيانات الطالب ورصيده السابق", error = ex.Message });
                         }
                     }
                 }
             }
             catch (Exception ex)
             {
-                return StatusCode(500, new { message = "حدث خطأ في السيرفر", error = ex.Message });
+                return Content(System.Net.HttpStatusCode.InternalServerError, new { message = "حدث خطأ في السيرفر", error = ex.Message });
             }
         }
 
-        [HttpDelete("{id}")]
-        public IActionResult DeleteStudent(int id)
+        [HttpDelete]
+        [Route("{id:int}")]
+        public IHttpActionResult DeleteStudent(int id)
         {
             try
             {
@@ -454,7 +507,7 @@ namespace SchoolCenter.API.Controllers
                         checkCmd.Parameters.AddWithValue("@StudentID", id);
                         if (Convert.ToInt32(checkCmd.ExecuteScalar()) == 0)
                         {
-                            return NotFound(new { message = "الطالب غير موجود" });
+                            return Content(System.Net.HttpStatusCode.NotFound, new { message = "الطالب غير موجود" });
                         }
                     }
 
@@ -471,30 +524,30 @@ namespace SchoolCenter.API.Controllers
             }
             catch (Exception ex)
             {
-                return StatusCode(500, new { message = "حدث خطأ أثناء حذف الطالب", error = ex.Message });
+                return Content(System.Net.HttpStatusCode.InternalServerError, new { message = "حدث خطأ أثناء حذف الطالب", error = ex.Message });
             }
         }
     }
 
     public class StudentRequest
     {
-        public string StudentName { get; set; } = string.Empty;
-        public string GuardianName { get; set; } = string.Empty;
-        public string ParentPhone { get; set; } = string.Empty;
-        public string Notes { get; set; } = string.Empty;
+        public string StudentName { get; set; }
+        public string GuardianName { get; set; }
+        public string ParentPhone { get; set; }
+        public string Notes { get; set; }
         public decimal OpeningBalanceAmount { get; set; }
-        public string BalanceType { get; set; } = "Debit";
+        public string BalanceType { get; set; }
     }
 
     public class StudentResponse
     {
         public int StudentID { get; set; }
-        public string StudentName { get; set; } = string.Empty;
-        public string GuardianName { get; set; } = string.Empty;
-        public string ParentPhone { get; set; } = string.Empty;
+        public string StudentName { get; set; }
+        public string GuardianName { get; set; }
+        public string ParentPhone { get; set; }
         public DateTime RegistrationDate { get; set; }
-        public string Notes { get; set; } = string.Empty;
+        public string Notes { get; set; }
         public decimal OpeningBalanceAmount { get; set; }
-        public string BalanceType { get; set; } = string.Empty;
+        public string BalanceType { get; set; }
     }
 }
