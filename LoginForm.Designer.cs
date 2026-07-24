@@ -33,35 +33,35 @@ namespace SchoolCenter
             this.pnlBrandCenter = new System.Windows.Forms.Panel();
             this.lblCenterHeader = new System.Windows.Forms.Label();
             this.picCenterLogo = new System.Windows.Forms.PictureBox();
-            this.lblCenterTitle = new System.Windows.Forms.Label();
             this.lblBrandSubtitle = new System.Windows.Forms.Label();
             this.pnlLoginContainer = new System.Windows.Forms.Panel();
             this.pnlLoginCard = new System.Windows.Forms.Panel();
-            this.lblTitle = new System.Windows.Forms.Label();
-            this.lblSubtitle = new System.Windows.Forms.Label();
-            this.lblUsername = new System.Windows.Forms.Label();
-            this.txtUsername = new System.Windows.Forms.TextBox();
-            this.lblPassword = new System.Windows.Forms.Label();
-            this.pnlPasswordWrapper = new System.Windows.Forms.Panel();
-            this.txtPassword = new System.Windows.Forms.TextBox();
-            this.btnTogglePassword = new System.Windows.Forms.Button();
+            this.lblError = new System.Windows.Forms.Label();
+            this.btnExitApp = new System.Windows.Forms.Button();
+            this.btnLogin = new System.Windows.Forms.Button();
             this.pnlOptions = new System.Windows.Forms.Panel();
             this.chkRememberMe = new System.Windows.Forms.CheckBox();
             this.lnkForgotPassword = new System.Windows.Forms.LinkLabel();
-            this.btnLogin = new System.Windows.Forms.Button();
-            this.btnExitApp = new System.Windows.Forms.Button();
-            this.lblError = new System.Windows.Forms.Label();
+            this.pnlPasswordWrapper = new System.Windows.Forms.Panel();
+            this.txtPassword = new System.Windows.Forms.TextBox();
+            this.btnTogglePassword = new System.Windows.Forms.Button();
+            this.lblPassword = new System.Windows.Forms.Label();
+            this.txtUsername = new System.Windows.Forms.TextBox();
+            this.lblUsername = new System.Windows.Forms.Label();
+            this.lblSubtitle = new System.Windows.Forms.Label();
+            this.lblTitle = new System.Windows.Forms.Label();
             this.tlpSplit.SuspendLayout();
             this.pnlBrand.SuspendLayout();
             this.pnlBrandCenter.SuspendLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.picCenterLogo)).BeginInit();
             this.pnlLoginContainer.SuspendLayout();
             this.pnlLoginCard.SuspendLayout();
-            this.pnlPasswordWrapper.SuspendLayout();
             this.pnlOptions.SuspendLayout();
+            this.pnlPasswordWrapper.SuspendLayout();
             this.SuspendLayout();
-            //
+            // 
             // tlpSplit
-            //
+            // 
             this.tlpSplit.ColumnCount = 2;
             this.tlpSplit.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 50F));
             this.tlpSplit.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 50F));
@@ -69,88 +69,81 @@ namespace SchoolCenter
             this.tlpSplit.Controls.Add(this.pnlLoginContainer, 1, 0);
             this.tlpSplit.Dock = System.Windows.Forms.DockStyle.Fill;
             this.tlpSplit.Location = new System.Drawing.Point(0, 0);
+            this.tlpSplit.Margin = new System.Windows.Forms.Padding(3, 2, 3, 2);
             this.tlpSplit.Name = "tlpSplit";
             this.tlpSplit.RowCount = 1;
             this.tlpSplit.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 100F));
-            this.tlpSplit.Size = new System.Drawing.Size(950, 600);
+            this.tlpSplit.Size = new System.Drawing.Size(831, 480);
             this.tlpSplit.TabIndex = 0;
-            //
+            // 
             // pnlBrand
-            //
-            this.pnlBrand.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(248)))), ((int)(((byte)(250)))), ((int)(((byte)(252))))); // Subtle off-white #F8FAFC
+            // 
+            this.pnlBrand.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(248)))), ((int)(((byte)(250)))), ((int)(((byte)(252)))));
             this.pnlBrand.Controls.Add(this.pnlBrandCenter);
             this.pnlBrand.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.pnlBrand.Location = new System.Drawing.Point(478, 3);
+            this.pnlBrand.Location = new System.Drawing.Point(419, 2);
+            this.pnlBrand.Margin = new System.Windows.Forms.Padding(3, 2, 3, 2);
             this.pnlBrand.Name = "pnlBrand";
-            this.pnlBrand.Size = new System.Drawing.Size(469, 594);
+            this.pnlBrand.Size = new System.Drawing.Size(409, 476);
             this.pnlBrand.TabIndex = 0;
-            //
+            // 
             // pnlBrandCenter
-            //
+            // 
             this.pnlBrandCenter.Anchor = System.Windows.Forms.AnchorStyles.None;
             this.pnlBrandCenter.Controls.Add(this.lblCenterHeader);
-            this.pnlBrandCenter.Controls.Add(this.picCenterLogo);
-            this.pnlBrandCenter.Controls.Add(this.lblCenterTitle);
             this.pnlBrandCenter.Controls.Add(this.lblBrandSubtitle);
-            this.pnlBrandCenter.Location = new System.Drawing.Point(34, 122);
+            this.pnlBrandCenter.Controls.Add(this.picCenterLogo);
+            this.pnlBrandCenter.Location = new System.Drawing.Point(29, 29);
+            this.pnlBrandCenter.Margin = new System.Windows.Forms.Padding(3, 2, 3, 2);
             this.pnlBrandCenter.Name = "pnlBrandCenter";
-            this.pnlBrandCenter.Size = new System.Drawing.Size(400, 350);
+            this.pnlBrandCenter.Size = new System.Drawing.Size(350, 350);
             this.pnlBrandCenter.TabIndex = 0;
-            //
+            // 
             // lblCenterHeader
-            //
-            this.lblCenterHeader.Font = new System.Drawing.Font("Cairo", 11F, System.Drawing.FontStyle.Bold);
+            // 
+            this.lblCenterHeader.Font = new System.Drawing.Font("Microsoft Sans Serif", 11F, System.Drawing.FontStyle.Bold);
             this.lblCenterHeader.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(37)))), ((int)(((byte)(99)))), ((int)(((byte)(235)))));
-            this.lblCenterHeader.Location = new System.Drawing.Point(0, 10);
+            this.lblCenterHeader.Location = new System.Drawing.Point(0, 8);
             this.lblCenterHeader.Name = "lblCenterHeader";
-            this.lblCenterHeader.Size = new System.Drawing.Size(400, 30);
+            this.lblCenterHeader.Size = new System.Drawing.Size(350, 24);
             this.lblCenterHeader.TabIndex = 3;
             this.lblCenterHeader.Text = "اسم المنظمة";
-            this.lblCenterHeader.TextAlign = System.Drawing.ContentAlignment.TopRight;
-            //
+            this.lblCenterHeader.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
+            // 
             // picCenterLogo
-            //
-            this.picCenterLogo.Location = new System.Drawing.Point(0, 50);
+            // 
+            this.picCenterLogo.Location = new System.Drawing.Point(0, 40);
+            this.picCenterLogo.Margin = new System.Windows.Forms.Padding(3, 2, 3, 2);
             this.picCenterLogo.Name = "picCenterLogo";
-            this.picCenterLogo.Size = new System.Drawing.Size(400, 120);
+            this.picCenterLogo.Size = new System.Drawing.Size(350, 234);
             this.picCenterLogo.SizeMode = System.Windows.Forms.PictureBoxSizeMode.Zoom;
             this.picCenterLogo.TabIndex = 0;
             this.picCenterLogo.TabStop = false;
-            //
-            // lblCenterTitle
-            //
-            this.lblCenterTitle.Font = new System.Drawing.Font("Cairo", 18F, System.Drawing.FontStyle.Bold);
-            this.lblCenterTitle.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(15)))), ((int)(((byte)(23)))), ((int)(((byte)(42)))));
-            this.lblCenterTitle.Location = new System.Drawing.Point(0, 185);
-            this.lblCenterTitle.Name = "lblCenterTitle";
-            this.lblCenterTitle.Size = new System.Drawing.Size(400, 50);
-            this.lblCenterTitle.TabIndex = 1;
-            this.lblCenterTitle.Text = "اسم المنظمة";
-            this.lblCenterTitle.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
-            //
+            // 
             // lblBrandSubtitle
-            //
-            this.lblBrandSubtitle.Font = new System.Drawing.Font("Cairo", 10.5F);
+            // 
+            this.lblBrandSubtitle.Font = new System.Drawing.Font("Microsoft Sans Serif", 10.5F);
             this.lblBrandSubtitle.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(100)))), ((int)(((byte)(116)))), ((int)(((byte)(139)))));
-            this.lblBrandSubtitle.Location = new System.Drawing.Point(0, 245);
+            this.lblBrandSubtitle.Location = new System.Drawing.Point(-3, 282);
             this.lblBrandSubtitle.Name = "lblBrandSubtitle";
-            this.lblBrandSubtitle.Size = new System.Drawing.Size(400, 60);
+            this.lblBrandSubtitle.Size = new System.Drawing.Size(350, 48);
             this.lblBrandSubtitle.TabIndex = 2;
             this.lblBrandSubtitle.Text = "النظام الموحد لإدارة الموارد المالية والتعليمية";
             this.lblBrandSubtitle.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
-            //
+            // 
             // pnlLoginContainer
-            //
-            this.pnlLoginContainer.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(15)))), ((int)(((byte)(23)))), ((int)(((byte)(42))))); // Dark Slate Navy #0F172A
+            // 
+            this.pnlLoginContainer.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(15)))), ((int)(((byte)(23)))), ((int)(((byte)(42)))));
             this.pnlLoginContainer.Controls.Add(this.pnlLoginCard);
             this.pnlLoginContainer.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.pnlLoginContainer.Location = new System.Drawing.Point(3, 3);
+            this.pnlLoginContainer.Location = new System.Drawing.Point(3, 2);
+            this.pnlLoginContainer.Margin = new System.Windows.Forms.Padding(3, 2, 3, 2);
             this.pnlLoginContainer.Name = "pnlLoginContainer";
-            this.pnlLoginContainer.Size = new System.Drawing.Size(469, 594);
+            this.pnlLoginContainer.Size = new System.Drawing.Size(410, 476);
             this.pnlLoginContainer.TabIndex = 1;
-            //
+            // 
             // pnlLoginCard
-            //
+            // 
             this.pnlLoginCard.Anchor = System.Windows.Forms.AnchorStyles.None;
             this.pnlLoginCard.BackColor = System.Drawing.Color.White;
             this.pnlLoginCard.Controls.Add(this.lblError);
@@ -163,90 +156,124 @@ namespace SchoolCenter
             this.pnlLoginCard.Controls.Add(this.lblUsername);
             this.pnlLoginCard.Controls.Add(this.lblSubtitle);
             this.pnlLoginCard.Controls.Add(this.lblTitle);
-            this.pnlLoginCard.Location = new System.Drawing.Point(44, 47);
+            this.pnlLoginCard.Location = new System.Drawing.Point(38, 39);
+            this.pnlLoginCard.Margin = new System.Windows.Forms.Padding(3, 2, 3, 2);
             this.pnlLoginCard.Name = "pnlLoginCard";
-            this.pnlLoginCard.Size = new System.Drawing.Size(380, 500);
+            this.pnlLoginCard.Size = new System.Drawing.Size(332, 400);
             this.pnlLoginCard.TabIndex = 0;
-            //
-            // lblTitle
-            //
-            this.lblTitle.Font = new System.Drawing.Font("Cairo", 18F, System.Drawing.FontStyle.Bold);
-            this.lblTitle.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(15)))), ((int)(((byte)(23)))), ((int)(((byte)(42)))));
-            this.lblTitle.Location = new System.Drawing.Point(15, 20);
-            this.lblTitle.Name = "lblTitle";
-            this.lblTitle.Size = new System.Drawing.Size(350, 45);
-            this.lblTitle.TabIndex = 0;
-            this.lblTitle.Text = "تسجيل الدخول";
-            this.lblTitle.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
-            //
-            // lblSubtitle
-            //
-            this.lblSubtitle.Font = new System.Drawing.Font("Cairo", 9F);
-            this.lblSubtitle.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(100)))), ((int)(((byte)(116)))), ((int)(((byte)(139)))));
-            this.lblSubtitle.Location = new System.Drawing.Point(15, 65);
-            this.lblSubtitle.Name = "lblSubtitle";
-            this.lblSubtitle.Size = new System.Drawing.Size(350, 25);
-            this.lblSubtitle.TabIndex = 1;
-            this.lblSubtitle.Text = "أدخل بيانات الاعتماد للوصول إلى المنظومة";
-            this.lblSubtitle.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
-            //
-            // lblUsername
-            //
-            this.lblUsername.AutoSize = true;
-            this.lblUsername.Font = new System.Drawing.Font("Cairo", 9.5F, System.Drawing.FontStyle.Bold);
-            this.lblUsername.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(15)))), ((int)(((byte)(23)))), ((int)(((byte)(42)))));
-            this.lblUsername.Location = new System.Drawing.Point(250, 105);
-            this.lblUsername.Name = "lblUsername";
-            this.lblUsername.Size = new System.Drawing.Size(113, 24);
-            this.lblUsername.TabIndex = 2;
-            this.lblUsername.Text = "👤 اسم المستخدم:";
-            //
-            // txtUsername
-            //
-            this.txtUsername.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(248)))), ((int)(((byte)(250)))), ((int)(((byte)(252)))));
-            this.txtUsername.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
-            this.txtUsername.Font = new System.Drawing.Font("Cairo", 10.5F);
-            this.txtUsername.Location = new System.Drawing.Point(20, 132);
-            this.txtUsername.Name = "txtUsername";
-            this.txtUsername.Size = new System.Drawing.Size(340, 34);
-            this.txtUsername.TabIndex = 0;
-            //
-            // lblPassword
-            //
-            this.lblPassword.AutoSize = true;
-            this.lblPassword.Font = new System.Drawing.Font("Cairo", 9.5F, System.Drawing.FontStyle.Bold);
-            this.lblPassword.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(15)))), ((int)(((byte)(23)))), ((int)(((byte)(42)))));
-            this.lblPassword.Location = new System.Drawing.Point(265, 182);
-            this.lblPassword.Name = "lblPassword";
-            this.lblPassword.Size = new System.Drawing.Size(98, 24);
-            this.lblPassword.TabIndex = 3;
-            this.lblPassword.Text = "🔑 كلمة المرور:";
-            //
+            // 
+            // lblError
+            // 
+            this.lblError.Font = new System.Drawing.Font("Microsoft Sans Serif", 9F, System.Drawing.FontStyle.Bold);
+            this.lblError.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(239)))), ((int)(((byte)(68)))), ((int)(((byte)(68)))));
+            this.lblError.Location = new System.Drawing.Point(18, 232);
+            this.lblError.Name = "lblError";
+            this.lblError.Size = new System.Drawing.Size(298, 32);
+            this.lblError.TabIndex = 5;
+            this.lblError.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
+            this.lblError.Visible = false;
+            // 
+            // btnExitApp
+            // 
+            this.btnExitApp.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(100)))), ((int)(((byte)(116)))), ((int)(((byte)(139)))));
+            this.btnExitApp.Cursor = System.Windows.Forms.Cursors.Hand;
+            this.btnExitApp.FlatAppearance.BorderSize = 0;
+            this.btnExitApp.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
+            this.btnExitApp.Font = new System.Drawing.Font("Microsoft Sans Serif", 10F, System.Drawing.FontStyle.Bold);
+            this.btnExitApp.ForeColor = System.Drawing.Color.White;
+            this.btnExitApp.Location = new System.Drawing.Point(18, 316);
+            this.btnExitApp.Margin = new System.Windows.Forms.Padding(3, 2, 3, 2);
+            this.btnExitApp.Name = "btnExitApp";
+            this.btnExitApp.Size = new System.Drawing.Size(298, 29);
+            this.btnExitApp.TabIndex = 3;
+            this.btnExitApp.TabStop = false;
+            this.btnExitApp.Text = "إغلاق المنظومة";
+            this.btnExitApp.UseVisualStyleBackColor = false;
+            this.btnExitApp.Click += new System.EventHandler(this.BtnExitApp_Click);
+            // 
+            // btnLogin
+            // 
+            this.btnLogin.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(15)))), ((int)(((byte)(23)))), ((int)(((byte)(42)))));
+            this.btnLogin.Cursor = System.Windows.Forms.Cursors.Hand;
+            this.btnLogin.FlatAppearance.BorderSize = 0;
+            this.btnLogin.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
+            this.btnLogin.Font = new System.Drawing.Font("Microsoft Sans Serif", 11F, System.Drawing.FontStyle.Bold);
+            this.btnLogin.ForeColor = System.Drawing.Color.White;
+            this.btnLogin.Location = new System.Drawing.Point(18, 272);
+            this.btnLogin.Margin = new System.Windows.Forms.Padding(3, 2, 3, 2);
+            this.btnLogin.Name = "btnLogin";
+            this.btnLogin.Size = new System.Drawing.Size(298, 34);
+            this.btnLogin.TabIndex = 2;
+            this.btnLogin.Text = "دخول";
+            this.btnLogin.UseVisualStyleBackColor = false;
+            this.btnLogin.Click += new System.EventHandler(this.BtnLogin_Click);
+            // 
+            // pnlOptions
+            // 
+            this.pnlOptions.Controls.Add(this.chkRememberMe);
+            this.pnlOptions.Controls.Add(this.lnkForgotPassword);
+            this.pnlOptions.Location = new System.Drawing.Point(18, 204);
+            this.pnlOptions.Margin = new System.Windows.Forms.Padding(3, 2, 3, 2);
+            this.pnlOptions.Name = "pnlOptions";
+            this.pnlOptions.Size = new System.Drawing.Size(298, 24);
+            this.pnlOptions.TabIndex = 4;
+            // 
+            // chkRememberMe
+            // 
+            this.chkRememberMe.AutoSize = true;
+            this.chkRememberMe.Dock = System.Windows.Forms.DockStyle.Right;
+            this.chkRememberMe.Font = new System.Drawing.Font("Microsoft Sans Serif", 9F);
+            this.chkRememberMe.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(71)))), ((int)(((byte)(85)))), ((int)(((byte)(105)))));
+            this.chkRememberMe.Location = new System.Drawing.Point(233, 0);
+            this.chkRememberMe.Margin = new System.Windows.Forms.Padding(3, 2, 3, 2);
+            this.chkRememberMe.Name = "chkRememberMe";
+            this.chkRememberMe.Size = new System.Drawing.Size(65, 24);
+            this.chkRememberMe.TabIndex = 0;
+            this.chkRememberMe.Text = "تذكرني";
+            this.chkRememberMe.UseVisualStyleBackColor = true;
+            // 
+            // lnkForgotPassword
+            // 
+            this.lnkForgotPassword.ActiveLinkColor = System.Drawing.Color.FromArgb(((int)(((byte)(37)))), ((int)(((byte)(99)))), ((int)(((byte)(235)))));
+            this.lnkForgotPassword.AutoSize = true;
+            this.lnkForgotPassword.Dock = System.Windows.Forms.DockStyle.Left;
+            this.lnkForgotPassword.Font = new System.Drawing.Font("Microsoft Sans Serif", 9F);
+            this.lnkForgotPassword.LinkBehavior = System.Windows.Forms.LinkBehavior.HoverUnderline;
+            this.lnkForgotPassword.LinkColor = System.Drawing.Color.FromArgb(((int)(((byte)(37)))), ((int)(((byte)(99)))), ((int)(((byte)(235)))));
+            this.lnkForgotPassword.Location = new System.Drawing.Point(0, 0);
+            this.lnkForgotPassword.Name = "lnkForgotPassword";
+            this.lnkForgotPassword.Size = new System.Drawing.Size(106, 18);
+            this.lnkForgotPassword.TabIndex = 1;
+            this.lnkForgotPassword.TabStop = true;
+            this.lnkForgotPassword.Text = "نسيت كلمة المرور؟";
+            // 
             // pnlPasswordWrapper
-            //
+            // 
             this.pnlPasswordWrapper.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(248)))), ((int)(((byte)(250)))), ((int)(((byte)(252)))));
             this.pnlPasswordWrapper.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
             this.pnlPasswordWrapper.Controls.Add(this.txtPassword);
             this.pnlPasswordWrapper.Controls.Add(this.btnTogglePassword);
-            this.pnlPasswordWrapper.Location = new System.Drawing.Point(20, 210);
+            this.pnlPasswordWrapper.Location = new System.Drawing.Point(18, 168);
+            this.pnlPasswordWrapper.Margin = new System.Windows.Forms.Padding(3, 2, 3, 2);
             this.pnlPasswordWrapper.Name = "pnlPasswordWrapper";
-            this.pnlPasswordWrapper.Size = new System.Drawing.Size(340, 36);
+            this.pnlPasswordWrapper.Size = new System.Drawing.Size(298, 29);
             this.pnlPasswordWrapper.TabIndex = 1;
-            //
+            // 
             // txtPassword
-            //
+            // 
             this.txtPassword.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(248)))), ((int)(((byte)(250)))), ((int)(((byte)(252)))));
             this.txtPassword.BorderStyle = System.Windows.Forms.BorderStyle.None;
-            this.txtPassword.Font = new System.Drawing.Font("Cairo", 10.5F);
-            this.txtPassword.Location = new System.Drawing.Point(40, 4);
+            this.txtPassword.Font = new System.Drawing.Font("Microsoft Sans Serif", 10.5F);
+            this.txtPassword.Location = new System.Drawing.Point(35, 3);
+            this.txtPassword.Margin = new System.Windows.Forms.Padding(3, 2, 3, 2);
             this.txtPassword.Name = "txtPassword";
-            this.txtPassword.Size = new System.Drawing.Size(295, 27);
-            this.txtPassword.TabIndex = 1;
+            this.txtPassword.Size = new System.Drawing.Size(258, 20);
+            this.txtPassword.TabIndex = 2;
             this.txtPassword.UseSystemPasswordChar = true;
             this.txtPassword.KeyDown += new System.Windows.Forms.KeyEventHandler(this.TxtPassword_KeyDown);
-            //
+            // 
             // btnTogglePassword
-            //
+            // 
             this.btnTogglePassword.BackColor = System.Drawing.Color.Transparent;
             this.btnTogglePassword.Cursor = System.Windows.Forms.Cursors.Hand;
             this.btnTogglePassword.Dock = System.Windows.Forms.DockStyle.Left;
@@ -257,120 +284,96 @@ namespace SchoolCenter
             this.btnTogglePassword.Font = new System.Drawing.Font("Segoe UI", 10F);
             this.btnTogglePassword.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(100)))), ((int)(((byte)(116)))), ((int)(((byte)(139)))));
             this.btnTogglePassword.Location = new System.Drawing.Point(0, 0);
+            this.btnTogglePassword.Margin = new System.Windows.Forms.Padding(3, 2, 3, 2);
             this.btnTogglePassword.Name = "btnTogglePassword";
-            this.btnTogglePassword.Size = new System.Drawing.Size(35, 34);
+            this.btnTogglePassword.Size = new System.Drawing.Size(31, 27);
             this.btnTogglePassword.TabIndex = 0;
             this.btnTogglePassword.TabStop = false;
             this.btnTogglePassword.Text = "👁️";
             this.btnTogglePassword.UseVisualStyleBackColor = false;
             this.btnTogglePassword.Click += new System.EventHandler(this.BtnTogglePassword_Click);
-            //
-            // pnlOptions
-            //
-            this.pnlOptions.Controls.Add(this.chkRememberMe);
-            this.pnlOptions.Controls.Add(this.lnkForgotPassword);
-            this.pnlOptions.Location = new System.Drawing.Point(20, 255);
-            this.pnlOptions.Name = "pnlOptions";
-            this.pnlOptions.Size = new System.Drawing.Size(340, 30);
-            this.pnlOptions.TabIndex = 4;
-            //
-            // chkRememberMe
-            //
-            this.chkRememberMe.AutoSize = true;
-            this.chkRememberMe.Dock = System.Windows.Forms.DockStyle.Right;
-            this.chkRememberMe.Font = new System.Drawing.Font("Cairo", 9F);
-            this.chkRememberMe.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(71)))), ((int)(((byte)(85)))), ((int)(((byte)(105)))));
-            this.chkRememberMe.Location = new System.Drawing.Point(258, 0);
-            this.chkRememberMe.Name = "chkRememberMe";
-            this.chkRememberMe.Size = new System.Drawing.Size(82, 30);
-            this.chkRememberMe.TabIndex = 0;
-            this.chkRememberMe.Text = "تذكرني";
-            this.chkRememberMe.UseVisualStyleBackColor = true;
-            //
-            // lnkForgotPassword
-            //
-            this.lnkForgotPassword.ActiveLinkColor = System.Drawing.Color.FromArgb(((int)(((byte)(37)))), ((int)(((byte)(99)))), ((int)(((byte)(235)))));
-            this.lnkForgotPassword.AutoSize = true;
-            this.lnkForgotPassword.Dock = System.Windows.Forms.DockStyle.Left;
-            this.lnkForgotPassword.Font = new System.Drawing.Font("Cairo", 9F);
-            this.lnkForgotPassword.LinkBehavior = System.Windows.Forms.LinkBehavior.HoverUnderline;
-            this.lnkForgotPassword.LinkColor = System.Drawing.Color.FromArgb(((int)(((byte)(37)))), ((int)(((byte)(99)))), ((int)(((byte)(235)))));
-            this.lnkForgotPassword.Location = new System.Drawing.Point(0, 0);
-            this.lnkForgotPassword.Name = "lnkForgotPassword";
-            this.lnkForgotPassword.Size = new System.Drawing.Size(126, 23);
-            this.lnkForgotPassword.TabIndex = 1;
-            this.lnkForgotPassword.TabStop = true;
-            this.lnkForgotPassword.Text = "نسيت كلمة المرور؟";
-            //
-            // btnLogin
-            //
-            this.btnLogin.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(15)))), ((int)(((byte)(23)))), ((int)(((byte)(42))))); // Dark solid button #0F172A
-            this.btnLogin.Cursor = System.Windows.Forms.Cursors.Hand;
-            this.btnLogin.FlatAppearance.BorderSize = 0;
-            this.btnLogin.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
-            this.btnLogin.Font = new System.Drawing.Font("Cairo", 11F, System.Drawing.FontStyle.Bold);
-            this.btnLogin.ForeColor = System.Drawing.Color.White;
-            this.btnLogin.Location = new System.Drawing.Point(20, 340);
-            this.btnLogin.Name = "btnLogin";
-            this.btnLogin.Size = new System.Drawing.Size(340, 42);
-            this.btnLogin.TabIndex = 2;
-            this.btnLogin.Text = "دخول";
-            this.btnLogin.UseVisualStyleBackColor = false;
-            this.btnLogin.Click += new System.EventHandler(this.BtnLogin_Click);
-            //
-            // btnExitApp
-            //
-            this.btnExitApp.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(100)))), ((int)(((byte)(116)))), ((int)(((byte)(139))))); // Muted Gray #64748B
-            this.btnExitApp.Cursor = System.Windows.Forms.Cursors.Hand;
-            this.btnExitApp.FlatAppearance.BorderSize = 0;
-            this.btnExitApp.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
-            this.btnExitApp.Font = new System.Drawing.Font("Cairo", 10F, System.Drawing.FontStyle.Bold);
-            this.btnExitApp.ForeColor = System.Drawing.Color.White;
-            this.btnExitApp.Location = new System.Drawing.Point(20, 395);
-            this.btnExitApp.Name = "btnExitApp";
-            this.btnExitApp.Size = new System.Drawing.Size(340, 36);
-            this.btnExitApp.TabIndex = 3;
-            this.btnExitApp.TabStop = false;
-            this.btnExitApp.Text = "إغلاق المنظومة";
-            this.btnExitApp.UseVisualStyleBackColor = false;
-            this.btnExitApp.Click += new System.EventHandler(this.BtnExitApp_Click);
-            //
-            // lblError
-            //
-            this.lblError.Font = new System.Drawing.Font("Cairo", 9F, System.Drawing.FontStyle.Bold);
-            this.lblError.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(239)))), ((int)(((byte)(68)))), ((int)(((byte)(68))))); // Soft red #EF4444
-            this.lblError.Location = new System.Drawing.Point(20, 290);
-            this.lblError.Name = "lblError";
-            this.lblError.Size = new System.Drawing.Size(340, 40);
-            this.lblError.TabIndex = 5;
-            this.lblError.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
-            this.lblError.Visible = false;
-            //
+            // 
+            // lblPassword
+            // 
+            this.lblPassword.AutoSize = true;
+            this.lblPassword.Font = new System.Drawing.Font("Microsoft Sans Serif", 9.5F, System.Drawing.FontStyle.Bold);
+            this.lblPassword.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(15)))), ((int)(((byte)(23)))), ((int)(((byte)(42)))));
+            this.lblPassword.Location = new System.Drawing.Point(232, 146);
+            this.lblPassword.Name = "lblPassword";
+            this.lblPassword.Size = new System.Drawing.Size(107, 20);
+            this.lblPassword.TabIndex = 3;
+            this.lblPassword.Text = "🔑 كلمة المرور:";
+            // 
+            // txtUsername
+            // 
+            this.txtUsername.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(248)))), ((int)(((byte)(250)))), ((int)(((byte)(252)))));
+            this.txtUsername.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
+            this.txtUsername.Font = new System.Drawing.Font("Microsoft Sans Serif", 10.5F);
+            this.txtUsername.Location = new System.Drawing.Point(18, 106);
+            this.txtUsername.Margin = new System.Windows.Forms.Padding(3, 2, 3, 2);
+            this.txtUsername.Name = "txtUsername";
+            this.txtUsername.Size = new System.Drawing.Size(298, 27);
+            this.txtUsername.TabIndex = 1;
+            // 
+            // lblUsername
+            // 
+            this.lblUsername.AutoSize = true;
+            this.lblUsername.Font = new System.Drawing.Font("Microsoft Sans Serif", 9.5F, System.Drawing.FontStyle.Bold);
+            this.lblUsername.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(15)))), ((int)(((byte)(23)))), ((int)(((byte)(42)))));
+            this.lblUsername.Location = new System.Drawing.Point(219, 84);
+            this.lblUsername.Name = "lblUsername";
+            this.lblUsername.Size = new System.Drawing.Size(111, 20);
+            this.lblUsername.TabIndex = 2;
+            this.lblUsername.Text = "👤 اسم المستخدم:";
+            // 
+            // lblSubtitle
+            // 
+            this.lblSubtitle.Font = new System.Drawing.Font("Microsoft Sans Serif", 9F);
+            this.lblSubtitle.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(100)))), ((int)(((byte)(116)))), ((int)(((byte)(139)))));
+            this.lblSubtitle.Location = new System.Drawing.Point(13, 52);
+            this.lblSubtitle.Name = "lblSubtitle";
+            this.lblSubtitle.Size = new System.Drawing.Size(306, 20);
+            this.lblSubtitle.TabIndex = 1;
+            this.lblSubtitle.Text = "أدخل بيانات الاعتماد للوصول إلى المنظومة";
+            this.lblSubtitle.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
+            // 
+            // lblTitle
+            // 
+            this.lblTitle.Font = new System.Drawing.Font("Microsoft Sans Serif", 18F, System.Drawing.FontStyle.Bold);
+            this.lblTitle.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(15)))), ((int)(((byte)(23)))), ((int)(((byte)(42)))));
+            this.lblTitle.Location = new System.Drawing.Point(13, 16);
+            this.lblTitle.Name = "lblTitle";
+            this.lblTitle.Size = new System.Drawing.Size(306, 36);
+            this.lblTitle.TabIndex = 0;
+            this.lblTitle.Text = "تسجيل الدخول";
+            this.lblTitle.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
+            // 
             // LoginForm
-            //
-            this.AutoScaleDimensions = new System.Drawing.SizeF(8F, 20F);
+            // 
+            this.AutoScaleDimensions = new System.Drawing.SizeF(7F, 16F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(950, 600);
+            this.ClientSize = new System.Drawing.Size(831, 480);
             this.Controls.Add(this.tlpSplit);
             this.FormBorderStyle = System.Windows.Forms.FormBorderStyle.FixedDialog;
+            this.Margin = new System.Windows.Forms.Padding(3, 2, 3, 2);
             this.MaximizeBox = false;
             this.MinimizeBox = false;
             this.Name = "LoginForm";
             this.RightToLeft = System.Windows.Forms.RightToLeft.Yes;
-            this.RightToLeftLayout = false;
             this.StartPosition = System.Windows.Forms.FormStartPosition.CenterScreen;
             this.Text = "منظومة مركز الدورات التعليمية - تسجيل الدخول";
             this.Load += new System.EventHandler(this.LoginForm_Load);
             this.tlpSplit.ResumeLayout(false);
             this.pnlBrand.ResumeLayout(false);
             this.pnlBrandCenter.ResumeLayout(false);
+            ((System.ComponentModel.ISupportInitialize)(this.picCenterLogo)).EndInit();
             this.pnlLoginContainer.ResumeLayout(false);
             this.pnlLoginCard.ResumeLayout(false);
             this.pnlLoginCard.PerformLayout();
-            this.pnlPasswordWrapper.ResumeLayout(false);
-            this.pnlPasswordWrapper.PerformLayout();
             this.pnlOptions.ResumeLayout(false);
             this.pnlOptions.PerformLayout();
+            this.pnlPasswordWrapper.ResumeLayout(false);
+            this.pnlPasswordWrapper.PerformLayout();
             this.ResumeLayout(false);
 
         }
@@ -382,7 +385,6 @@ namespace SchoolCenter
         private System.Windows.Forms.Panel pnlBrandCenter;
         private System.Windows.Forms.Label lblCenterHeader;
         private System.Windows.Forms.PictureBox picCenterLogo;
-        private System.Windows.Forms.Label lblCenterTitle;
         private System.Windows.Forms.Label lblBrandSubtitle;
         private System.Windows.Forms.Panel pnlLoginContainer;
         private System.Windows.Forms.Panel pnlLoginCard;

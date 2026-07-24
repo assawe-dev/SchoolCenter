@@ -24,7 +24,7 @@ namespace SchoolCenter
                 // Load dynamic branding settings
                 Tuple<string, Image> settings = SettingsService.GetSettings();
                 lblCenterHeader.Text = settings.Item1;
-                lblCenterTitle.Text = settings.Item1;
+              
                 if (settings.Item2 != null)
                 {
                     picCenterLogo.Image = settings.Item2;
