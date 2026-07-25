@@ -2,33 +2,81 @@ using System;
 using System.Collections.Generic;
 using System.Data;
 using System.Data.SqlClient;
-using Microsoft.AspNetCore.Mvc;
+using System.Web.Http;
 
 namespace SchoolCenter.API.Controllers
 {
-    [ApiController]
-    [Route("api/[controller]")]
-    public class DashboardController : ControllerBase
+    [RoutePrefix("api/dashboard")]
+    public class DashboardController : ApiController
     {
-        private readonly IConfiguration _configuration;
-
-        public DashboardController(IConfiguration configuration)
-        {
-            _configuration = configuration;
-        }
-
         private string GetConnectionString()
         {
-            var connStr = _configuration.GetConnectionString("DefaultConnection");
-            if (string.IsNullOrEmpty(connStr))
+            var connStrSetting = System.Configuration.ConfigurationManager.ConnectionStrings["DefaultConnection"];
+            if (connStrSetting != null && !string.IsNullOrEmpty(connStrSetting.ConnectionString))
             {
-                return "Server=.\\SQLEXPRESS;Database=SchoolCenterDB;Integrated Security=True;TrustServerCertificate=True";
+                return connStrSetting.ConnectionString;
             }
-            return connStr;
+
+            // Fallback to db_config.txt in the application directory or parent directory
+            try
+            {
+                string configPath = System.IO.Path.Combine(System.AppDomain.CurrentDomain.BaseDirectory, "db_config.txt");
+                if (!System.IO.File.Exists(configPath))
+                {
+                    configPath = System.IO.Path.Combine(System.IO.Directory.GetParent(System.AppDomain.CurrentDomain.BaseDirectory).FullName, "db_config.txt");
+                }
+
+                if (System.IO.File.Exists(configPath))
+                {
+                    var builder = new SqlConnectionStringBuilder();
+                    string[] lines = System.IO.File.ReadAllLines(configPath);
+                    foreach (string line in lines)
+                    {
+                        if (string.IsNullOrWhiteSpace(line) || line.Trim().StartsWith("#"))
+                            continue;
+                        int delimiterIndex = line.IndexOf('=');
+                        if (delimiterIndex > 0)
+                        {
+                            string key = line.Substring(0, delimiterIndex).Trim().ToUpper();
+                            string value = line.Substring(delimiterIndex + 1).Trim();
+                            switch (key)
+                            {
+                                case "SERVER":
+                                case "DATA SOURCE":
+                                    builder.DataSource = value;
+                                    break;
+                                case "DATABASE":
+                                case "INITIAL CATALOG":
+                                    builder.InitialCatalog = value;
+                                    break;
+                                case "INTEGRATED_SECURITY":
+                                case "INTEGRATED SECURITY":
+                                    bool integrated;
+                                    if (bool.TryParse(value, out integrated))
+                                        builder.IntegratedSecurity = integrated;
+                                    break;
+                                case "USER ID":
+                                    builder.UserID = value;
+                                    break;
+                                case "PASSWORD":
+                                    builder.Password = value;
+                                    break;
+                            }
+                        }
+                    }
+                    builder.ConnectTimeout = 15;
+                    builder.Pooling = true;
+                    return builder.ConnectionString;
+                }
+            }
+            catch { }
+
+            return "Server=.\\SQLEXPRESS;Database=SchoolCenterDB;Integrated Security=True;";
         }
 
-        [HttpGet("stats")]
-        public IActionResult GetStats()
+        [HttpGet]
+        [Route("stats")]
+        public IHttpActionResult GetStats()
         {
             try
             {
@@ -72,20 +120,21 @@ namespace SchoolCenter.API.Controllers
 
                 return Ok(new
                 {
-                    totalStudents,
-                    totalCourses,
-                    currentTreasuryBalance,
-                    totalOutstandingDebts
+                    totalStudents = totalStudents,
+                    totalCourses = totalCourses,
+                    currentTreasuryBalance = currentTreasuryBalance,
+                    totalOutstandingDebts = totalOutstandingDebts
                 });
             }
             catch (Exception ex)
             {
-                return StatusCode(500, new { message = "حدث خطأ أثناء جلب إحصائيات لوحة التحكم", error = ex.Message });
+                return Content(System.Net.HttpStatusCode.InternalServerError, new { message = "حدث خطأ أثناء جلب إحصائيات لوحة التحكم", error = ex.Message });
             }
         }
 
-        [HttpGet("donut-chart")]
-        public IActionResult GetDonutChartData()
+        [HttpGet]
+        [Route("donut-chart")]
+        public IHttpActionResult GetDonutChartData()
         {
             try
             {
@@ -116,19 +165,20 @@ namespace SchoolCenter.API.Controllers
 
                 return Ok(new
                 {
-                    totalPaid,
-                    totalOutstanding,
+                    totalPaid = totalPaid,
+                    totalOutstanding = totalOutstanding,
                     labels = new string[] { "المدفوعات المستلمة", "الديون المستحقة" }
                 });
             }
             catch (Exception ex)
             {
-                return StatusCode(500, new { message = "حدث خطأ أثناء جلب بيانات المخطط الدائري", error = ex.Message });
+                return Content(System.Net.HttpStatusCode.InternalServerError, new { message = "حدث خطأ أثناء جلب بيانات المخطط الدائري", error = ex.Message });
             }
         }
 
-        [HttpGet("recent-transactions")]
-        public IActionResult GetRecentTransactions()
+        [HttpGet]
+        [Route("recent-transactions")]
+        public IHttpActionResult GetRecentTransactions()
         {
             try
             {
@@ -176,7 +226,7 @@ namespace SchoolCenter.API.Controllers
             }
             catch (Exception ex)
             {
-                return StatusCode(500, new { message = "حدث خطأ أثناء جلب الحركات المالية الأخيرة", error = ex.Message });
+                return Content(System.Net.HttpStatusCode.InternalServerError, new { message = "حدث خطأ أثناء جلب الحركات المالية الأخيرة", error = ex.Message });
             }
         }
     }
