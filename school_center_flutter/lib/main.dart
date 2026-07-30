@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_localizations/flutter_localizations.dart';
 import 'screens/login_screen.dart';
 import 'screens/setup_screen.dart';
+import 'screens/main_navigation_layout.dart';
 
 void main() {
   runApp(const SchoolCenterApp());
@@ -41,6 +42,7 @@ class SchoolCenterApp extends StatelessWidget {
       routes: {
         '/login': (context) => const LoginScreen(),
         '/setup': (context) => const SetupScreen(),
+        '/dashboard': (context) => const MainNavigationLayout(),
       },
     );
   }
