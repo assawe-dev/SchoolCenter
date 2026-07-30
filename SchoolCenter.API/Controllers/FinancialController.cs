@@ -439,6 +439,84 @@ namespace SchoolCenter.API.Controllers
             }
             return field;
         }
+
+        [HttpGet]
+        [Route("balances")]
+        public IHttpActionResult GetBalancesReport(string search = null)
+        {
+            try
+            {
+                var list = new List<BalanceReportRow>();
+
+                using (SqlConnection conn = new SqlConnection(GetConnectionString()))
+                {
+                    conn.Open();
+
+                    string query = @"
+                        SELECT
+                            s.StudentID,
+                            s.StudentName,
+                            s.GuardianName,
+                            s.ParentPhone,
+                            ISNULL(SUM(ft.Debit), 0) AS TotalCharged,
+                            ISNULL(SUM(ft.Credit), 0) AS TotalPaid,
+                            (ISNULL(SUM(ft.Debit), 0) - ISNULL(SUM(ft.Credit), 0)) AS OutstandingBalance
+                        FROM Students s
+                        LEFT JOIN FinancialTransactions ft ON s.StudentID = ft.StudentID";
+
+                    if (!string.IsNullOrEmpty(search))
+                    {
+                        query += " WHERE s.StudentName LIKE @Filter OR s.ParentPhone LIKE @Filter OR s.GuardianName LIKE @Filter";
+                    }
+
+                    query += @"
+                        GROUP BY s.StudentID, s.StudentName, s.GuardianName, s.ParentPhone
+                        ORDER BY s.StudentName ASC";
+
+                    using (SqlCommand cmd = new SqlCommand(query, conn))
+                    {
+                        if (!string.IsNullOrEmpty(search))
+                        {
+                            cmd.Parameters.AddWithValue("@Filter", "%" + search.Trim() + "%");
+                        }
+
+                        using (SqlDataReader reader = cmd.ExecuteReader())
+                        {
+                            while (reader.Read())
+                            {
+                                list.Add(new BalanceReportRow
+                                {
+                                    StudentID = Convert.ToInt32(reader["StudentID"]),
+                                    StudentName = reader["StudentName"].ToString() ?? string.Empty,
+                                    GuardianName = reader["GuardianName"].ToString() ?? string.Empty,
+                                    ParentPhone = reader["ParentPhone"].ToString() ?? string.Empty,
+                                    TotalCharged = Convert.ToDecimal(reader["TotalCharged"]),
+                                    TotalPaid = Convert.ToDecimal(reader["TotalPaid"]),
+                                    OutstandingBalance = Convert.ToDecimal(reader["OutstandingBalance"])
+                                });
+                            }
+                        }
+                    }
+                }
+
+                return Ok(list);
+            }
+            catch (Exception ex)
+            {
+                return Content(System.Net.HttpStatusCode.InternalServerError, new { message = "حدث خطأ أثناء جلب تقرير الأرصدة والديون", error = ex.Message });
+            }
+        }
+    }
+
+    public class BalanceReportRow
+    {
+        public int StudentID { get; set; }
+        public string StudentName { get; set; }
+        public string GuardianName { get; set; }
+        public string ParentPhone { get; set; }
+        public decimal TotalCharged { get; set; }
+        public decimal TotalPaid { get; set; }
+        public decimal OutstandingBalance { get; set; }
     }
 
     public class DueAssignmentRequest
