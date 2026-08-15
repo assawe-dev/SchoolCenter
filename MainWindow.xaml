@@ -1,0 +1,106 @@
+<Window x:Class="MainWindow"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        Title="منظومة إدارة المركز التعليمي"
+        Height="768" Width="1280"
+        WindowStartupLocation="CenterScreen"
+        WindowState="Maximized"
+        FlowDirection="RightToLeft"
+        Background="{StaticResource BackgroundBrush}"
+        FontFamily="{StaticResource ArabicFont}"
+        Loaded="Window_Loaded">
+
+    <Grid>
+        <Grid.ColumnDefinitions>
+            <ColumnDefinition Width="260" />
+            <ColumnDefinition Width="*" />
+        </Grid.ColumnDefinitions>
+
+        <!-- Sidebar -->
+        <Border Grid.Column="0" Background="{StaticResource DarkNavyBrush}">
+            <Grid Margin="16,20">
+                <Grid.RowDefinitions>
+                    <RowDefinition Height="Auto" />
+                    <RowDefinition Height="*" />
+                    <RowDefinition Height="Auto" />
+                </Grid.RowDefinitions>
+
+                <!-- Sidebar Header / Branding -->
+                <StackPanel Grid.Row="0" Margin="0,0,0,24">
+                    <StackPanel Orientation="Horizontal" Margin="4,0,0,8">
+                        <Border Width="36" Height="36" CornerRadius="18" Background="#1E293B" Margin="0,0,12,0">
+                            <TextBlock x:Name="txtSidebarLogoEmoji" Text="🏫" FontSize="20" HorizontalAlignment="Center" VerticalAlignment="Center" />
+                        </Border>
+                        <TextBlock x:Name="txtCenterHeaderName" Text="المركز التعليمي" FontSize="16" FontWeight="Bold" Foreground="White" VerticalAlignment="Center" TextTrimming="CharacterEllipsis" Width="180" />
+                    </StackPanel>
+                    <Separator Background="#334155" Margin="0,12,0,0" />
+                </StackPanel>
+
+                <!-- Navigation Links -->
+                <ScrollViewer Grid.Row="1" VerticalScrollBarVisibility="Auto" HorizontalScrollBarVisibility="Disabled">
+                    <StackPanel x:Name="pnlNavButtons">
+                        <Button x:Name="btnDashboard" Content="📊   الرئيسية والإحصائيات" Style="{StaticResource NavButtonStyle}" Click="NavButton_Click" Tag="Active" />
+                        <Button x:Name="btnStudents" Content="👨‍🎓   سجل الطلاب" Style="{StaticResource NavButtonStyle}" Click="NavButton_Click" />
+                        <Button x:Name="btnCourses" Content="📚   سجل الدورات" Style="{StaticResource NavButtonStyle}" Click="NavButton_Click" />
+                        <Button x:Name="btnDues" Content="📝   تسجيل المستحقات" Style="{StaticResource NavButtonStyle}" Click="NavButton_Click" />
+                        <Button x:Name="btnPayments" Content="💰   القبض والمعاملات" Style="{StaticResource NavButtonStyle}" Click="NavButton_Click" />
+                        <Button x:Name="btnReports" Content="📑   تقرير الأرصدة والديون" Style="{StaticResource NavButtonStyle}" Click="NavButton_Click" />
+                        <Button x:Name="btnUsers" Content="👥   إدارة المستخدمين" Style="{StaticResource NavButtonStyle}" Click="NavButton_Click" />
+                        <Button x:Name="btnSettings" Content="⚙️   إعدادات النظام" Style="{StaticResource NavButtonStyle}" Click="NavButton_Click" />
+                    </StackPanel>
+                </ScrollViewer>
+
+                <!-- Bottom User Info & Logout -->
+                <Border Grid.Row="2" Background="#1E293B" CornerRadius="10" Padding="12" Margin="0,16,0,0">
+                    <StackPanel>
+                        <Grid Margin="0,0,0,8">
+                            <Grid.ColumnDefinitions>
+                                <ColumnDefinition Width="Auto" />
+                                <ColumnDefinition Width="*" />
+                            </Grid.ColumnDefinitions>
+                            <Border Grid.Column="0" Width="32" Height="32" CornerRadius="16" Background="{StaticResource PrimaryBrush}" Margin="0,0,10,0">
+                                <TextBlock Text="👤" FontSize="16" HorizontalAlignment="Center" VerticalAlignment="Center" Foreground="White" />
+                            </Border>
+                            <StackPanel Grid.Column="1" VerticalAlignment="Center">
+                                <TextBlock x:Name="txtCurrentUsername" Text="اسم المستخدم" FontSize="13" FontWeight="Bold" Foreground="White" />
+                                <TextBlock x:Name="txtCurrentUserRole" Text="مدير النظام" FontSize="11" Foreground="#94A3B8" />
+                            </StackPanel>
+                        </Grid>
+                        <Button x:Name="btnLogout" Content="تسجيل الخروج 🚪" Style="{StaticResource SecondaryButtonStyle}" Height="34" FontSize="12" Click="btnLogout_Click" HorizontalAlignment="Stretch" />
+                    </StackPanel>
+                </Border>
+            </Grid>
+        </Border>
+
+        <!-- Main Content Area -->
+        <Grid Grid.Column="1">
+            <Grid.RowDefinitions>
+                <RowDefinition Height="64" />
+                <RowDefinition Height="*" />
+            </Grid.RowDefinitions>
+
+            <!-- Top Header -->
+            <Border Grid.Row="0" Background="White" BorderBrush="{StaticResource BorderBrushLight}" BorderThickness="0,0,0,1" Padding="24,0">
+                <Grid VerticalAlignment="Center">
+                    <Grid.ColumnDefinitions>
+                        <ColumnDefinition Width="*" />
+                        <ColumnDefinition Width="Auto" />
+                    </Grid.ColumnDefinitions>
+
+                    <TextBlock x:Name="txtHeaderTitle" Text="لوحة التحكم الإحصائية" FontSize="20" FontWeight="Bold" Foreground="{StaticResource TextPrimaryBrush}" VerticalAlignment="Center" />
+
+                    <!-- Status indicator -->
+                    <StackPanel Grid.Column="1" Orientation="Horizontal" VerticalAlignment="Center">
+                        <Ellipse Width="10" Height="10" Fill="{StaticResource SuccessBrush}" Margin="0,0,8,0" />
+                        <TextBlock Text="قاعدة البيانات متصلة" FontSize="13" Foreground="{StaticResource TextSecondaryBrush}" VerticalAlignment="Center" />
+                    </StackPanel>
+                </Grid>
+            </Border>
+
+            <!-- Active View Container -->
+            <ScrollViewer Grid.Row="1" VerticalScrollBarVisibility="Auto" HorizontalScrollBarVisibility="Auto" Background="{StaticResource BackgroundBrush}" Padding="24">
+                <ContentControl x:Name="mainContentControl" />
+            </ScrollViewer>
+        </Grid>
+    </Grid>
+</Window>
