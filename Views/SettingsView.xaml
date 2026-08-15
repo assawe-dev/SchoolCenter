@@ -1,0 +1,50 @@
+<UserControl x:Class="SettingsView"
+             xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             FlowDirection="RightToLeft"
+             FontFamily="{StaticResource ArabicFont}"
+             Loaded="UserControl_Loaded">
+    <Grid>
+        <Border Style="{StaticResource CardStyle}" Width="650" HorizontalAlignment="Center" VerticalAlignment="Top" Margin="0,20,0,0">
+            <StackPanel x:Name="pnlSettings">
+                <TextBlock Text="إعدادات المنظومة وهوية المركز" FontSize="20" FontWeight="Bold" Foreground="{StaticResource TextPrimaryBrush}" Margin="0,0,0,6" />
+                <TextBlock Text="تعديل اسم المركز الشعار الافتراضي الذي يظهر في أعلى القوائم" FontSize="13" Foreground="{StaticResource TextSecondaryBrush}" Margin="0,0,0,24" />
+
+                <!-- Center Name -->
+                <TextBlock Text="اسم المركز / المؤسسة التعليمية *" FontSize="14" FontWeight="SemiBold" Margin="0,0,0,6" />
+                <TextBox x:Name="txtCenterName" Style="{StaticResource ModernTextBoxStyle}" Height="42" Margin="0,0,0,24" />
+
+                <!-- Center Logo Section -->
+                <TextBlock Text="شعار المركز (Logo)" FontSize="14" FontWeight="SemiBold" Margin="0,0,0,8" />
+
+                <Border Background="#F8FAFC" BorderBrush="{StaticResource BorderBrushLight}" BorderThickness="1" CornerRadius="10" Padding="16" Margin="0,0,0,28">
+                    <Grid>
+                        <Grid.ColumnDefinitions>
+                            <ColumnDefinition Width="120" />
+                            <ColumnDefinition Width="*" />
+                        </Grid.ColumnDefinitions>
+
+                        <!-- Logo Preview -->
+                        <Border Grid.Column="0" Width="100" Height="100" CornerRadius="8" Background="#E2E8F0" HorizontalAlignment="Center" VerticalAlignment="Center">
+                            <Grid>
+                                <TextBlock x:Name="txtLogoPlaceholder" Text="🏫" FontSize="40" HorizontalAlignment="Center" VerticalAlignment="Center" />
+                                <Image x:Name="imgLogoPreview" Stretch="Uniform" />
+                            </Grid>
+                        </Border>
+
+                        <StackPanel Grid.Column="1" VerticalAlignment="Center" Margin="16,0,0,0">
+                            <TextBlock Text="رفع صورة الشعار بصيغة PNG أو JPG" FontSize="13" Foreground="{StaticResource TextSecondaryBrush}" Margin="0,0,0,12" />
+                            <StackPanel Orientation="Horizontal">
+                                <Button x:Name="btnUploadLogo" Content="اختيار شعار جديد 📁" Style="{StaticResource PrimaryButtonStyle}" Height="36" Padding="12,6" FontSize="13" Margin="0,0,8,0" Click="btnUploadLogo_Click" />
+                                <Button x:Name="btnClearLogo" Content="إزالة الشعار ❌" Style="{StaticResource SecondaryButtonStyle}" Height="36" Padding="12,6" FontSize="13" Click="btnClearLogo_Click" />
+                            </StackPanel>
+                        </StackPanel>
+                    </Grid>
+                </Border>
+
+                <!-- Save Button -->
+                <Button x:Name="btnSaveSettings" Content="حفظ وتطبيق الإعدادات 💾" Style="{StaticResource PrimaryButtonStyle}" Height="46" FontSize="15" Click="btnSaveSettings_Click" />
+            </StackPanel>
+        </Border>
+    </Grid>
+</UserControl>

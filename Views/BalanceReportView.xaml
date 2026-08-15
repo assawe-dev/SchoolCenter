@@ -1,0 +1,79 @@
+<UserControl x:Class="BalanceReportView"
+             xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             FlowDirection="RightToLeft"
+             FontFamily="{StaticResource ArabicFont}"
+             Loaded="UserControl_Loaded">
+    <Grid>
+        <Grid.RowDefinitions>
+            <RowDefinition Height="Auto" />
+            <RowDefinition Height="Auto" />
+            <RowDefinition Height="*" />
+        </Grid.RowDefinitions>
+
+        <!-- Top Filter Controls -->
+        <Border Grid.Row="0" Style="{StaticResource CardStyle}" Margin="0,0,0,16">
+            <Grid>
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition Width="*" />
+                    <ColumnDefinition Width="Auto" />
+                    <ColumnDefinition Width="Auto" />
+                </Grid.ColumnDefinitions>
+
+                <StackPanel Grid.Column="0" Orientation="Horizontal">
+                    <TextBlock Text="🔍" FontSize="16" VerticalAlignment="Center" Margin="0,0,8,0" />
+                    <TextBox x:Name="txtSearch" Style="{StaticResource ModernTextBoxStyle}" Width="300" Height="38" TextChanged="txtSearch_TextChanged" ToolTip="بحث باسم الطالب أو ولي الأمر..." />
+                </StackPanel>
+
+                <CheckBox x:Name="chkDebtorsOnly" Grid.Column="1" Content="عرض الطلاب أصحاب الديون المتبقية فقط" FontSize="13" FontWeight="SemiBold" VerticalAlignment="Center" Margin="0,0,24,0" Checked="chkDebtorsOnly_CheckedChanged" Unchecked="chkDebtorsOnly_CheckedChanged" />
+
+                <Button Grid.Column="2" x:Name="btnExportCSV" Content="تصدير التقرير إلى Excel / CSV 📊" Style="{StaticResource PrimaryButtonStyle}" Click="btnExportCSV_Click" />
+            </Grid>
+        </Border>
+
+        <!-- Summary Totals -->
+        <Grid Grid.Row="1" Margin="0,0,0,16">
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition Width="*" />
+                <ColumnDefinition Width="*" />
+                <ColumnDefinition Width="*" />
+            </Grid.ColumnDefinitions>
+
+            <Border Grid.Column="0" Style="{StaticResource CardStyle}" Margin="0,0,8,0" Padding="14">
+                <StackPanel>
+                    <TextBlock Text="إجمالي المستحقات المترتبة" FontSize="12" Foreground="{StaticResource TextSecondaryBrush}" />
+                    <TextBlock x:Name="txtTotalDebitSum" Text="0.00 د.ل" FontSize="18" FontWeight="Bold" Foreground="{StaticResource TextPrimaryBrush}" Margin="0,4,0,0" />
+                </StackPanel>
+            </Border>
+
+            <Border Grid.Column="1" Style="{StaticResource CardStyle}" Margin="4,0,4,0" Padding="14">
+                <StackPanel>
+                    <TextBlock Text="إجمالي المقبوضات المباشرة" FontSize="12" Foreground="{StaticResource TextSecondaryBrush}" />
+                    <TextBlock x:Name="txtTotalCreditSum" Text="0.00 د.ل" FontSize="18" FontWeight="Bold" Foreground="{StaticResource SuccessBrush}" Margin="0,4,0,0" />
+                </StackPanel>
+            </Border>
+
+            <Border Grid.Column="2" Style="{StaticResource CardStyle}" Margin="8,0,0,0" Padding="14">
+                <StackPanel>
+                    <TextBlock Text="إجمالي الديون القائمة المستحقة" FontSize="12" Foreground="{StaticResource TextSecondaryBrush}" />
+                    <TextBlock x:Name="txtNetBalanceSum" Text="0.00 د.ل" FontSize="18" FontWeight="Bold" Foreground="{StaticResource DangerBrush}" Margin="0,4,0,0" />
+                </StackPanel>
+            </Border>
+        </Grid>
+
+        <!-- Main Report DataGrid -->
+        <Border Grid.Row="2" Style="{StaticResource CardStyle}">
+            <DataGrid x:Name="dgBalanceReport" Style="{StaticResource ModernDataGridStyle}">
+                <DataGrid.Columns>
+                    <DataGridTextColumn Header="رقم الطالب" Binding="{Binding StudentID}" Width="90" />
+                    <DataGridTextColumn Header="اسم الطالب" Binding="{Binding StudentName}" Width="*" />
+                    <DataGridTextColumn Header="اسم ولي الأمر" Binding="{Binding GuardianName}" Width="150" />
+                    <DataGridTextColumn Header="رقم الهاتف" Binding="{Binding ParentPhone}" Width="130" />
+                    <DataGridTextColumn Header="إجمالي المستحق" Binding="{Binding TotalDebit, StringFormat={}{0:N2}}" Width="130" />
+                    <DataGridTextColumn Header="إجمالي المسدد" Binding="{Binding TotalCredit, StringFormat={}{0:N2}}" Width="130" />
+                    <DataGridTextColumn Header="الرصيد المتبقي" Binding="{Binding RemainingBalance, StringFormat={}{0:N2}}" Width="140" />
+                </DataGrid.Columns>
+            </DataGrid>
+        </Border>
+    </Grid>
+</UserControl>
