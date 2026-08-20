@@ -1,22 +1,16 @@
 <?xml version="1.0" encoding="utf-8"?>
-<Project ToolsVersion="14.0" DefaultTargets="Build" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
-  <Import Project="$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props" Condition="Exists('$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props')" />
+<Project DefaultTargets="Build" ToolsVersion="14.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <Import Condition="Exists('$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props')" Project="$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props" />
   <PropertyGroup>
     <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
     <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
     <ProjectGuid>{A8B2C3D4-E5F6-4A5B-8C7D-9E0F1A2B3C4D}</ProjectGuid>
     <OutputType>WinExe</OutputType>
-    <StartupObject>SchoolCenter.App</StartupObject>
     <RootNamespace>SchoolCenter</RootNamespace>
     <AssemblyName>SchoolCenter</AssemblyName>
     <TargetFrameworkVersion>v4.5.2</TargetFrameworkVersion>
     <MyType>Custom</MyType>
     <ProjectTypeGuids>{60dc8134-eba5-43b8-bcc9-bb4bc16c2548};{F184B08F-C81C-45F6-A57F-5ABD9991F28F}</ProjectTypeGuids>
-    <OptionExplicit>On</OptionExplicit>
-    <OptionCompare>Binary</OptionCompare>
-    <OptionStrict>Off</OptionStrict>
-    <OptionInfer>On</OptionInfer>
-    <AutoGenerateBindingRedirects>true</AutoGenerateBindingRedirects>
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
     <PlatformTarget>AnyCPU</PlatformTarget>
@@ -25,8 +19,6 @@
     <DefineDebug>true</DefineDebug>
     <DefineTrace>true</DefineTrace>
     <OutputPath>bin\Debug\</OutputPath>
-    <DocumentationFile>SchoolCenter.xml</DocumentationFile>
-    <NoWarn>42016,41999,42017,42018,42019,42032,42036,42020,42021,42022</NoWarn>
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
     <PlatformTarget>AnyCPU</PlatformTarget>
@@ -35,21 +27,6 @@
     <DefineTrace>true</DefineTrace>
     <Optimize>true</Optimize>
     <OutputPath>bin\Release\</OutputPath>
-    <DocumentationFile>SchoolCenter.xml</DocumentationFile>
-    <NoWarn>42016,41999,42017,42018,42019,42032,42036,42020,42021,42022</NoWarn>
-  </PropertyGroup>
-  <ItemGroup>
-    <PackageReference Include="Microsoft.NETFramework.ReferenceAssemblies" Version="1.0.3">
-      <PrivateAssets>all</PrivateAssets>
-      <IncludeAssets>runtime; build; native; contentfiles; analyzers; buildtransitive</IncludeAssets>
-    </PackageReference>
-    <PackageReference Include="Microsoft.NETFramework.ReferenceAssemblies.net452" Version="1.0.3">
-      <PrivateAssets>all</PrivateAssets>
-      <IncludeAssets>runtime; build; native; contentfiles; analyzers; buildtransitive</IncludeAssets>
-    </PackageReference>
-  </ItemGroup>
-  <PropertyGroup>
-    <FrameworkPathOverride>$(NuGetPackageRoot)microsoft.netframework.referenceassemblies.net452/1.0.3/build/.NETFramework/v4.5.2/</FrameworkPathOverride>
   </PropertyGroup>
   <ItemGroup>
     <Import Include="Microsoft.VisualBasic" />
@@ -103,39 +80,39 @@
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </Page>
-    <Page Include="Views/DashboardView.xaml">
+    <Page Include="Views\DashboardView.xaml">
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </Page>
-    <Page Include="Views/StudentsView.xaml">
+    <Page Include="Views\StudentsView.xaml">
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </Page>
-    <Page Include="Views/CoursesView.xaml">
+    <Page Include="Views\CoursesView.xaml">
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </Page>
-    <Page Include="Views/StudentDuesView.xaml">
+    <Page Include="Views\StudentDuesView.xaml">
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </Page>
-    <Page Include="Views/PaymentsView.xaml">
+    <Page Include="Views\PaymentsView.xaml">
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </Page>
-    <Page Include="Views/BalanceReportView.xaml">
+    <Page Include="Views\BalanceReportView.xaml">
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </Page>
-    <Page Include="Views/UsersView.xaml">
+    <Page Include="Views\UsersView.xaml">
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </Page>
-    <Page Include="Views/SettingsView.xaml">
+    <Page Include="Views\SettingsView.xaml">
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </Page>
-    <Page Include="Views/AccountStatementWindow.xaml">
+    <Page Include="Views\AccountStatementWindow.xaml">
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </Page>
@@ -158,31 +135,31 @@
     <Compile Include="FinancialService.vb" />
     <Compile Include="SettingsService.vb" />
     <Compile Include="ValueConverters.vb" />
-    <Compile Include="Views/DashboardView.xaml.vb">
+    <Compile Include="Views\DashboardView.xaml.vb">
       <DependentUpon>DashboardView.xaml</DependentUpon>
     </Compile>
-    <Compile Include="Views/StudentsView.xaml.vb">
+    <Compile Include="Views\StudentsView.xaml.vb">
       <DependentUpon>StudentsView.xaml</DependentUpon>
     </Compile>
-    <Compile Include="Views/CoursesView.xaml.vb">
+    <Compile Include="Views\CoursesView.xaml.vb">
       <DependentUpon>CoursesView.xaml</DependentUpon>
     </Compile>
-    <Compile Include="Views/StudentDuesView.xaml.vb">
+    <Compile Include="Views\StudentDuesView.xaml.vb">
       <DependentUpon>StudentDuesView.xaml</DependentUpon>
     </Compile>
-    <Compile Include="Views/PaymentsView.xaml.vb">
+    <Compile Include="Views\PaymentsView.xaml.vb">
       <DependentUpon>PaymentsView.xaml</DependentUpon>
     </Compile>
-    <Compile Include="Views/BalanceReportView.xaml.vb">
+    <Compile Include="Views\BalanceReportView.xaml.vb">
       <DependentUpon>BalanceReportView.xaml</DependentUpon>
     </Compile>
-    <Compile Include="Views/UsersView.xaml.vb">
+    <Compile Include="Views\UsersView.xaml.vb">
       <DependentUpon>UsersView.xaml</DependentUpon>
     </Compile>
-    <Compile Include="Views/SettingsView.xaml.vb">
+    <Compile Include="Views\SettingsView.xaml.vb">
       <DependentUpon>SettingsView.xaml</DependentUpon>
     </Compile>
-    <Compile Include="Views/AccountStatementWindow.xaml.vb">
+    <Compile Include="Views\AccountStatementWindow.xaml.vb">
       <DependentUpon>AccountStatementWindow.xaml</DependentUpon>
     </Compile>
   </ItemGroup>
