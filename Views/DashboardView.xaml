@@ -105,7 +105,7 @@
                         <TextBlock Text="آخر العمليات المالية والمعاملات" FontSize="16" FontWeight="Bold" Foreground="{StaticResource TextPrimaryBrush}" />
                         <TextBlock Text="عرض أحدث الحركة المباشرة في النظام" FontSize="12" Foreground="{StaticResource TextSecondaryBrush}" />
                     </StackPanel>
-                    <Button Grid.Column="1" x:Name="btnRefresh" Content="تحديث البيانات 🔄" Style="{StaticResource SecondaryButtonStyle}" Click="btnRefresh_Click" Padding="12,6" FontSize="12" />
+                    <Button Grid.Column="1" x:Name="btnRefresh" Content="↻ تحديث" Style="{StaticResource SecondaryButtonStyle}" Click="btnRefresh_Click" Padding="12,6" FontSize="12" />
                 </Grid>
 
                 <DataGrid Grid.Row="1" x:Name="dgRecentTransactions" Style="{StaticResource ModernDataGridStyle}">

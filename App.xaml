@@ -18,24 +18,32 @@
             <SolidColorBrush x:Key="CardBackgroundBrush" Color="#FFFFFF" />
             <SolidColorBrush x:Key="TextPrimaryBrush" Color="#0F172A" />
             <SolidColorBrush x:Key="TextSecondaryBrush" Color="#64748B" />
-            <SolidColorBrush x:Key="BorderBrushLight" Color="#E2E8F0" />
+            <SolidColorBrush x:Key="BorderBrushLight" Color="#CBD5E1" />
             <SolidColorBrush x:Key="SuccessBrush" Color="#059669" />
+            <SolidColorBrush x:Key="SuccessHoverBrush" Color="#047857" />
             <SolidColorBrush x:Key="DangerBrush" Color="#DC2626" />
+            <SolidColorBrush x:Key="DangerHoverBrush" Color="#B91C1C" />
             <SolidColorBrush x:Key="WarningBrush" Color="#D97706" />
+            <SolidColorBrush x:Key="WarningHoverBrush" Color="#B45309" />
+            <SolidColorBrush x:Key="InfoBrush" Color="#0284C7" />
+            <SolidColorBrush x:Key="InfoHoverBrush" Color="#0369A1" />
+            <SolidColorBrush x:Key="NeutralBrush" Color="#F1F5F9" />
+            <SolidColorBrush x:Key="NeutralHoverBrush" Color="#E2E8F0" />
+            <SolidColorBrush x:Key="NeutralTextBrush" Color="#334155" />
 
             <!-- Font Family -->
-            <FontFamily x:Key="ArabicFont">Cairo, Segoe UI, Tahoma, Arial</FontFamily>
+            <FontFamily x:Key="ArabicFont">Segoe UI, Tahoma, Cairo, Arial</FontFamily>
 
             <!-- Card Style -->
             <Style x:Key="CardStyle" TargetType="Border">
                 <Setter Property="Background" Value="{StaticResource CardBackgroundBrush}" />
-                <Setter Property="CornerRadius" Value="12" />
+                <Setter Property="CornerRadius" Value="10" />
                 <Setter Property="BorderBrush" Value="{StaticResource BorderBrushLight}" />
                 <Setter Property="BorderThickness" Value="1" />
-                <Setter Property="Padding" Value="20" />
+                <Setter Property="Padding" Value="16" />
                 <Setter Property="Effect">
                     <Setter.Value>
-                        <DropShadowEffect BlurRadius="15" Color="#000000" Opacity="0.04" Direction="270" ShadowDepth="4" />
+                        <DropShadowEffect BlurRadius="10" Color="#000000" Opacity="0.03" Direction="270" ShadowDepth="2" />
                     </Setter.Value>
                 </Setter>
             </Style>
@@ -45,14 +53,14 @@
                 <Setter Property="Background" Value="{StaticResource PrimaryBrush}" />
                 <Setter Property="Foreground" Value="White" />
                 <Setter Property="FontFamily" Value="{StaticResource ArabicFont}" />
-                <Setter Property="FontSize" Value="14" />
+                <Setter Property="FontSize" Value="13" />
                 <Setter Property="FontWeight" Value="SemiBold" />
-                <Setter Property="Padding" Value="16,10" />
+                <Setter Property="Padding" Value="14,8" />
                 <Setter Property="Cursor" Value="Hand" />
                 <Setter Property="Template">
                     <Setter.Value>
                         <ControlTemplate TargetType="Button">
-                            <Border x:Name="border" Background="{TemplateBinding Background}" CornerRadius="8" Padding="{TemplateBinding Padding}" SnapsToDevicePixels="True">
+                            <Border x:Name="border" Background="{TemplateBinding Background}" CornerRadius="6" Padding="{TemplateBinding Padding}" SnapsToDevicePixels="True">
                                 <ContentPresenter HorizontalAlignment="Center" VerticalAlignment="Center" />
                             </Border>
                             <ControlTemplate.Triggers>
@@ -69,24 +77,29 @@
                 </Setter>
             </Style>
 
-            <!-- Secondary Button Style -->
+            <!-- Neutral / Secondary Button Style -->
             <Style x:Key="SecondaryButtonStyle" TargetType="Button">
-                <Setter Property="Background" Value="#F1F5F9" />
-                <Setter Property="Foreground" Value="#334155" />
+                <Setter Property="Background" Value="{StaticResource NeutralBrush}" />
+                <Setter Property="Foreground" Value="{StaticResource NeutralTextBrush}" />
                 <Setter Property="FontFamily" Value="{StaticResource ArabicFont}" />
-                <Setter Property="FontSize" Value="14" />
+                <Setter Property="FontSize" Value="13" />
                 <Setter Property="FontWeight" Value="SemiBold" />
-                <Setter Property="Padding" Value="16,10" />
+                <Setter Property="Padding" Value="14,8" />
                 <Setter Property="Cursor" Value="Hand" />
                 <Setter Property="Template">
                     <Setter.Value>
                         <ControlTemplate TargetType="Button">
-                            <Border x:Name="border" Background="{TemplateBinding Background}" CornerRadius="8" BorderBrush="{StaticResource BorderBrushLight}" BorderThickness="1" Padding="{TemplateBinding Padding}">
+                            <Border x:Name="border" Background="{TemplateBinding Background}" CornerRadius="6" BorderBrush="{StaticResource BorderBrushLight}" BorderThickness="1" Padding="{TemplateBinding Padding}" SnapsToDevicePixels="True">
                                 <ContentPresenter HorizontalAlignment="Center" VerticalAlignment="Center" />
                             </Border>
                             <ControlTemplate.Triggers>
                                 <Trigger Property="IsMouseOver" Value="True">
-                                    <Setter TargetName="border" Property="Background" Value="#E2E8F0" />
+                                    <Setter TargetName="border" Property="Background" Value="{StaticResource NeutralHoverBrush}" />
+                                </Trigger>
+                                <Trigger Property="IsEnabled" Value="False">
+                                    <Setter TargetName="border" Property="Background" Value="#F8FAFC" />
+                                    <Setter Property="Foreground" Value="#94A3B8" />
+                                    <Setter Property="Cursor" Value="No" />
                                 </Trigger>
                             </ControlTemplate.Triggers>
                         </ControlTemplate>
@@ -94,24 +107,88 @@
                 </Setter>
             </Style>
 
+            <Style x:Key="NeutralButtonStyle" BasedOn="{StaticResource SecondaryButtonStyle}" TargetType="Button" />
+
             <!-- Danger Button Style -->
             <Style x:Key="DangerButtonStyle" TargetType="Button">
                 <Setter Property="Background" Value="{StaticResource DangerBrush}" />
                 <Setter Property="Foreground" Value="White" />
                 <Setter Property="FontFamily" Value="{StaticResource ArabicFont}" />
-                <Setter Property="FontSize" Value="14" />
+                <Setter Property="FontSize" Value="13" />
                 <Setter Property="FontWeight" Value="SemiBold" />
-                <Setter Property="Padding" Value="16,10" />
+                <Setter Property="Padding" Value="14,8" />
                 <Setter Property="Cursor" Value="Hand" />
                 <Setter Property="Template">
                     <Setter.Value>
                         <ControlTemplate TargetType="Button">
-                            <Border x:Name="border" Background="{TemplateBinding Background}" CornerRadius="8" Padding="{TemplateBinding Padding}">
+                            <Border x:Name="border" Background="{TemplateBinding Background}" CornerRadius="6" Padding="{TemplateBinding Padding}" SnapsToDevicePixels="True">
                                 <ContentPresenter HorizontalAlignment="Center" VerticalAlignment="Center" />
                             </Border>
                             <ControlTemplate.Triggers>
                                 <Trigger Property="IsMouseOver" Value="True">
-                                    <Setter TargetName="border" Property="Background" Value="#B91C1C" />
+                                    <Setter TargetName="border" Property="Background" Value="{StaticResource DangerHoverBrush}" />
+                                </Trigger>
+                                <Trigger Property="IsEnabled" Value="False">
+                                    <Setter TargetName="border" Property="Background" Value="#FCA5A5" />
+                                    <Setter Property="Cursor" Value="No" />
+                                </Trigger>
+                            </ControlTemplate.Triggers>
+                        </ControlTemplate>
+                    </Setter.Value>
+                </Setter>
+            </Style>
+
+            <!-- Warning Button Style -->
+            <Style x:Key="WarningButtonStyle" TargetType="Button">
+                <Setter Property="Background" Value="{StaticResource WarningBrush}" />
+                <Setter Property="Foreground" Value="White" />
+                <Setter Property="FontFamily" Value="{StaticResource ArabicFont}" />
+                <Setter Property="FontSize" Value="13" />
+                <Setter Property="FontWeight" Value="SemiBold" />
+                <Setter Property="Padding" Value="14,8" />
+                <Setter Property="Cursor" Value="Hand" />
+                <Setter Property="Template">
+                    <Setter.Value>
+                        <ControlTemplate TargetType="Button">
+                            <Border x:Name="border" Background="{TemplateBinding Background}" CornerRadius="6" Padding="{TemplateBinding Padding}" SnapsToDevicePixels="True">
+                                <ContentPresenter HorizontalAlignment="Center" VerticalAlignment="Center" />
+                            </Border>
+                            <ControlTemplate.Triggers>
+                                <Trigger Property="IsMouseOver" Value="True">
+                                    <Setter TargetName="border" Property="Background" Value="{StaticResource WarningHoverBrush}" />
+                                </Trigger>
+                                <Trigger Property="IsEnabled" Value="False">
+                                    <Setter TargetName="border" Property="Background" Value="#FDE68A" />
+                                    <Setter Property="Cursor" Value="No" />
+                                </Trigger>
+                            </ControlTemplate.Triggers>
+                        </ControlTemplate>
+                    </Setter.Value>
+                </Setter>
+            </Style>
+
+            <!-- Info Button Style -->
+            <Style x:Key="InfoButtonStyle" TargetType="Button">
+                <Setter Property="Background" Value="{StaticResource InfoBrush}" />
+                <Setter Property="Foreground" Value="White" />
+                <Setter Property="FontFamily" Value="{StaticResource ArabicFont}" />
+                <Setter Property="FontSize" Value="13" />
+                <Setter Property="FontWeight" Value="SemiBold" />
+                <Setter Property="Padding" Value="14,8" />
+                <Setter Property="Cursor" Value="Hand" />
+                <Setter Property="Template">
+                    <Setter.Value>
+                        <ControlTemplate TargetType="Button">
+                            <Border x:Name="border" Background="{TemplateBinding Background}" CornerRadius="6" Padding="{TemplateBinding Padding}" SnapsToDevicePixels="True">
+                                <ContentPresenter HorizontalAlignment="Center" VerticalAlignment="Center" />
+                            </Border>
+                            <ControlTemplate.Triggers>
+                                <Trigger Property="IsMouseOver" Value="True">
+                                    <Setter TargetName="border" Property="Background" Value="{StaticResource InfoHoverBrush}" />
+                                </Trigger>
+                                <Trigger Property="IsEnabled" Value="False">
+                                    <Setter TargetName="border" Property="Background" Value="#7DD3FC" />
+                                    <Setter Property="Cursor" Value="No" />
                                 </Trigger>
                             </ControlTemplate.Triggers>
                         </ControlTemplate>

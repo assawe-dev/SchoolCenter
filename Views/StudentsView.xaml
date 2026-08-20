@@ -24,8 +24,8 @@
                     <TextBox x:Name="txtSearch" Style="{StaticResource ModernTextBoxStyle}" Width="320" Height="38" TextChanged="txtSearch_TextChanged" ToolTip="بحث بالاسم أو هاتف ولي الأمر" />
                 </StackPanel>
 
-                <Button Grid.Column="1" x:Name="btnShowStatement" Content="📑 كشف حساب للطالب المحدد" Style="{StaticResource SecondaryButtonStyle}" Margin="0,0,12,0" Click="btnShowStatement_Click" />
-                <Button Grid.Column="2" x:Name="btnAddNewStudent" Content="➕ إضافة طالب جديد" Style="{StaticResource PrimaryButtonStyle}" Click="btnAddNewStudent_Click" />
+                <Button Grid.Column="1" x:Name="btnShowStatement" Content="... كشف حساب" Style="{StaticResource InfoButtonStyle}" Margin="0,0,12,0" Click="btnShowStatement_Click" />
+                <Button Grid.Column="2" x:Name="btnAddNewStudent" Content="+ جديد" Style="{StaticResource PrimaryButtonStyle}" Click="btnAddNewStudent_Click" />
             </Grid>
         </Border>
 
@@ -66,16 +66,16 @@
                         <TextBlock x:Name="txtFormTitle" Text="إضافة طالب جديد" FontSize="18" FontWeight="Bold" Foreground="{StaticResource TextPrimaryBrush}" Margin="0,0,0,16" />
 
                         <TextBlock Text="اسم الطالب بالكامل *" FontSize="13" FontWeight="SemiBold" Margin="0,0,0,4" />
-                        <TextBox x:Name="txtStudentName" Style="{StaticResource ModernTextBoxStyle}" Height="38" Margin="0,0,0,14" />
+                        <TextBox x:Name="txtStudentName" Style="{StaticResource ModernTextBoxStyle}" Height="36" Margin="0,0,0,14" TabIndex="1" />
 
                         <TextBlock Text="اسم ولي الأمر *" FontSize="13" FontWeight="SemiBold" Margin="0,0,0,4" />
-                        <TextBox x:Name="txtGuardianName" Style="{StaticResource ModernTextBoxStyle}" Height="38" Margin="0,0,0,14" />
+                        <TextBox x:Name="txtGuardianName" Style="{StaticResource ModernTextBoxStyle}" Height="36" Margin="0,0,0,14" TabIndex="2" />
 
                         <TextBlock Text="رقم هاتف ولي الأمر *" FontSize="13" FontWeight="SemiBold" Margin="0,0,0,4" />
-                        <TextBox x:Name="txtParentPhone" Style="{StaticResource ModernTextBoxStyle}" Height="38" Margin="0,0,0,14" />
+                        <TextBox x:Name="txtParentPhone" Style="{StaticResource ModernTextBoxStyle}" Height="36" Margin="0,0,0,14" TabIndex="3" />
 
                         <TextBlock Text="ملاحظات" FontSize="13" FontWeight="SemiBold" Margin="0,0,0,4" />
-                        <TextBox x:Name="txtNotes" Style="{StaticResource ModernTextBoxStyle}" Height="60" TextWrapping="Wrap" AcceptsReturn="True" Margin="0,0,0,14" />
+                        <TextBox x:Name="txtNotes" Style="{StaticResource ModernTextBoxStyle}" Height="54" TextWrapping="Wrap" AcceptsReturn="True" Margin="0,0,0,14" TabIndex="4" />
 
                         <!-- Opening Balance Section (only active for new student) -->
                         <Border x:Name="pnlOpeningBalance" Background="#F1F5F9" CornerRadius="8" Padding="12" Margin="0,0,0,16">
@@ -85,19 +85,19 @@
                                 <Grid Margin="0,0,0,8">
                                     <Grid.ColumnDefinitions>
                                         <ColumnDefinition Width="*" />
-                                        <ColumnDefinition Width="100" />
+                                        <ColumnDefinition Width="110" />
                                     </Grid.ColumnDefinitions>
 
                                     <StackPanel Grid.Column="0" Margin="0,0,8,0">
                                         <TextBlock Text="المبلغ" FontSize="12" Margin="0,0,0,4" />
-                                        <TextBox x:Name="txtOpeningBalanceAmount" Style="{StaticResource ModernTextBoxStyle}" Height="36" Text="0.00" />
+                                        <TextBox x:Name="txtOpeningBalanceAmount" Style="{StaticResource ModernTextBoxStyle}" Height="34" Text="0.00" TabIndex="5" />
                                     </StackPanel>
 
                                     <StackPanel Grid.Column="1">
                                         <TextBlock Text="نوع الرصيد" FontSize="12" Margin="0,0,0,4" />
-                                        <ComboBox x:Name="cmbBalanceType" Style="{StaticResource ModernComboBoxStyle}" Height="36" SelectedIndex="0">
-                                            <ComboBoxItem Content="مدين (مستحق عليه)" />
-                                            <ComboBoxItem Content="دائن (مستحق له)" />
+                                        <ComboBox x:Name="cmbBalanceType" Style="{StaticResource ModernComboBoxStyle}" Height="34" SelectedIndex="0" TabIndex="6">
+                                            <ComboBoxItem Content="مدين (عليه)" />
+                                            <ComboBoxItem Content="دائن (له)" />
                                         </ComboBox>
                                     </StackPanel>
                                 </Grid>
@@ -110,11 +110,11 @@
                                 <ColumnDefinition Width="*" />
                                 <ColumnDefinition Width="*" />
                             </Grid.ColumnDefinitions>
-                            <Button x:Name="btnSaveStudent" Grid.Column="0" Content="حفظ الطالب 💾" Style="{StaticResource PrimaryButtonStyle}" Margin="0,0,4,0" Click="btnSaveStudent_Click" />
-                            <Button x:Name="btnCancelEdit" Grid.Column="1" Content="إلغاء / جديد 🔄" Style="{StaticResource SecondaryButtonStyle}" Margin="4,0,0,0" Click="btnCancelEdit_Click" />
+                            <Button x:Name="btnSaveStudent" Grid.Column="0" Content="✓ حفظ الطالب" Style="{StaticResource PrimaryButtonStyle}" Margin="0,0,4,0" Click="btnSaveStudent_Click" TabIndex="7" />
+                            <Button x:Name="btnCancelEdit" Grid.Column="1" Content="↻ جديد" Style="{StaticResource SecondaryButtonStyle}" Margin="4,0,0,0" Click="btnCancelEdit_Click" TabIndex="8" />
                         </Grid>
 
-                        <Button x:Name="btnDeleteStudent" Content="حذف الطالب 🗑️" Style="{StaticResource DangerButtonStyle}" Margin="0,12,0,0" Click="btnDeleteStudent_Click" Visibility="Collapsed" />
+                        <Button x:Name="btnDeleteStudent" Content="× حذف الطالب" Style="{StaticResource DangerButtonStyle}" Margin="0,12,0,0" Click="btnDeleteStudent_Click" Visibility="Collapsed" TabIndex="9" />
                     </StackPanel>
                 </ScrollViewer>
             </Border>
