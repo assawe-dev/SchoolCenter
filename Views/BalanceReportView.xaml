@@ -27,7 +27,7 @@
 
                 <CheckBox x:Name="chkDebtorsOnly" Grid.Column="1" Content="عرض الطلاب أصحاب الديون المتبقية فقط" FontSize="13" FontWeight="SemiBold" VerticalAlignment="Center" Margin="0,0,24,0" Checked="chkDebtorsOnly_CheckedChanged" Unchecked="chkDebtorsOnly_CheckedChanged" />
 
-                <Button Grid.Column="2" x:Name="btnExportCSV" Content="تصدير التقرير إلى Excel / CSV 📊" Style="{StaticResource PrimaryButtonStyle}" Click="btnExportCSV_Click" />
+                <Button Grid.Column="2" x:Name="btnExportCSV" Content="تصدير Excel" Style="{StaticResource SecondaryButtonStyle}" Click="btnExportCSV_Click" />
             </Grid>
         </Border>
 

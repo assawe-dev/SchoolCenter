@@ -52,14 +52,14 @@
 
                 <!-- Username -->
                 <TextBlock Text="اسم المستخدم" FontSize="13" FontWeight="SemiBold" Foreground="{StaticResource TextPrimaryBrush}" Margin="0,0,0,6" />
-                <TextBox x:Name="txtUsername" Style="{StaticResource ModernTextBoxStyle}" Height="42" Margin="0,0,0,20" Text="admin" />
+                <TextBox x:Name="txtUsername" Style="{StaticResource ModernTextBoxStyle}" Height="38" Margin="0,0,0,20" Text="admin" TabIndex="1" />
 
                 <!-- Password -->
                 <TextBlock Text="كلمة المرور" FontSize="13" FontWeight="SemiBold" Foreground="{StaticResource TextPrimaryBrush}" Margin="0,0,0,6" />
-                <PasswordBox x:Name="txtPassword" Style="{StaticResource ModernPasswordBoxStyle}" Height="42" Margin="0,0,0,28" KeyDown="txtPassword_KeyDown" />
+                <PasswordBox x:Name="txtPassword" Style="{StaticResource ModernPasswordBoxStyle}" Height="38" Margin="0,0,0,28" KeyDown="txtPassword_KeyDown" TabIndex="2" />
 
                 <!-- Login Button -->
-                <Button x:Name="btnLogin" Content="تسجيل الدخول" Style="{StaticResource PrimaryButtonStyle}" Height="46" Click="btnLogin_Click" IsDefault="True" />
+                <Button x:Name="btnLogin" Content="✓ تسجيل الدخول" Style="{StaticResource PrimaryButtonStyle}" Height="42" Click="btnLogin_Click" IsDefault="True" TabIndex="3" />
             </StackPanel>
         </Grid>
     </Grid>

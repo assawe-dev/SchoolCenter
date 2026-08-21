@@ -25,19 +25,19 @@
                     <!-- Student Dropdown -->
                     <StackPanel Grid.Column="0" Margin="0,0,12,0">
                         <TextBlock Text="اختر الطالب *" FontSize="13" FontWeight="SemiBold" Margin="0,0,0,4" />
-                        <ComboBox x:Name="cmbStudents" Style="{StaticResource ModernComboBoxStyle}" SelectionChanged="cmbStudents_SelectionChanged" DisplayMemberPath="DisplayName" SelectedValuePath="StudentID" />
+                        <ComboBox x:Name="cmbStudents" Style="{StaticResource ModernComboBoxStyle}" SelectionChanged="cmbStudents_SelectionChanged" DisplayMemberPath="DisplayName" SelectedValuePath="StudentID" TabIndex="1" />
                     </StackPanel>
 
                     <!-- Course Dropdown -->
                     <StackPanel Grid.Column="1" Margin="0,0,12,0">
                         <TextBlock Text="اختر الدورة التعليمية *" FontSize="13" FontWeight="SemiBold" Margin="0,0,0,4" />
-                        <ComboBox x:Name="cmbCourses" Style="{StaticResource ModernComboBoxStyle}" SelectionChanged="cmbCourses_SelectionChanged" DisplayMemberPath="CourseName" SelectedValuePath="CourseID" />
+                        <ComboBox x:Name="cmbCourses" Style="{StaticResource ModernComboBoxStyle}" SelectionChanged="cmbCourses_SelectionChanged" DisplayMemberPath="CourseName" SelectedValuePath="CourseID" TabIndex="2" />
                     </StackPanel>
 
                     <!-- Cost Amount -->
                     <StackPanel Grid.Column="2">
                         <TextBlock Text="المبلغ المستحق (د.ل) *" FontSize="13" FontWeight="SemiBold" Margin="0,0,0,4" />
-                        <TextBox x:Name="txtAmount" Style="{StaticResource ModernTextBoxStyle}" Height="38" Text="0.00" />
+                        <TextBox x:Name="txtAmount" Style="{StaticResource ModernTextBoxStyle}" Height="36" Text="0.00" TabIndex="3" />
                     </StackPanel>
                 </Grid>
 
@@ -58,10 +58,10 @@
 
                     <StackPanel Grid.Column="0" Margin="0,0,16,0">
                         <TextBlock Text="بيان / ملاحظات المستحق" FontSize="13" FontWeight="SemiBold" Margin="0,0,0,4" />
-                        <TextBox x:Name="txtNotes" Style="{StaticResource ModernTextBoxStyle}" Height="38" />
+                        <TextBox x:Name="txtNotes" Style="{StaticResource ModernTextBoxStyle}" Height="36" TabIndex="4" />
                     </StackPanel>
 
-                    <Button Grid.Column="1" x:Name="btnSaveDue" Content="تسجيل المستحق والمطالبة 📝" Style="{StaticResource PrimaryButtonStyle}" Height="38" Width="220" VerticalAlignment="Bottom" Click="btnSaveDue_Click" />
+                    <Button Grid.Column="1" x:Name="btnSaveDue" Content="✓ حفظ المستحق" Style="{StaticResource PrimaryButtonStyle}" Height="36" Width="180" VerticalAlignment="Bottom" Click="btnSaveDue_Click" TabIndex="5" />
                 </Grid>
             </StackPanel>
         </Border>

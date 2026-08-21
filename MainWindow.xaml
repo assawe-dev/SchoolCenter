@@ -39,34 +39,34 @@
                 <!-- Navigation Links -->
                 <ScrollViewer Grid.Row="1" VerticalScrollBarVisibility="Auto" HorizontalScrollBarVisibility="Disabled">
                     <StackPanel x:Name="pnlNavButtons">
-                        <Button x:Name="btnDashboard" Content="📊   الرئيسية والإحصائيات" Style="{StaticResource NavButtonStyle}" Click="NavButton_Click" Tag="Active" />
-                        <Button x:Name="btnStudents" Content="👨‍🎓   سجل الطلاب" Style="{StaticResource NavButtonStyle}" Click="NavButton_Click" />
-                        <Button x:Name="btnCourses" Content="📚   سجل الدورات" Style="{StaticResource NavButtonStyle}" Click="NavButton_Click" />
-                        <Button x:Name="btnDues" Content="📝   تسجيل المستحقات" Style="{StaticResource NavButtonStyle}" Click="NavButton_Click" />
-                        <Button x:Name="btnPayments" Content="💰   القبض والمعاملات" Style="{StaticResource NavButtonStyle}" Click="NavButton_Click" />
-                        <Button x:Name="btnReports" Content="📑   تقرير الأرصدة والديون" Style="{StaticResource NavButtonStyle}" Click="NavButton_Click" />
-                        <Button x:Name="btnUsers" Content="👥   إدارة المستخدمين" Style="{StaticResource NavButtonStyle}" Click="NavButton_Click" />
-                        <Button x:Name="btnSettings" Content="⚙️   إعدادات النظام" Style="{StaticResource NavButtonStyle}" Click="NavButton_Click" />
+                        <Button x:Name="btnDashboard" Content="📊   الرئيسية والإحصائيات" Style="{StaticResource NavButtonStyle}" Click="NavButton_Click" Tag="Active" Focusable="False" />
+                        <Button x:Name="btnStudents" Content="👨‍🎓   سجل الطلاب" Style="{StaticResource NavButtonStyle}" Click="NavButton_Click" Focusable="False" />
+                        <Button x:Name="btnCourses" Content="📚   سجل الدورات" Style="{StaticResource NavButtonStyle}" Click="NavButton_Click" Focusable="False" />
+                        <Button x:Name="btnDues" Content="📝   تسجيل المستحقات" Style="{StaticResource NavButtonStyle}" Click="NavButton_Click" Focusable="False" />
+                        <Button x:Name="btnPayments" Content="💰   سندات القبض" Style="{StaticResource NavButtonStyle}" Click="NavButton_Click" Focusable="False" />
+                        <Button x:Name="btnReports" Content="📑   تقرير الأرصدة والديون" Style="{StaticResource NavButtonStyle}" Click="NavButton_Click" Focusable="False" />
+                        <Button x:Name="btnUsers" Content="👥   إدارة المستخدمين" Style="{StaticResource NavButtonStyle}" Click="NavButton_Click" Focusable="False" />
+                        <Button x:Name="btnSettings" Content="⚙️   إعدادات النظام" Style="{StaticResource NavButtonStyle}" Click="NavButton_Click" Focusable="False" />
                     </StackPanel>
                 </ScrollViewer>
 
                 <!-- Bottom User Info & Logout -->
-                <Border Grid.Row="2" Background="#1E293B" CornerRadius="10" Padding="12" Margin="0,16,0,0">
+                <Border Grid.Row="2" Background="#1E293B" CornerRadius="8" Padding="12" Margin="0,16,0,0">
                     <StackPanel>
-                        <Grid Margin="0,0,0,8">
+                        <Grid Margin="0,0,0,10">
                             <Grid.ColumnDefinitions>
                                 <ColumnDefinition Width="Auto" />
                                 <ColumnDefinition Width="*" />
                             </Grid.ColumnDefinitions>
                             <Border Grid.Column="0" Width="32" Height="32" CornerRadius="16" Background="{StaticResource PrimaryBrush}" Margin="0,0,10,0">
-                                <TextBlock Text="👤" FontSize="16" HorizontalAlignment="Center" VerticalAlignment="Center" Foreground="White" />
+                                <TextBlock Text="👤" FontSize="14" HorizontalAlignment="Center" VerticalAlignment="Center" Foreground="White" />
                             </Border>
                             <StackPanel Grid.Column="1" VerticalAlignment="Center">
                                 <TextBlock x:Name="txtCurrentUsername" Text="اسم المستخدم" FontSize="13" FontWeight="Bold" Foreground="White" />
                                 <TextBlock x:Name="txtCurrentUserRole" Text="مدير النظام" FontSize="11" Foreground="#94A3B8" />
                             </StackPanel>
                         </Grid>
-                        <Button x:Name="btnLogout" Content="تسجيل الخروج 🚪" Style="{StaticResource SecondaryButtonStyle}" Height="34" FontSize="12" Click="btnLogout_Click" HorizontalAlignment="Stretch" />
+                        <Button x:Name="btnLogout" Content="تسجيل الخروج" Style="{StaticResource SecondaryButtonStyle}" Height="32" FontSize="12" Click="btnLogout_Click" HorizontalAlignment="Stretch" Focusable="False" />
                     </StackPanel>
                 </Border>
             </Grid>

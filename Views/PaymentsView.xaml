@@ -24,13 +24,13 @@
                     <!-- Student Dropdown -->
                     <StackPanel Grid.Column="0" Margin="0,0,16,0">
                         <TextBlock Text="اختر الطالب المسدد *" FontSize="13" FontWeight="SemiBold" Margin="0,0,0,4" />
-                        <ComboBox x:Name="cmbStudents" Style="{StaticResource ModernComboBoxStyle}" SelectionChanged="cmbStudents_SelectionChanged" DisplayMemberPath="DisplayName" SelectedValuePath="StudentID" />
+                        <ComboBox x:Name="cmbStudents" Style="{StaticResource ModernComboBoxStyle}" SelectionChanged="cmbStudents_SelectionChanged" DisplayMemberPath="DisplayName" SelectedValuePath="StudentID" TabIndex="1" />
                     </StackPanel>
 
                     <!-- Amount Paid -->
                     <StackPanel Grid.Column="1">
                         <TextBlock Text="المبلغ المقبوض (د.ل) *" FontSize="13" FontWeight="SemiBold" Margin="0,0,0,4" />
-                        <TextBox x:Name="txtPaidAmount" Style="{StaticResource ModernTextBoxStyle}" Height="38" Text="0.00" />
+                        <TextBox x:Name="txtPaidAmount" Style="{StaticResource ModernTextBoxStyle}" Height="36" Text="0.00" TabIndex="2" />
                     </StackPanel>
                 </Grid>
 
@@ -51,10 +51,10 @@
 
                     <StackPanel Grid.Column="0" Margin="0,0,16,0">
                         <TextBlock Text="بيان سند القبض / رقم الوصل" FontSize="13" FontWeight="SemiBold" Margin="0,0,0,4" />
-                        <TextBox x:Name="txtNotes" Style="{StaticResource ModernTextBoxStyle}" Height="38" Text="سداد من حساب الطالب" />
+                        <TextBox x:Name="txtNotes" Style="{StaticResource ModernTextBoxStyle}" Height="36" Text="سداد من حساب الطالب" TabIndex="3" />
                     </StackPanel>
 
-                    <Button Grid.Column="1" x:Name="btnSavePayment" Content="طباعة وحفظ سند القبض 💵" Style="{StaticResource PrimaryButtonStyle}" Height="38" Width="220" VerticalAlignment="Bottom" Click="btnSavePayment_Click" />
+                    <Button Grid.Column="1" x:Name="btnSavePayment" Content="✓ حفظ سند القبض" Style="{StaticResource PrimaryButtonStyle}" Height="36" Width="180" VerticalAlignment="Bottom" Click="btnSavePayment_Click" TabIndex="4" />
                 </Grid>
             </StackPanel>
         </Border>

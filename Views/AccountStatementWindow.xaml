@@ -73,7 +73,7 @@
 
         <!-- Footer Bar -->
         <StackPanel Grid.Row="3" Orientation="Horizontal" HorizontalAlignment="Right" Margin="0,16,0,0">
-            <Button Content="إغلاق Window ✖" Style="{StaticResource SecondaryButtonStyle}" Width="140" Click="btnClose_Click" />
+            <Button Content="× إغلاق" Style="{StaticResource SecondaryButtonStyle}" Width="120" Height="36" Click="btnClose_Click" IsCancel="True" />
         </StackPanel>
     </Grid>
 </Window>
