@@ -21,12 +21,12 @@ Class App
 
     Private Sub OnTextBoxKeyDown(sender As Object, e As KeyEventArgs)
         If e.Key = Key.Enter Then
-            Dim tb = TryCast(sender, TextBox)
+            Dim tb As TextBox = TryCast(sender, TextBox)
             If tb IsNot Nothing Then
                 If tb.AcceptsReturn Then Return
                 If IsInsideDataGrid(tb) Then Return
 
-                Dim uie = TryCast(sender, UIElement)
+                Dim uie As UIElement = TryCast(sender, UIElement)
                 If uie IsNot Nothing Then
                     uie.MoveFocus(New TraversalRequest(FocusNavigationDirection.Next))
                     e.Handled = True
@@ -37,11 +37,11 @@ Class App
 
     Private Sub OnPasswordBoxKeyDown(sender As Object, e As KeyEventArgs)
         If e.Key = Key.Enter Then
-            Dim pb = TryCast(sender, PasswordBox)
+            Dim pb As PasswordBox = TryCast(sender, PasswordBox)
             If pb IsNot Nothing Then
                 If IsInsideDataGrid(pb) Then Return
 
-                Dim uie = TryCast(sender, UIElement)
+                Dim uie As UIElement = TryCast(sender, UIElement)
                 If uie IsNot Nothing Then
                     uie.MoveFocus(New TraversalRequest(FocusNavigationDirection.Next))
                     e.Handled = True
@@ -51,7 +51,7 @@ Class App
     End Sub
 
     Private Function IsInsideDataGrid(element As DependencyObject) As Boolean
-        Dim parent = VisualTreeHelper.GetParent(element)
+        Dim parent As DependencyObject = VisualTreeHelper.GetParent(element)
         While parent IsNot Nothing
             If TypeOf parent Is DataGrid Then Return True
             parent = VisualTreeHelper.GetParent(parent)

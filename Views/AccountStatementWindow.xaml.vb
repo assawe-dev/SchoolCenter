@@ -84,7 +84,7 @@ Public Class AccountStatementWindow
         End If
 
         Try
-            Dim dt = dv.Table
+            Dim dt As DataTable = dv.Table
 
             ' Calculate totals
             Dim totalDebit As Decimal = 0
@@ -114,7 +114,7 @@ Public Class AccountStatementWindow
             Dim reportTitle As String = "كشف حساب تفصيلي للطالب: " & studentName
             Dim subtitle As String = "رقم الطالب: " & studentID
 
-            Dim doc = PrintingService.CreateReportDocument(reportTitle, stats, dt, cols, subtitle)
+            Dim doc As System.Windows.Documents.FlowDocument = PrintingService.CreateReportDocument(reportTitle, stats, dt, cols, subtitle)
             PrintingService.PrintDocument(doc, "كشف حساب الطالب " & studentName)
         Catch ex As Exception
             MessageBox.Show("حدث خطأ أثناء إعداد كشف الحساب للطباعة: " & ex.Message, "خطأ", MessageBoxButton.OK, MessageBoxImage.Error)

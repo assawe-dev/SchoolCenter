@@ -14,7 +14,7 @@ Public Class SettingsView
 
     Private Sub LoadCurrentSettings()
         Try
-            Dim settings = SettingsService.GetSettings()
+            Dim settings As SettingsService.CenterSettings = SettingsService.GetSettings()
             txtCenterName.Text = settings.CenterName
             selectedLogoBytes = settings.LogoData
 
@@ -50,7 +50,7 @@ Public Class SettingsView
     Private Sub btnUploadLogo_Click(sender As Object, e As RoutedEventArgs)
         Dim ofd As New OpenFileDialog()
         ofd.Filter = "ملفات الصور (*.png;*.jpg;*.jpeg)|*.png;*.jpg;*.jpeg"
-        If ofd.ShowDialog() = True Then
+        If ofd.ShowDialog().GetValueOrDefault() Then
             Try
                 selectedLogoBytes = File.ReadAllBytes(ofd.FileName)
                 DisplayLogo(selectedLogoBytes)

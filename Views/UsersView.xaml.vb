@@ -66,7 +66,7 @@ Public Class UsersView
         Dim username As String = txtUsername.Text.Trim()
         Dim password As String = txtPassword.Password.Trim()
         Dim role As String = If(cmbRole.SelectedIndex = 0, "Admin", "Accountant")
-        Dim isActive As Boolean = (chkIsActive.IsChecked = True)
+        Dim isActive As Boolean = chkIsActive.IsChecked.GetValueOrDefault()
 
         If String.IsNullOrEmpty(username) OrElse String.IsNullOrEmpty(password) Then
             MessageBox.Show("يرجى إدخال اسم المستخدم وكلمة المرور.", "تنبيه", MessageBoxButton.OK, MessageBoxImage.Warning)
@@ -112,12 +112,12 @@ Public Class UsersView
 
                     Using cmd As New SqlCommand(mergePermQuery, conn, trans)
                         cmd.Parameters.AddWithValue("@UserID", targetUserID)
-                        cmd.Parameters.AddWithValue("@P1", chkCanManageStudents.IsChecked = True)
-                        cmd.Parameters.AddWithValue("@P2", chkCanManageCourses.IsChecked = True)
-                        cmd.Parameters.AddWithValue("@P3", chkCanAssignDues.IsChecked = True)
-                        cmd.Parameters.AddWithValue("@P4", chkCanReceivePayments.IsChecked = True)
-                        cmd.Parameters.AddWithValue("@P5", chkCanViewReports.IsChecked = True)
-                        cmd.Parameters.AddWithValue("@P6", chkCanManageUsers.IsChecked = True)
+                        cmd.Parameters.AddWithValue("@P1", chkCanManageStudents.IsChecked.GetValueOrDefault())
+                        cmd.Parameters.AddWithValue("@P2", chkCanManageCourses.IsChecked.GetValueOrDefault())
+                        cmd.Parameters.AddWithValue("@P3", chkCanAssignDues.IsChecked.GetValueOrDefault())
+                        cmd.Parameters.AddWithValue("@P4", chkCanReceivePayments.IsChecked.GetValueOrDefault())
+                        cmd.Parameters.AddWithValue("@P5", chkCanViewReports.IsChecked.GetValueOrDefault())
+                        cmd.Parameters.AddWithValue("@P6", chkCanManageUsers.IsChecked.GetValueOrDefault())
                         cmd.ExecuteNonQuery()
                     End Using
 
