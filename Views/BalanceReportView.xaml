@@ -25,9 +25,12 @@
                     <TextBox x:Name="txtSearch" Style="{StaticResource ModernTextBoxStyle}" Width="300" Height="38" TextChanged="txtSearch_TextChanged" ToolTip="بحث باسم الطالب أو ولي الأمر..." />
                 </StackPanel>
 
-                <CheckBox x:Name="chkDebtorsOnly" Grid.Column="1" Content="عرض الطلاب أصحاب الديون المتبقية فقط" FontSize="13" FontWeight="SemiBold" VerticalAlignment="Center" Margin="0,0,24,0" Checked="chkDebtorsOnly_CheckedChanged" Unchecked="chkDebtorsOnly_CheckedChanged" />
+                <CheckBox x:Name="chkDebtorsOnly" Grid.Column="1" Content="عرض الطلاب أصحاب الديون المتبقية فقط" FontSize="13" FontWeight="SemiBold" VerticalAlignment="Center" Margin="0,0,16,0" Checked="chkDebtorsOnly_CheckedChanged" Unchecked="chkDebtorsOnly_CheckedChanged" />
 
-                <Button Grid.Column="2" x:Name="btnExportCSV" Content="تصدير Excel" Style="{StaticResource SecondaryButtonStyle}" Click="btnExportCSV_Click" />
+                <StackPanel Grid.Column="2" Orientation="Horizontal">
+                    <Button x:Name="btnPrintReport" Content="🖨 طباعة التقرير" Style="{StaticResource PrimaryButtonStyle}" Margin="0,0,8,0" Click="btnPrintReport_Click" />
+                    <Button x:Name="btnExportCSV" Content="تصدير Excel" Style="{StaticResource SecondaryButtonStyle}" Click="btnExportCSV_Click" />
+                </StackPanel>
             </Grid>
         </Border>
 

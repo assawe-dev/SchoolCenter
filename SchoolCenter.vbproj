@@ -135,6 +135,7 @@
     <Compile Include="FinancialService.vb" />
     <Compile Include="SettingsService.vb" />
     <Compile Include="ValueConverters.vb" />
+    <Compile Include="PrintingService.vb" />
     <Compile Include="Views\DashboardView.xaml.vb">
       <DependentUpon>DashboardView.xaml</DependentUpon>
     </Compile>
@@ -162,6 +163,9 @@
     <Compile Include="Views\AccountStatementWindow.xaml.vb">
       <DependentUpon>AccountStatementWindow.xaml</DependentUpon>
     </Compile>
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="Images\logo.png" />
   </ItemGroup>
   <ItemGroup>
     <None Include="App.config" />
