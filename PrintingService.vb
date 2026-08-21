@@ -45,7 +45,7 @@ Public Class PrintingService
         doc.ColumnWidth = 999999 ' Prevent multi-column page flow
         doc.FontFamily = New FontFamily("Segoe UI, Tahoma, Arial")
 
-        Dim settings = SettingsService.GetSettings()
+        Dim settings As SettingsService.CenterSettings = SettingsService.GetSettings()
         Dim centerName As String = If(Not String.IsNullOrEmpty(settings.CenterName), settings.CenterName, "منظومة المركز التعليمي")
 
         ' --- HEADER ---
@@ -107,7 +107,7 @@ Public Class PrintingService
             Next
 
             For i As Integer = 0 To stats.Count - 1
-                Dim stat = stats(i)
+                Dim stat As StatItem = stats(i)
                 Dim border As New Border()
                 border.Background = CType(Application.Current.Resources("CardBackgroundBrush"), Brush)
                 border.BorderBrush = CType(Application.Current.Resources("BorderBrushLight"), Brush)
@@ -150,7 +150,7 @@ Public Class PrintingService
             gridTable.BorderThickness = New Thickness(1)
             gridTable.BorderBrush = CType(Application.Current.Resources("BorderBrushLight"), Brush)
 
-            For Each col In columns
+            For Each col As ReportColumn In columns
                 gridTable.Columns.Add(New TableColumn() With {.Width = col.Width})
             Next
 
@@ -159,7 +159,7 @@ Public Class PrintingService
             Dim tableHeaderRow As New TableRow()
             tableHeaderRow.Background = CType(Application.Current.Resources("DarkNavyBrush"), Brush)
 
-            For Each col In columns
+            For Each col As ReportColumn In columns
                 Dim p As New Paragraph(New Run(col.Header))
                 p.FontSize = 11
                 p.FontWeight = FontWeights.Bold
@@ -184,10 +184,10 @@ Public Class PrintingService
                     row.Background = Brushes.White
                 End If
 
-                For Each col In columns
+                For Each col As ReportColumn In columns
                     Dim valStr As String = ""
-                    If dataTable.Columns.Contains(col.PropertyName) AndAlso Not dr.IsDBNull(dataTable.Columns(col.PropertyName)) Then
-                        Dim rawVal = dr(col.PropertyName)
+                    If dataTable.Columns.Contains(col.PropertyName) AndAlso Not dr.IsNull(col.PropertyName) Then
+                        Dim rawVal As Object = dr(col.PropertyName)
                         If TypeOf rawVal Is Decimal OrElse TypeOf rawVal Is Double OrElse TypeOf rawVal Is Single Then
                             valStr = String.Format("{0:N2}", rawVal)
                         ElseIf TypeOf rawVal Is DateTime Then
@@ -224,7 +224,7 @@ Public Class PrintingService
     ''' </summary>
     Public Shared Sub PrintDocument(doc As FlowDocument, description As String)
         Dim pd As New PrintDialog()
-        If pd.ShowDialog() = True Then
+        If pd.ShowDialog().GetValueOrDefault() Then
             Dim paginator As IDocumentPaginatorSource = doc
             pd.PrintDocument(paginator.DocumentPaginator, description)
         End If

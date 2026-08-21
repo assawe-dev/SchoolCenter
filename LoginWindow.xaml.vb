@@ -7,7 +7,7 @@ Public Class LoginWindow
     Private Sub Window_Loaded(sender As Object, e As RoutedEventArgs)
         ' تحديث اسم المركز في الشاشة من الإعدادات
         Try
-            Dim settings = SettingsService.GetSettings()
+            Dim settings As SettingsService.CenterSettings = SettingsService.GetSettings()
             If Not String.IsNullOrEmpty(settings.CenterName) Then
                 txtBrandTitle.Text = settings.CenterName
             End If

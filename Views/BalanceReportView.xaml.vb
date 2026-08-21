@@ -1,10 +1,13 @@
 Imports System
+Imports System.Collections.Generic
 Imports System.Data
 Imports System.Data.SqlClient
 Imports System.IO
 Imports System.Text
 Imports System.Windows
 Imports System.Windows.Controls
+Imports System.Windows.Documents
+Imports System.Windows.Media
 Imports Microsoft.Win32
 
 Public Class BalanceReportView
@@ -17,7 +20,7 @@ Public Class BalanceReportView
     Private Sub LoadReportData()
         Try
             Dim filter As String = txtSearch.Text.Trim()
-            Dim debtorsOnly As Boolean = (chkDebtorsOnly.IsChecked = True)
+            Dim debtorsOnly As Boolean = chkDebtorsOnly.IsChecked.GetValueOrDefault()
 
             dtReport = New DataTable()
             Using conn As New SqlConnection(DbConnectionManager.GetConnectionString())
@@ -112,7 +115,7 @@ Public Class BalanceReportView
             cols.Add(New ReportColumn("إجمالي المسدد", "TotalCredit", 1.2))
             cols.Add(New ReportColumn("الرصيد المتبقي", "RemainingBalance", 1.2))
 
-            Dim doc = PrintingService.CreateReportDocument("تقرير أرصدة وحسابات الطلاب الشامل", stats, dtReport, cols, "تقرير مالي للأرصدة المستحقة والمقبوضة")
+            Dim doc As FlowDocument = PrintingService.CreateReportDocument("تقرير أرصدة وحسابات الطلاب الشامل", stats, dtReport, cols, "تقرير مالي للأرصدة المستحقة والمقبوضة")
             PrintingService.PrintDocument(doc, "تقرير أرصدة الطلاب")
         Catch ex As Exception
             MessageBox.Show("حدث خطأ أثناء إعداد التقرير للطباعة: " & ex.Message, "خطأ", MessageBoxButton.OK, MessageBoxImage.Error)
@@ -129,7 +132,7 @@ Public Class BalanceReportView
         sfd.Filter = "ملف Excel CSV (*.csv)|*.csv"
         sfd.FileName = "تقرير_أرصدة_الطلاب_" & DateTime.Now.ToString("yyyyMMdd_HHmm") & ".csv"
 
-        If sfd.ShowDialog() = True Then
+        If sfd.ShowDialog().GetValueOrDefault() Then
             Try
                 ' الكتابة باستخدام UTF-8 BOM لمنع تشوه النصوص العربية في Excel
                 Using writer As New StreamWriter(sfd.FileName, False, New UTF8Encoding(True))

@@ -9,7 +9,7 @@ Public Class ByteArrayToImageConverter
 
     Public Function Convert(value As Object, targetType As Type, parameter As Object, culture As CultureInfo) As Object Implements IValueConverter.Convert
         If value IsNot Nothing AndAlso TypeOf value Is Byte() Then
-            Dim bytes = CType(value, Byte())
+            Dim bytes As Byte() = CType(value, Byte())
             If bytes.Length > 0 Then
                 Try
                     Dim ms As New MemoryStream(bytes)

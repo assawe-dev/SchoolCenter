@@ -20,7 +20,7 @@ Public Class MainWindow
 
     Public Sub RefreshCenterBranding()
         Try
-            Dim settings = SettingsService.GetSettings()
+            Dim settings As SettingsService.CenterSettings = SettingsService.GetSettings()
             If Not String.IsNullOrEmpty(settings.CenterName) Then
                 txtCenterHeaderName.Text = settings.CenterName
             End If
@@ -43,7 +43,7 @@ Public Class MainWindow
         If btn Is Nothing Then Return
 
         ' إلغاء تحديد جميع الأزرار
-        For Each child In pnlNavButtons.Children
+        For Each child As UIElement In pnlNavButtons.Children
             If TypeOf child Is Button Then
                 CType(child, Button).Tag = Nothing
             End If

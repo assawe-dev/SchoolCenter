@@ -12,7 +12,7 @@ Public Class FinancialService
                 conn.Open()
                 Dim query As String = "SELECT COUNT(*) FROM Students"
                 Using cmd As New SqlCommand(query, conn)
-                    Dim result = cmd.ExecuteScalar()
+                    Dim result As Object = cmd.ExecuteScalar()
                     If result IsNot Nothing AndAlso Not Convert.IsDBNull(result) Then
                         Return Convert.ToInt32(result)
                     End If
@@ -33,7 +33,7 @@ Public Class FinancialService
                 conn.Open()
                 Dim query As String = "SELECT ISNULL(SUM(Credit), 0) FROM FinancialTransactions WHERE TransactionType = N'Payment Receipt'"
                 Using cmd As New SqlCommand(query, conn)
-                    Dim result = cmd.ExecuteScalar()
+                    Dim result As Object = cmd.ExecuteScalar()
                     If result IsNot Nothing AndAlso Not Convert.IsDBNull(result) Then
                         Return Convert.ToDecimal(result)
                     End If
@@ -54,7 +54,7 @@ Public Class FinancialService
                 conn.Open()
                 Dim query As String = "SELECT ISNULL(SUM(Debit), 0) - ISNULL(SUM(Credit), 0) FROM FinancialTransactions"
                 Using cmd As New SqlCommand(query, conn)
-                    Dim result = cmd.ExecuteScalar()
+                    Dim result As Object = cmd.ExecuteScalar()
                     If result IsNot Nothing AndAlso Not Convert.IsDBNull(result) Then
                         Dim total As Decimal = Convert.ToDecimal(result)
                         If total > 0 Then
@@ -81,7 +81,7 @@ Public Class FinancialService
                 Dim query As String = "SELECT ISNULL(SUM(Debit), 0) - ISNULL(SUM(Credit), 0) FROM FinancialTransactions WHERE StudentID = @StudentID"
                 Using cmd As New SqlCommand(query, conn)
                     cmd.Parameters.AddWithValue("@StudentID", studentId)
-                    Dim result = cmd.ExecuteScalar()
+                    Dim result As Object = cmd.ExecuteScalar()
                     If result IsNot Nothing AndAlso Not Convert.IsDBNull(result) Then
                         Return Convert.ToDecimal(result)
                     End If

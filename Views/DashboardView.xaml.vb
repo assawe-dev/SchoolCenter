@@ -25,8 +25,8 @@ Public Class DashboardView
             Using conn As New SqlConnection(DbConnectionManager.GetConnectionString())
                 conn.Open()
                 Dim cmd As New SqlCommand("SELECT COUNT(*) FROM Courses", conn)
-                Dim count = cmd.ExecuteScalar()
-                txtTotalCourses.Text = If(count IsNot DBNull.Value, count.ToString(), "0")
+                Dim count As Object = cmd.ExecuteScalar()
+                txtTotalCourses.Text = If(count IsNot DBNull.Value AndAlso count IsNot Nothing, count.ToString(), "0")
             End Using
         Catch ex As Exception
             ' Handling error
