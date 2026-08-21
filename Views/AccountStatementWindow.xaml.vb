@@ -76,6 +76,51 @@ Public Class AccountStatementWindow
         End Try
     End Sub
 
+    Private Sub btnPrintStatement_Click(sender As Object, e As RoutedEventArgs)
+        Dim dv As DataView = TryCast(dgStatement.ItemsSource, DataView)
+        If dv Is Nothing OrElse dv.Table Is Nothing OrElse dv.Table.Rows.Count = 0 Then
+            MessageBox.Show("لا توجد بيانات حركة مالية للطباعة.", "تنبيه", MessageBoxButton.OK, MessageBoxImage.Information)
+            Return
+        End If
+
+        Try
+            Dim dt = dv.Table
+
+            ' Calculate totals
+            Dim totalDebit As Decimal = 0
+            Dim totalCredit As Decimal = 0
+            For Each row As DataRow In dt.Rows
+                totalDebit += Convert.ToDecimal(row("Debit"))
+                totalCredit += Convert.ToDecimal(row("Credit"))
+            Next
+            Dim finalBalance As Decimal = totalDebit - totalCredit
+
+            ' Summary stats
+            Dim stats As New System.Collections.Generic.List(Of StatItem)()
+            stats.Add(New StatItem("إجمالي المطلوب (مدين)", totalDebit.ToString("N2") & " د.ل", CType(Application.Current.Resources("DangerBrush"), System.Windows.Media.Brush)))
+            stats.Add(New StatItem("إجمالي المدفوع (دائن)", totalCredit.ToString("N2") & " د.ل", CType(Application.Current.Resources("SuccessBrush"), System.Windows.Media.Brush)))
+            stats.Add(New StatItem("الرصيد المتبقي النهائي", finalBalance.ToString("N2") & " د.ل", CType(Application.Current.Resources("PrimaryBrush"), System.Windows.Media.Brush)))
+
+            ' Columns definition
+            Dim cols As New System.Collections.Generic.List(Of ReportColumn)()
+            cols.Add(New ReportColumn("تاريخ الحركة", "TransactionDate", 1.3))
+            cols.Add(New ReportColumn("نوع الحركة", "TranslatedType", 1.2))
+            cols.Add(New ReportColumn("البيان / ملاحظات", "Notes", 2.2))
+            cols.Add(New ReportColumn("المطلوب (مدين)", "Debit", 1.1))
+            cols.Add(New ReportColumn("المدفوع (دائن)", "Credit", 1.1))
+            cols.Add(New ReportColumn("الرصيد التراكمي", "RunningBalance", 1.2))
+            cols.Add(New ReportColumn("الموظف", "Username", 1.0))
+
+            Dim reportTitle As String = "كشف حساب تفصيلي للطالب: " & studentName
+            Dim subtitle As String = "رقم الطالب: " & studentID
+
+            Dim doc = PrintingService.CreateReportDocument(reportTitle, stats, dt, cols, subtitle)
+            PrintingService.PrintDocument(doc, "كشف حساب الطالب " & studentName)
+        Catch ex As Exception
+            MessageBox.Show("حدث خطأ أثناء إعداد كشف الحساب للطباعة: " & ex.Message, "خطأ", MessageBoxButton.OK, MessageBoxImage.Error)
+        End Try
+    End Sub
+
     Private Sub btnClose_Click(sender As Object, e As RoutedEventArgs)
         Me.Close()
     End Sub
