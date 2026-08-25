@@ -97,13 +97,47 @@ Public Class StudentDuesView
                 End Using
             End Using
 
-            MessageBox.Show("تم تسجيل المستحق بنجاح على الطالب.", "نجاح", MessageBoxButton.OK, MessageBoxImage.Information)
+            Dim studentText As String = cmbStudents.Text
+            DbConnectionManager.LogAudit("تسجيل في كورس", "تم تسجيل الطالب (" & studentText & ") بمبلغ مستحق: " & amount.ToString("N2") & " د.ل - ملاحظات: " & notes)
+            MessageBox.Show("تم تسجيل الطالب في الكورس بنجاح.", "نجاح", MessageBoxButton.OK, MessageBoxImage.Information)
             txtNotes.Text = ""
             txtAmount.Text = "0.00"
             cmbStudents_SelectionChanged(Nothing, Nothing)
             LoadRecentDues()
         Catch ex As Exception
             MessageBox.Show("حدث خطأ أثناء حفظ المستحق: " & ex.Message, "خطأ", MessageBoxButton.OK, MessageBoxImage.Error)
+        End Try
+    End Sub
+
+    Private Sub btnPrint_Click(sender As Object, e As RoutedEventArgs)
+        Try
+            Dim dv As DataView = CType(dgDues.ItemsSource, DataView)
+            If dv Is Nothing OrElse dv.Count = 0 Then Return
+            Dim dt As DataTable = dv.ToTable()
+
+            Dim cols As New Generic.List(Of ReportColumn)()
+            cols.Add(New ReportColumn("رقم الحركة", "TransactionID", 0.8))
+            cols.Add(New ReportColumn("اسم الطالب", "StudentName", 2.0))
+            cols.Add(New ReportColumn("المبلغ المستحق", "Debit", 1.2))
+            cols.Add(New ReportColumn("البيان", "Notes", 2.0))
+            cols.Add(New ReportColumn("تاريخ التسجيل", "TransactionDate", 1.2))
+            cols.Add(New ReportColumn("الموظف", "Username", 1.0))
+
+            Dim doc As Documents.FlowDocument = PrintingService.CreateReportDocument("سجل التسجيلات والمستحقات", Nothing, dt, cols, "حركات الرسوم والمستحقات المسجلة مؤخراً")
+            PrintingService.PrintDocument(doc, "سجل المستحقات")
+        Catch ex As Exception
+            MessageBox.Show("حدث خطأ أثناء الطباعة: " & ex.Message, "خطأ", MessageBoxButton.OK, MessageBoxImage.Error)
+        End Try
+    End Sub
+
+    Private Sub btnExport_Click(sender As Object, e As RoutedEventArgs)
+        Try
+            Dim dv As DataView = CType(dgDues.ItemsSource, DataView)
+            If dv Is Nothing OrElse dv.Count = 0 Then Return
+            Dim dt As DataTable = dv.ToTable()
+            PrintingService.ExportDataTableToCSV(dt, "سجل_المستحقات")
+        Catch ex As Exception
+            MessageBox.Show("حدث خطأ أثناء التصدير: " & ex.Message, "خطأ", MessageBoxButton.OK, MessageBoxImage.Error)
         End Try
     End Sub
 

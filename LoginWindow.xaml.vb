@@ -61,6 +61,8 @@ Public Class LoginWindow
                             UserSession.CanViewReports = If(reader("CanViewReports") Is DBNull.Value, True, Convert.ToBoolean(reader("CanViewReports")))
                             UserSession.CanManageUsers = If(reader("CanManageUsers") Is DBNull.Value, True, Convert.ToBoolean(reader("CanManageUsers")))
 
+                            DbConnectionManager.LogAudit("تسجيل الدخول", "تم تسجيل الدخول بنجاح بواسطة المستخدم: " & UserSession.Username & " (" & UserSession.Role & ")")
+
                             ' الانتقال إلى الشاشة الرئيسية
                             Dim mainWin As New MainWindow()
                             mainWin.Show()

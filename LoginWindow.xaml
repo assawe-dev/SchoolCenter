@@ -22,7 +22,7 @@
                 <StackPanel VerticalAlignment="Center" HorizontalAlignment="Center">
                     <Border Width="100" Height="100" CornerRadius="50" Background="#1E293B" Margin="0,0,0,24" HorizontalAlignment="Center" ClipToBounds="True">
                         <!-- IMPORTANT: Make sure this image's 'Build Action' is set to 'Resource' in Visual Studio file properties -->
-                        <Image Source="pack://application:,,,/Images/logo.png" Width="80" Height="80" HorizontalAlignment="Center" VerticalAlignment="Center" Stretch="Uniform" />
+                        <Image Source="pack://application:,,,/Images/logo.png" Width="80" Height="80" HorizontalAlignment="Center" VerticalAlignment="Center" Stretch="Uniform" RenderOptions.BitmapScalingMode="HighQuality" />
                     </Border>
 
                     <TextBlock x:Name="txtBrandTitle" Text="منظومة مركز الدورات التعليمية" FontSize="22" FontWeight="Bold" Foreground="White" TextAlignment="Center" TextWrapping="Wrap" Margin="0,0,0,12" />

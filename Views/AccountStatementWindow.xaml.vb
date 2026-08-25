@@ -121,6 +121,17 @@ Public Class AccountStatementWindow
         End Try
     End Sub
 
+    Private Sub btnExportStatement_Click(sender As Object, e As RoutedEventArgs)
+        Try
+            Dim dv As DataView = TryCast(dgStatement.ItemsSource, DataView)
+            If dv Is Nothing OrElse dv.Table Is Nothing OrElse dv.Table.Rows.Count = 0 Then Return
+            Dim dt As DataTable = dv.Table
+            PrintingService.ExportDataTableToCSV(dt, "كشف_حساب_" & studentName)
+        Catch ex As Exception
+            MessageBox.Show("حدث خطأ أثناء التصدير: " & ex.Message, "خطأ", MessageBoxButton.OK, MessageBoxImage.Error)
+        End Try
+    End Sub
+
     Private Sub btnClose_Click(sender As Object, e As RoutedEventArgs)
         Me.Close()
     End Sub

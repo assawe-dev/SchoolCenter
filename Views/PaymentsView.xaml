@@ -67,7 +67,17 @@
                     <RowDefinition Height="*" />
                 </Grid.RowDefinitions>
 
-                <TextBlock Grid.Row="0" Text="سجل المقبوضات والسندات الأخيرة" FontSize="16" FontWeight="Bold" Foreground="{StaticResource TextPrimaryBrush}" Margin="0,0,0,12" />
+                <Grid Grid.Row="0" Margin="0,0,0,12">
+                    <Grid.ColumnDefinitions>
+                        <ColumnDefinition Width="*" />
+                        <ColumnDefinition Width="Auto" />
+                    </Grid.ColumnDefinitions>
+                    <TextBlock Grid.Column="0" Text="سجل المقبوضات والسندات الأخيرة" FontSize="16" FontWeight="Bold" Foreground="{StaticResource TextPrimaryBrush}" VerticalAlignment="Center" />
+                    <StackPanel Grid.Column="1" Orientation="Horizontal">
+                        <Button x:Name="btnPrint" Content="🖨 طباعة" Style="{StaticResource SecondaryButtonStyle}" Margin="0,0,8,0" Click="btnPrint_Click" />
+                        <Button x:Name="btnExport" Content="تصدير Excel" Style="{StaticResource SecondaryButtonStyle}" Click="btnExport_Click" />
+                    </StackPanel>
+                </Grid>
 
                 <DataGrid Grid.Row="1" x:Name="dgPayments" Style="{StaticResource ModernDataGridStyle}">
                     <DataGrid.Columns>

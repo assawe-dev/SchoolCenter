@@ -23,7 +23,11 @@
                     <TextBox x:Name="txtSearch" Style="{StaticResource ModernTextBoxStyle}" Width="320" Height="38" TextChanged="txtSearch_TextChanged" ToolTip="بحث باسم الدورة..." />
                 </StackPanel>
 
-                <Button Grid.Column="1" x:Name="btnAddNewCourse" Content="+ جديد" Style="{StaticResource PrimaryButtonStyle}" Click="btnAddNewCourse_Click" />
+                <StackPanel Grid.Column="1" Orientation="Horizontal">
+                    <Button x:Name="btnPrint" Content="🖨 طباعة" Style="{StaticResource SecondaryButtonStyle}" Margin="0,0,8,0" Click="btnPrint_Click" />
+                    <Button x:Name="btnExport" Content="تصدير Excel" Style="{StaticResource SecondaryButtonStyle}" Margin="0,0,8,0" Click="btnExport_Click" />
+                    <Button x:Name="btnAddNewCourse" Content="+ جديد" Style="{StaticResource PrimaryButtonStyle}" Click="btnAddNewCourse_Click" />
+                </StackPanel>
             </Grid>
         </Border>
 
@@ -46,9 +50,10 @@
 
                     <DataGrid Grid.Row="1" x:Name="dgCourses" Style="{StaticResource ModernDataGridStyle}" SelectionChanged="dgCourses_SelectionChanged">
                         <DataGrid.Columns>
-                            <DataGridTextColumn Header="رقم الدورة" Binding="{Binding CourseID}" Width="100" />
+                            <DataGridTextColumn Header="رقم الدورة" Binding="{Binding CourseID}" Width="90" />
                             <DataGridTextColumn Header="اسم الدورة التعليمية" Binding="{Binding CourseName}" Width="*" />
-                            <DataGridTextColumn Header="تلفة الدورة (د.ل)" Binding="{Binding Cost, StringFormat={}{0:N2}}" Width="160" />
+                            <DataGridTextColumn Header="اسم المحاضر / الأستاذ" Binding="{Binding TeacherName}" Width="160" />
+                            <DataGridTextColumn Header="سعر الدورة (د.ل)" Binding="{Binding Cost, StringFormat={}{0:N2}}" Width="130" />
                         </DataGrid.Columns>
                     </DataGrid>
                 </Grid>
@@ -62,8 +67,11 @@
                     <TextBlock Text="اسم الدورة التعليمية *" FontSize="13" FontWeight="SemiBold" Margin="0,0,0,4" />
                     <TextBox x:Name="txtCourseName" Style="{StaticResource ModernTextBoxStyle}" Height="36" Margin="0,0,0,16" TabIndex="1" />
 
-                    <TextBlock Text="تكلفة / سعر الدورة (د.ل) *" FontSize="13" FontWeight="SemiBold" Margin="0,0,0,4" />
-                    <TextBox x:Name="txtCourseCost" Style="{StaticResource ModernTextBoxStyle}" Height="36" Text="0.00" Margin="0,0,0,24" TabIndex="2" />
+                    <TextBlock Text="اسم المحاضر / الأستاذ *" FontSize="13" FontWeight="SemiBold" Margin="0,0,0,4" />
+                    <TextBox x:Name="txtTeacherName" Style="{StaticResource ModernTextBoxStyle}" Height="36" Margin="0,0,0,16" TabIndex="2" />
+
+                    <TextBlock Text="سعر الدورة (د.ل) *" FontSize="13" FontWeight="SemiBold" Margin="0,0,0,4" />
+                    <TextBox x:Name="txtCourseCost" Style="{StaticResource ModernTextBoxStyle}" Height="36" Text="0.00" Margin="0,0,0,24" TabIndex="3" />
 
                     <Grid Margin="0,8,0,0">
                         <Grid.ColumnDefinitions>

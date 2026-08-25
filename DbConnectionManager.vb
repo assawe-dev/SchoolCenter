@@ -124,10 +124,32 @@ Public Class DbConnectionManager
                     CREATE TABLE Courses (
                         CourseID INT IDENTITY(1,1) PRIMARY KEY,
                         CourseName NVARCHAR(100) NOT NULL,
-                        Cost DECIMAL(18, 2) NOT NULL
+                        Cost DECIMAL(18, 2) NOT NULL,
+                        TeacherName NVARCHAR(150) NULL
                     );
+                END
+                ELSE IF NOT EXISTS (SELECT * FROM sys.columns WHERE object_id = OBJECT_ID('Courses') AND name = 'TeacherName')
+                BEGIN
+                    ALTER TABLE Courses ADD TeacherName NVARCHAR(150) NULL;
                 END"
             Using cmd As New SqlCommand(createCoursesTable, connection)
+                cmd.ExecuteNonQuery()
+            End Using
+
+            ' 3.1 جدول سجل التتبع والمراقبة AuditLog
+            Dim createAuditLogTable As String = "
+                IF NOT EXISTS (SELECT * FROM sys.tables WHERE name = 'AuditLog')
+                BEGIN
+                    CREATE TABLE AuditLog (
+                        LogID INT IDENTITY(1,1) PRIMARY KEY,
+                        LogDate DATETIME NOT NULL,
+                        UserID INT NULL,
+                        Username NVARCHAR(100) NULL,
+                        ActionType NVARCHAR(50) NOT NULL,
+                        Description NVARCHAR(MAX) NOT NULL
+                    );
+                END"
+            Using cmd As New SqlCommand(createAuditLogTable, connection)
                 cmd.ExecuteNonQuery()
             End Using
 
@@ -244,6 +266,32 @@ Public Class DbConnectionManager
                 cmd.ExecuteNonQuery()
             End Using
         End Using
+    End Sub
+
+    ''' <summary>
+    ''' تسجل حركة أو إجراء في سجل التتبع والمراقبة AuditLog
+    ''' </summary>
+    Public Shared Sub LogAudit(actionType As String, description As String)
+        Try
+            Dim connStr As String = GetConnectionString()
+            Using conn As New SqlConnection(connStr)
+                conn.Open()
+                Dim query As String = "INSERT INTO AuditLog (LogDate, UserID, Username, ActionType, Description) " &
+                                     "VALUES (GETDATE(), @UserID, @Username, @ActionType, @Description)"
+                Using cmd As New SqlCommand(query, conn)
+                    Dim currentUserId As Object = If(UserSession.CurrentUserID > 0, CType(UserSession.CurrentUserID, Object), DBNull.Value)
+                    Dim currentUsername As Object = If(Not String.IsNullOrEmpty(UserSession.Username), CType(UserSession.Username, Object), "النظام")
+
+                    cmd.Parameters.AddWithValue("@UserID", currentUserId)
+                    cmd.Parameters.AddWithValue("@Username", currentUsername)
+                    cmd.Parameters.AddWithValue("@ActionType", actionType)
+                    cmd.Parameters.AddWithValue("@Description", description)
+                    cmd.ExecuteNonQuery()
+                End Using
+            End Using
+        Catch ex As Exception
+            ' تجاهل أخطاء التتبع لتفادي إيقاف عمليات النظام الأساسية
+        End Try
     End Sub
 
     Private Shared Sub CreateDefaultConfigFile(path As String)
