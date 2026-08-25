@@ -9,6 +9,7 @@ Public Class UsersView
 
     Private Sub UserControl_Loaded(sender As Object, e As RoutedEventArgs)
         LoadUsersData()
+        LoadAuditLogData()
         ResetForm()
     End Sub
 
@@ -122,6 +123,11 @@ Public Class UsersView
                     End Using
 
                     trans.Commit()
+                    If selectedUserID = 0 Then
+                        DbConnectionManager.LogAudit("إضافة مستخدم", "تم إنشاء حساب مستخدم جديد: " & username & " بدور: " & role)
+                    Else
+                        DbConnectionManager.LogAudit("تعديل مستخدم", "تم تحديث بيانات وملاءمة صلاحيات المستخدم رقم (" & selectedUserID & "): " & username)
+                    End If
                     MessageBox.Show("تم حفظ بيانات المستخدم والصلاحيات بنجاح.", "نجاح", MessageBoxButton.OK, MessageBoxImage.Information)
                     LoadUsersData()
                     ResetForm()
@@ -154,6 +160,7 @@ Public Class UsersView
                     End Using
                 End Using
 
+                DbConnectionManager.LogAudit("حذف مستخدم", "تم حذف حساب المستخدم رقم (" & selectedUserID & ")")
                 MessageBox.Show("تم حذف المستخدم بنجاح.", "نجاح", MessageBoxButton.OK, MessageBoxImage.Information)
                 LoadUsersData()
                 ResetForm()
@@ -161,6 +168,59 @@ Public Class UsersView
                 MessageBox.Show("حدث خطأ أثناء حذف المستخدم: " & ex.Message, "خطأ", MessageBoxButton.OK, MessageBoxImage.Error)
             End Try
         End If
+    End Sub
+
+    Private Sub LoadAuditLogData()
+        Try
+            Dim dt As New DataTable()
+            Using conn As New SqlConnection(DbConnectionManager.GetConnectionString())
+                conn.Open()
+                Dim query As String = "SELECT TOP 200 LogID, LogDate, ISNULL(Username, N'النظام') AS Username, ActionType, Description " &
+                                     "FROM AuditLog ORDER BY LogID DESC"
+                Using adapter As New SqlDataAdapter(query, conn)
+                    adapter.Fill(dt)
+                End Using
+            End Using
+
+            dgAuditLog.ItemsSource = dt.DefaultView
+        Catch ex As Exception
+            ' Handling error
+        End Try
+    End Sub
+
+    Private Sub btnRefreshAudit_Click(sender As Object, e As RoutedEventArgs)
+        LoadAuditLogData()
+    End Sub
+
+    Private Sub btnPrintAudit_Click(sender As Object, e As RoutedEventArgs)
+        Try
+            Dim dv As DataView = CType(dgAuditLog.ItemsSource, DataView)
+            If dv Is Nothing OrElse dv.Count = 0 Then Return
+            Dim dt As DataTable = dv.ToTable()
+
+            Dim cols As New Generic.List(Of ReportColumn)()
+            cols.Add(New ReportColumn("رقم الحركة", "LogID", 0.8))
+            cols.Add(New ReportColumn("التاريخ والوقت", "LogDate", 1.4))
+            cols.Add(New ReportColumn("المستخدم", "Username", 1.2))
+            cols.Add(New ReportColumn("نوع الإجراء", "ActionType", 1.2))
+            cols.Add(New ReportColumn("تفاصيل الإجراء / التغييرات", "Description", 3.0))
+
+            Dim doc As Documents.FlowDocument = PrintingService.CreateReportDocument("سجل تتبع ومراقبة حركات النظام (Audit Log)", Nothing, dt, cols, "التوثيق والتتبع الشامل للعمليات")
+            PrintingService.PrintDocument(doc, "سجل المراقبة")
+        Catch ex As Exception
+            MessageBox.Show("حدث خطأ أثناء الطباعة: " & ex.Message, "خطأ", MessageBoxButton.OK, MessageBoxImage.Error)
+        End Try
+    End Sub
+
+    Private Sub btnExportAudit_Click(sender As Object, e As RoutedEventArgs)
+        Try
+            Dim dv As DataView = CType(dgAuditLog.ItemsSource, DataView)
+            If dv Is Nothing OrElse dv.Count = 0 Then Return
+            Dim dt As DataTable = dv.ToTable()
+            PrintingService.ExportDataTableToCSV(dt, "سجل_مراقبة_النظام")
+        Catch ex As Exception
+            MessageBox.Show("حدث خطأ أثناء التصدير: " & ex.Message, "خطأ", MessageBoxButton.OK, MessageBoxImage.Error)
+        End Try
     End Sub
 
     Private Sub btnAddNewUser_Click(sender As Object, e As RoutedEventArgs)

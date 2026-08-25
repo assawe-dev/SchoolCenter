@@ -73,6 +73,7 @@ Public Class SettingsView
         End If
 
         If SettingsService.SaveSettings(name, selectedLogoBytes) Then
+            DbConnectionManager.LogAudit("إعدادات النظام", "تم تحديث اسم وإعدادات المركز إلى: " & name)
             MessageBox.Show("تم حفظ إعدادات المركز بنجاح.", "نجاح", MessageBoxButton.OK, MessageBoxImage.Information)
 
             ' تحديث المسمى في MainWindow إذا كانت متوفرة

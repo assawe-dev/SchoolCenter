@@ -42,7 +42,7 @@
                         <Button x:Name="btnDashboard" Content="📊   الرئيسية والإحصائيات" Style="{StaticResource NavButtonStyle}" Click="NavButton_Click" Tag="Active" Focusable="False" />
                         <Button x:Name="btnStudents" Content="👨‍🎓   سجل الطلاب" Style="{StaticResource NavButtonStyle}" Click="NavButton_Click" Focusable="False" />
                         <Button x:Name="btnCourses" Content="📚   سجل الدورات" Style="{StaticResource NavButtonStyle}" Click="NavButton_Click" Focusable="False" />
-                        <Button x:Name="btnDues" Content="📝   تسجيل المستحقات" Style="{StaticResource NavButtonStyle}" Click="NavButton_Click" Focusable="False" />
+                        <Button x:Name="btnDues" Content="📝   تسجيل طالب في كورس" Style="{StaticResource NavButtonStyle}" Click="NavButton_Click" Focusable="False" />
                         <Button x:Name="btnPayments" Content="💰   سندات القبض" Style="{StaticResource NavButtonStyle}" Click="NavButton_Click" Focusable="False" />
                         <Button x:Name="btnReports" Content="📑   تقرير الأرصدة والديون" Style="{StaticResource NavButtonStyle}" Click="NavButton_Click" Focusable="False" />
                         <Button x:Name="btnUsers" Content="👥   إدارة المستخدمين" Style="{StaticResource NavButtonStyle}" Click="NavButton_Click" Focusable="False" />

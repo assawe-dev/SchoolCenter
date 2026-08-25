@@ -229,4 +229,55 @@ Public Class PrintingService
             pd.PrintDocument(paginator.DocumentPaginator, description)
         End If
     End Sub
+
+    ''' <summary>
+    ''' Exports a DataTable to a CSV file with UTF-8 BOM encoding for Microsoft Excel Arabic text compatibility.
+    ''' </summary>
+    Public Shared Sub ExportDataTableToCSV(dt As DataTable, defaultFileName As String)
+        If dt Is Nothing OrElse dt.Rows.Count = 0 Then
+            MessageBox.Show("لا توجد بيانات متاحة للتصدير.", "تنبيه", MessageBoxButton.OK, MessageBoxImage.Information)
+            Return
+        End If
+
+        Dim sfd As New Microsoft.Win32.SaveFileDialog()
+        sfd.Filter = "ملفات Excel CSV (*.csv)|*.csv"
+        sfd.FileName = defaultFileName & "_" & DateTime.Now.ToString("yyyyMMdd_HHmmss") & ".csv"
+
+        If sfd.ShowDialog().GetValueOrDefault() Then
+            Try
+                Using writer As New System.IO.StreamWriter(sfd.FileName, False, New System.Text.UTF8Encoding(True))
+                    ' Write Headers
+                    Dim headers As New List(Of String)()
+                    For Each col As DataColumn In dt.Columns
+                        headers.Add("""" & col.ColumnName.Replace("""", """""") & """")
+                    Next
+                    writer.WriteLine(String.Join(",", headers.ToArray()))
+
+                    ' Write Data Rows
+                    For Each row As DataRow In dt.Rows
+                        Dim fields As New List(Of String)()
+                        For Each col As DataColumn In dt.Columns
+                            Dim val As String = ""
+                            If Not row.IsNull(col) Then
+                                Dim rawVal As Object = row(col)
+                                If TypeOf rawVal Is DateTime Then
+                                    val = CType(rawVal, DateTime).ToString("yyyy-MM-dd HH:mm")
+                                ElseIf TypeOf rawVal Is Decimal OrElse TypeOf rawVal Is Double OrElse TypeOf rawVal Is Single Then
+                                    val = String.Format("{0:N2}", rawVal)
+                                Else
+                                    val = rawVal.ToString()
+                                End If
+                            End If
+                            fields.Add("""" & val.Replace("""", """""") & """")
+                        Next
+                        writer.WriteLine(String.Join(",", fields.ToArray()))
+                    Next
+                End Using
+
+                MessageBox.Show("تم تصدير البيانات بنجاح إلى ملف Excel.", "نجاح", MessageBoxButton.OK, MessageBoxImage.Information)
+            Catch ex As Exception
+                MessageBox.Show("حدث خطأ أثناء تصدير الملف: " & ex.Message, "خطأ", MessageBoxButton.OK, MessageBoxImage.Error)
+            End Try
+        End If
+    End Sub
 End Class

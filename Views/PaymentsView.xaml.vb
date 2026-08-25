@@ -91,6 +91,8 @@ Public Class PaymentsView
                     End Using
 
                     trans.Commit()
+                    Dim studentText As String = cmbStudents.Text
+                    DbConnectionManager.LogAudit("سند قبض", "تم استلام مبلغ (" & amount.ToString("N2") & " د.ل) من الطالب: " & studentText & " - بيان: " & notes)
                     MessageBox.Show("تم تسليم سند القبض وإيداع المبلغ في الخزينة بنجاح.", "نجاح", MessageBoxButton.OK, MessageBoxImage.Information)
 
                     txtPaidAmount.Text = "0.00"
@@ -104,6 +106,38 @@ Public Class PaymentsView
             End Using
         Catch ex As Exception
             MessageBox.Show("حدث خطأ أثناء حفظ سند القبض: " & ex.Message, "خطأ", MessageBoxButton.OK, MessageBoxImage.Error)
+        End Try
+    End Sub
+
+    Private Sub btnPrint_Click(sender As Object, e As RoutedEventArgs)
+        Try
+            Dim dv As DataView = CType(dgPayments.ItemsSource, DataView)
+            If dv Is Nothing OrElse dv.Count = 0 Then Return
+            Dim dt As DataTable = dv.ToTable()
+
+            Dim cols As New Generic.List(Of ReportColumn)()
+            cols.Add(New ReportColumn("رقم السند", "TransactionID", 0.8))
+            cols.Add(New ReportColumn("اسم الطالب المسدد", "StudentName", 2.0))
+            cols.Add(New ReportColumn("المبلغ المقبوض", "Credit", 1.2))
+            cols.Add(New ReportColumn("البيان والملاحظات", "Notes", 2.0))
+            cols.Add(New ReportColumn("تاريخ القبض", "TransactionDate", 1.2))
+            cols.Add(New ReportColumn("الموظف المستقبل", "Username", 1.0))
+
+            Dim doc As Documents.FlowDocument = PrintingService.CreateReportDocument("سجل مقبوضات الخزينة وسندات القبض", Nothing, dt, cols, "حركات التسديد والإيداع النقدي بالخزينة")
+            PrintingService.PrintDocument(doc, "سجل المقبوضات")
+        Catch ex As Exception
+            MessageBox.Show("حدث خطأ أثناء الطباعة: " & ex.Message, "خطأ", MessageBoxButton.OK, MessageBoxImage.Error)
+        End Try
+    End Sub
+
+    Private Sub btnExport_Click(sender As Object, e As RoutedEventArgs)
+        Try
+            Dim dv As DataView = CType(dgPayments.ItemsSource, DataView)
+            If dv Is Nothing OrElse dv.Count = 0 Then Return
+            Dim dt As DataTable = dv.ToTable()
+            PrintingService.ExportDataTableToCSV(dt, "سجل_المقبوضات")
+        Catch ex As Exception
+            MessageBox.Show("حدث خطأ أثناء التصدير: " & ex.Message, "خطأ", MessageBoxButton.OK, MessageBoxImage.Error)
         End Try
     End Sub
 
