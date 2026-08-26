@@ -18,12 +18,12 @@
                     <ColumnDefinition Width="Auto" />
                 </Grid.ColumnDefinitions>
 
-                <StackPanel Grid.Column="0" Orientation="Horizontal">
+                <StackPanel Grid.Column="0" Orientation="Horizontal" VerticalAlignment="Center">
                     <TextBlock Text="🔍" FontSize="16" VerticalAlignment="Center" Margin="0,0,8,0" />
-                    <TextBox x:Name="txtSearch" Style="{StaticResource ModernTextBoxStyle}" Width="320" Height="38" TextChanged="txtSearch_TextChanged" ToolTip="بحث باسم الدورة..." />
+                    <TextBox x:Name="txtSearch" Style="{StaticResource ModernTextBoxStyle}" Width="280" TextChanged="txtSearch_TextChanged" ToolTip="بحث باسم الدورة..." />
                 </StackPanel>
 
-                <StackPanel Grid.Column="1" Orientation="Horizontal">
+                <StackPanel Grid.Column="1" Orientation="Horizontal" VerticalAlignment="Center">
                     <Button x:Name="btnPrint" Content="🖨 طباعة" Style="{StaticResource SecondaryButtonStyle}" Margin="0,0,8,0" Click="btnPrint_Click" />
                     <Button x:Name="btnExport" Content="تصدير Excel" Style="{StaticResource SecondaryButtonStyle}" Margin="0,0,8,0" Click="btnExport_Click" />
                     <Button x:Name="btnAddNewCourse" Content="+ جديد" Style="{StaticResource PrimaryButtonStyle}" Click="btnAddNewCourse_Click" />
@@ -34,8 +34,8 @@
         <!-- Main Content Area: DataGrid + Form Panel -->
         <Grid Grid.Row="1">
             <Grid.ColumnDefinitions>
-                <ColumnDefinition Width="*" />
-                <ColumnDefinition Width="360" />
+                <ColumnDefinition Width="2.5*" />
+                <ColumnDefinition Width="1*" MinWidth="300" />
             </Grid.ColumnDefinitions>
 
             <!-- DataGrid Panel -->
@@ -50,10 +50,10 @@
 
                     <DataGrid Grid.Row="1" x:Name="dgCourses" Style="{StaticResource ModernDataGridStyle}" SelectionChanged="dgCourses_SelectionChanged">
                         <DataGrid.Columns>
-                            <DataGridTextColumn Header="رقم الدورة" Binding="{Binding CourseID}" Width="90" />
-                            <DataGridTextColumn Header="اسم الدورة التعليمية" Binding="{Binding CourseName}" Width="*" />
-                            <DataGridTextColumn Header="اسم المحاضر / الأستاذ" Binding="{Binding TeacherName}" Width="160" />
-                            <DataGridTextColumn Header="سعر الدورة (د.ل)" Binding="{Binding Cost, StringFormat={}{0:N2}}" Width="130" />
+                            <DataGridTextColumn Header="رقم الدورة" Binding="{Binding CourseID}" Width="90" MinWidth="70" />
+                            <DataGridTextColumn Header="اسم الدورة التعليمية" Binding="{Binding CourseName}" Width="2*" MinWidth="150" />
+                            <DataGridTextColumn Header="اسم المحاضر / الأستاذ" Binding="{Binding TeacherName}" Width="1.5*" MinWidth="130" />
+                            <DataGridTextColumn Header="سعر الدورة (د.ل)" Binding="{Binding Cost, StringFormat={}{0:N2}}" Width="*" MinWidth="100" />
                         </DataGrid.Columns>
                     </DataGrid>
                 </Grid>
@@ -61,29 +61,31 @@
 
             <!-- Add/Edit Form Panel -->
             <Border Grid.Column="1" Style="{StaticResource CardStyle}">
-                <StackPanel>
-                    <TextBlock x:Name="txtFormTitle" Text="إضافة دورة جديدة" FontSize="18" FontWeight="Bold" Foreground="{StaticResource TextPrimaryBrush}" Margin="0,0,0,16" />
+                <ScrollViewer VerticalScrollBarVisibility="Auto" HorizontalScrollBarVisibility="Disabled">
+                    <StackPanel>
+                        <TextBlock x:Name="txtFormTitle" Text="إضافة دورة جديدة" FontSize="18" FontWeight="Bold" Foreground="{StaticResource TextPrimaryBrush}" Margin="0,0,0,16" />
 
-                    <TextBlock Text="اسم الدورة التعليمية *" FontSize="13" FontWeight="SemiBold" Margin="0,0,0,4" />
-                    <TextBox x:Name="txtCourseName" Style="{StaticResource ModernTextBoxStyle}" Height="36" Margin="0,0,0,16" TabIndex="1" />
+                        <TextBlock Text="اسم الدورة التعليمية *" FontSize="13" FontWeight="SemiBold" Margin="0,0,0,6" />
+                        <TextBox x:Name="txtCourseName" Style="{StaticResource ModernTextBoxStyle}" Margin="0,0,0,16" TabIndex="1" />
 
-                    <TextBlock Text="اسم المحاضر / الأستاذ *" FontSize="13" FontWeight="SemiBold" Margin="0,0,0,4" />
-                    <TextBox x:Name="txtTeacherName" Style="{StaticResource ModernTextBoxStyle}" Height="36" Margin="0,0,0,16" TabIndex="2" />
+                        <TextBlock Text="اسم المحاضر / الأستاذ *" FontSize="13" FontWeight="SemiBold" Margin="0,0,0,6" />
+                        <TextBox x:Name="txtTeacherName" Style="{StaticResource ModernTextBoxStyle}" Margin="0,0,0,16" TabIndex="2" />
 
-                    <TextBlock Text="سعر الدورة (د.ل) *" FontSize="13" FontWeight="SemiBold" Margin="0,0,0,4" />
-                    <TextBox x:Name="txtCourseCost" Style="{StaticResource ModernTextBoxStyle}" Height="36" Text="0.00" Margin="0,0,0,24" TabIndex="3" />
+                        <TextBlock Text="سعر الدورة (د.ل) *" FontSize="13" FontWeight="SemiBold" Margin="0,0,0,6" />
+                        <TextBox x:Name="txtCourseCost" Style="{StaticResource ModernTextBoxStyle}" Text="0.00" Margin="0,0,0,24" TabIndex="3" />
 
-                    <Grid Margin="0,8,0,0">
-                        <Grid.ColumnDefinitions>
-                            <ColumnDefinition Width="*" />
-                            <ColumnDefinition Width="*" />
-                        </Grid.ColumnDefinitions>
-                        <Button x:Name="btnSaveCourse" Grid.Column="0" Content="✓ حفظ الدورة" Style="{StaticResource PrimaryButtonStyle}" Margin="0,0,4,0" Click="btnSaveCourse_Click" TabIndex="3" />
-                        <Button x:Name="btnCancelEdit" Grid.Column="1" Content="↻ جديد" Style="{StaticResource SecondaryButtonStyle}" Margin="4,0,0,0" Click="btnCancelEdit_Click" TabIndex="4" />
-                    </Grid>
+                        <Grid Margin="0,8,0,0">
+                            <Grid.ColumnDefinitions>
+                                <ColumnDefinition Width="*" />
+                                <ColumnDefinition Width="*" />
+                            </Grid.ColumnDefinitions>
+                            <Button x:Name="btnSaveCourse" Grid.Column="0" Content="✓ حفظ الدورة" Style="{StaticResource PrimaryButtonStyle}" Margin="0,0,4,0" Click="btnSaveCourse_Click" TabIndex="4" />
+                            <Button x:Name="btnCancelEdit" Grid.Column="1" Content="↻ جديد" Style="{StaticResource SecondaryButtonStyle}" Margin="4,0,0,0" Click="btnCancelEdit_Click" TabIndex="5" />
+                        </Grid>
 
-                    <Button x:Name="btnDeleteCourse" Content="× حذف الدورة" Style="{StaticResource DangerButtonStyle}" Margin="0,16,0,0" Click="btnDeleteCourse_Click" Visibility="Collapsed" TabIndex="5" />
-                </StackPanel>
+                        <Button x:Name="btnDeleteCourse" Content="× حذف الدورة" Style="{StaticResource DangerButtonStyle}" Margin="0,16,0,0" Click="btnDeleteCourse_Click" Visibility="Collapsed" TabIndex="6" />
+                    </StackPanel>
+                </ScrollViewer>
             </Border>
         </Grid>
     </Grid>

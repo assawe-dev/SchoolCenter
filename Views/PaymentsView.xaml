@@ -17,20 +17,20 @@
 
                 <Grid>
                     <Grid.ColumnDefinitions>
-                        <ColumnDefinition Width="*" />
-                        <ColumnDefinition Width="200" />
+                        <ColumnDefinition Width="3*" />
+                        <ColumnDefinition Width="1.5*" />
                     </Grid.ColumnDefinitions>
 
                     <!-- Student Dropdown -->
                     <StackPanel Grid.Column="0" Margin="0,0,16,0">
-                        <TextBlock Text="اختر الطالب المسدد *" FontSize="13" FontWeight="SemiBold" Margin="0,0,0,4" />
+                        <TextBlock Text="اختر الطالب المسدد *" FontSize="13" FontWeight="SemiBold" Margin="0,0,0,6" />
                         <ComboBox x:Name="cmbStudents" Style="{StaticResource ModernComboBoxStyle}" SelectionChanged="cmbStudents_SelectionChanged" DisplayMemberPath="DisplayName" SelectedValuePath="StudentID" TabIndex="1" />
                     </StackPanel>
 
                     <!-- Amount Paid -->
                     <StackPanel Grid.Column="1">
-                        <TextBlock Text="المبلغ المقبوض (د.ل) *" FontSize="13" FontWeight="SemiBold" Margin="0,0,0,4" />
-                        <TextBox x:Name="txtPaidAmount" Style="{StaticResource ModernTextBoxStyle}" Height="36" Text="0.00" TabIndex="2" />
+                        <TextBlock Text="المبلغ المقبوض (د.ل) *" FontSize="13" FontWeight="SemiBold" Margin="0,0,0,6" />
+                        <TextBox x:Name="txtPaidAmount" Style="{StaticResource ModernTextBoxStyle}" Text="0.00" TabIndex="2" />
                     </StackPanel>
                 </Grid>
 
@@ -43,18 +43,18 @@
                 </Border>
 
                 <!-- Notes & Submit -->
-                <Grid Margin="0,0,0,8">
+                <Grid Margin="0,8,0,0">
                     <Grid.ColumnDefinitions>
                         <ColumnDefinition Width="*" />
                         <ColumnDefinition Width="Auto" />
                     </Grid.ColumnDefinitions>
 
                     <StackPanel Grid.Column="0" Margin="0,0,16,0">
-                        <TextBlock Text="بيان سند القبض / رقم الوصل" FontSize="13" FontWeight="SemiBold" Margin="0,0,0,4" />
-                        <TextBox x:Name="txtNotes" Style="{StaticResource ModernTextBoxStyle}" Height="36" Text="سداد من حساب الطالب" TabIndex="3" />
+                        <TextBlock Text="بيان سند القبض / رقم الوصل" FontSize="13" FontWeight="SemiBold" Margin="0,0,0,6" />
+                        <TextBox x:Name="txtNotes" Style="{StaticResource ModernTextBoxStyle}" Text="سداد من حساب الطالب" TabIndex="3" />
                     </StackPanel>
 
-                    <Button Grid.Column="1" x:Name="btnSavePayment" Content="✓ حفظ سند القبض" Style="{StaticResource PrimaryButtonStyle}" Height="36" Width="180" VerticalAlignment="Bottom" Click="btnSavePayment_Click" TabIndex="4" />
+                    <Button Grid.Column="1" x:Name="btnSavePayment" Content="✓ حفظ سند القبض" Style="{StaticResource PrimaryButtonStyle}" VerticalAlignment="Bottom" Click="btnSavePayment_Click" TabIndex="4" />
                 </Grid>
             </StackPanel>
         </Border>
@@ -73,7 +73,7 @@
                         <ColumnDefinition Width="Auto" />
                     </Grid.ColumnDefinitions>
                     <TextBlock Grid.Column="0" Text="سجل المقبوضات والسندات الأخيرة" FontSize="16" FontWeight="Bold" Foreground="{StaticResource TextPrimaryBrush}" VerticalAlignment="Center" />
-                    <StackPanel Grid.Column="1" Orientation="Horizontal">
+                    <StackPanel Grid.Column="1" Orientation="Horizontal" VerticalAlignment="Center">
                         <Button x:Name="btnPrint" Content="🖨 طباعة" Style="{StaticResource SecondaryButtonStyle}" Margin="0,0,8,0" Click="btnPrint_Click" />
                         <Button x:Name="btnExport" Content="تصدير Excel" Style="{StaticResource SecondaryButtonStyle}" Click="btnExport_Click" />
                     </StackPanel>
@@ -81,12 +81,12 @@
 
                 <DataGrid Grid.Row="1" x:Name="dgPayments" Style="{StaticResource ModernDataGridStyle}">
                     <DataGrid.Columns>
-                        <DataGridTextColumn Header="رقم السند" Binding="{Binding TransactionID}" Width="90" />
-                        <DataGridTextColumn Header="اسم الطالب المسدد" Binding="{Binding StudentName}" Width="*" />
-                        <DataGridTextColumn Header="المبلغ المقبوض (دائن)" Binding="{Binding Credit, StringFormat={}{0:N2}}" Width="150" />
-                        <DataGridTextColumn Header="البيان والملاحظات" Binding="{Binding Notes}" Width="2*" />
-                        <DataGridTextColumn Header="تاريخ القبض" Binding="{Binding TransactionDate, StringFormat={}{0:yyyy-MM-dd HH:mm}}" Width="150" />
-                        <DataGridTextColumn Header="الموظف المستقبل" Binding="{Binding Username}" Width="130" />
+                        <DataGridTextColumn Header="رقم السند" Binding="{Binding TransactionID}" Width="90" MinWidth="70" />
+                        <DataGridTextColumn Header="اسم الطالب المسدد" Binding="{Binding StudentName}" Width="2*" MinWidth="150" />
+                        <DataGridTextColumn Header="المبلغ المقبوض (دائن)" Binding="{Binding Credit, StringFormat={}{0:N2}}" Width="1.2*" MinWidth="120" />
+                        <DataGridTextColumn Header="البيان والملاحظات" Binding="{Binding Notes}" Width="2.5*" MinWidth="180" />
+                        <DataGridTextColumn Header="تاريخ القبض" Binding="{Binding TransactionDate, StringFormat={}{0:yyyy-MM-dd HH:mm}}" Width="1.3*" MinWidth="130" />
+                        <DataGridTextColumn Header="الموظف المستقبل" Binding="{Binding Username}" Width="*" MinWidth="110" />
                     </DataGrid.Columns>
                 </DataGrid>
             </Grid>
