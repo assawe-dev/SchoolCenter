@@ -18,12 +18,12 @@
                     <ColumnDefinition Width="Auto" />
                 </Grid.ColumnDefinitions>
 
-                <StackPanel Grid.Column="0">
+                <StackPanel Grid.Column="0" VerticalAlignment="Center">
                     <TextBlock Text="إدارة حسابات المستخدمين وصلاحيات الشاشات" FontSize="18" FontWeight="Bold" Foreground="{StaticResource TextPrimaryBrush}" />
-                    <TextBlock Text="إضافة مستخدمين جدد وتخصيص صلاحيات الوصول بدقة" FontSize="12" Foreground="{StaticResource TextSecondaryBrush}" />
+                    <TextBlock Text="إضافة مستخدمين جدد وتخصيص صلاحيات الوصول بدقة" FontSize="12" Foreground="{StaticResource TextSecondaryBrush}" Margin="0,2,0,0" />
                 </StackPanel>
 
-                <Button Grid.Column="1" x:Name="btnAddNewUser" Content="+ جديد" Style="{StaticResource PrimaryButtonStyle}" Click="btnAddNewUser_Click" />
+                <Button Grid.Column="1" x:Name="btnAddNewUser" Content="+ جديد" Style="{StaticResource PrimaryButtonStyle}" Click="btnAddNewUser_Click" VerticalAlignment="Center" />
             </Grid>
         </Border>
 
@@ -33,8 +33,8 @@
             <TabItem Header="👥   إدارة المستخدمين والصلاحيات" FontSize="14" FontWeight="Bold">
                 <Grid Margin="0,16,0,0">
                     <Grid.ColumnDefinitions>
-                        <ColumnDefinition Width="*" />
-                        <ColumnDefinition Width="380" />
+                        <ColumnDefinition Width="2.5*" />
+                        <ColumnDefinition Width="1*" MinWidth="320" />
                     </Grid.ColumnDefinitions>
 
                     <!-- DataGrid Panel -->
@@ -49,10 +49,10 @@
 
                             <DataGrid Grid.Row="1" x:Name="dgUsers" Style="{StaticResource ModernDataGridStyle}" SelectionChanged="dgUsers_SelectionChanged">
                                 <DataGrid.Columns>
-                                    <DataGridTextColumn Header="رقم المستخدم" Binding="{Binding UserID}" Width="90" />
-                                    <DataGridTextColumn Header="اسم المستخدم" Binding="{Binding Username}" Width="*" />
-                                    <DataGridTextColumn Header="الدور / الصلاحية" Binding="{Binding Role}" Width="130" />
-                                    <DataGridTextColumn Header="حالة الحساب" Binding="{Binding StatusText}" Width="110" />
+                                    <DataGridTextColumn Header="رقم المستخدم" Binding="{Binding UserID}" Width="90" MinWidth="70" />
+                                    <DataGridTextColumn Header="اسم المستخدم" Binding="{Binding Username}" Width="2*" MinWidth="140" />
+                                    <DataGridTextColumn Header="الدور / الصلاحية" Binding="{Binding Role}" Width="1.5*" MinWidth="120" />
+                                    <DataGridTextColumn Header="حالة الحساب" Binding="{Binding StatusText}" Width="*" MinWidth="100" />
                                 </DataGrid.Columns>
                             </DataGrid>
                         </Grid>
@@ -60,35 +60,35 @@
 
                     <!-- Form Panel -->
                     <Border Grid.Column="1" Style="{StaticResource CardStyle}">
-                        <ScrollViewer VerticalScrollBarVisibility="Auto">
+                        <ScrollViewer VerticalScrollBarVisibility="Auto" HorizontalScrollBarVisibility="Disabled">
                             <StackPanel>
                                 <TextBlock x:Name="txtFormTitle" Text="إضافة مستخدم جديد" FontSize="18" FontWeight="Bold" Foreground="{StaticResource TextPrimaryBrush}" Margin="0,0,0,16" />
 
-                                <TextBlock Text="اسم المستخدم *" FontSize="13" FontWeight="SemiBold" Margin="0,0,0,4" />
-                                <TextBox x:Name="txtUsername" Style="{StaticResource ModernTextBoxStyle}" Height="36" Margin="0,0,0,12" TabIndex="1" />
+                                <TextBlock Text="اسم المستخدم *" FontSize="13" FontWeight="SemiBold" Margin="0,0,0,6" />
+                                <TextBox x:Name="txtUsername" Style="{StaticResource ModernTextBoxStyle}" Margin="0,0,0,12" TabIndex="1" />
 
-                                <TextBlock Text="كلمة المرور *" FontSize="13" FontWeight="SemiBold" Margin="0,0,0,4" />
-                                <PasswordBox x:Name="txtPassword" Style="{StaticResource ModernPasswordBoxStyle}" Height="36" Margin="0,0,0,12" TabIndex="2" />
+                                <TextBlock Text="كلمة المرور *" FontSize="13" FontWeight="SemiBold" Margin="0,0,0,6" />
+                                <PasswordBox x:Name="txtPassword" Style="{StaticResource ModernPasswordBoxStyle}" Margin="0,0,0,12" TabIndex="2" />
 
-                                <TextBlock Text="الدور / المسمى الوظيفي" FontSize="13" FontWeight="SemiBold" Margin="0,0,0,4" />
-                                <ComboBox x:Name="cmbRole" Style="{StaticResource ModernComboBoxStyle}" Height="36" SelectedIndex="0" Margin="0,0,0,12" TabIndex="3">
+                                <TextBlock Text="الدور / المسمى الوظيفي" FontSize="13" FontWeight="SemiBold" Margin="0,0,0,6" />
+                                <ComboBox x:Name="cmbRole" Style="{StaticResource ModernComboBoxStyle}" SelectedIndex="0" Margin="0,0,0,12" TabIndex="3">
                                     <ComboBoxItem Content="Admin (مدير نظام)" />
                                     <ComboBoxItem Content="Accountant (محاسب / موظف)" />
                                 </ComboBox>
 
-                                <CheckBox x:Name="chkIsActive" Content="الحساب مفعل ونشط" IsChecked="True" FontSize="13" FontWeight="Bold" Margin="0,0,0,16" TabIndex="4" />
+                                <CheckBox x:Name="chkIsActive" Content="الحساب مفعل ونشط" IsChecked="True" FontSize="13" FontWeight="Bold" Margin="0,0,0,16" TabIndex="4" Cursor="Hand" />
 
                                 <!-- Permissions Frame -->
                                 <Border Background="#F8FAFC" BorderBrush="{StaticResource BorderBrushLight}" BorderThickness="1" CornerRadius="8" Padding="12" Margin="0,0,0,16">
                                     <StackPanel>
                                         <TextBlock Text="صلاحيات الوصول للشاشات والوظائف:" FontSize="13" FontWeight="Bold" Foreground="{StaticResource PrimaryBrush}" Margin="0,0,0,10" />
 
-                                        <CheckBox x:Name="chkCanManageStudents" Content="إدارة سجل الطلاب" IsChecked="True" Margin="0,0,0,8" />
-                                        <CheckBox x:Name="chkCanManageCourses" Content="إدارة سجل الدورات" IsChecked="True" Margin="0,0,0,8" />
-                                        <CheckBox x:Name="chkCanAssignDues" Content="تسجيل المستحقات والديون" IsChecked="True" Margin="0,0,0,8" />
-                                        <CheckBox x:Name="chkCanReceivePayments" Content="سندات القبض وحركة الخزينة" IsChecked="True" Margin="0,0,0,8" />
-                                        <CheckBox x:Name="chkCanViewReports" Content="عرض تقارير الأرصدة والديون" IsChecked="False" Margin="0,0,0,8" />
-                                        <CheckBox x:Name="chkCanManageUsers" Content="إدارة المستخدمين والصلاحيات" IsChecked="False" Margin="0,0,0,4" />
+                                        <CheckBox x:Name="chkCanManageStudents" Content="إدارة سجل الطلاب" IsChecked="True" Margin="0,0,0,8" Cursor="Hand" />
+                                        <CheckBox x:Name="chkCanManageCourses" Content="إدارة سجل الدورات" IsChecked="True" Margin="0,0,0,8" Cursor="Hand" />
+                                        <CheckBox x:Name="chkCanAssignDues" Content="تسجيل المستحقات والديون" IsChecked="True" Margin="0,0,0,8" Cursor="Hand" />
+                                        <CheckBox x:Name="chkCanReceivePayments" Content="سندات القبض وحركة الخزينة" IsChecked="True" Margin="0,0,0,8" Cursor="Hand" />
+                                        <CheckBox x:Name="chkCanViewReports" Content="عرض تقارير الأرصدة والديون" IsChecked="False" Margin="0,0,0,8" Cursor="Hand" />
+                                        <CheckBox x:Name="chkCanManageUsers" Content="إدارة المستخدمين والصلاحيات" IsChecked="False" Margin="0,0,0,4" Cursor="Hand" />
                                     </StackPanel>
                                 </Border>
 
@@ -123,12 +123,12 @@
                                 <ColumnDefinition Width="Auto" />
                             </Grid.ColumnDefinitions>
 
-                            <StackPanel Grid.Column="0">
+                            <StackPanel Grid.Column="0" VerticalAlignment="Center">
                                 <TextBlock Text="سجل التتبع وتدقيق جميع حركات المنظومة" FontSize="16" FontWeight="Bold" Foreground="{StaticResource TextPrimaryBrush}" />
-                                <TextBlock Text="تتبع العمليات التي قام بها المستخدمون (إضافة، تعديل، حذف، تسجيل دخول)" FontSize="12" Foreground="{StaticResource TextSecondaryBrush}" />
+                                <TextBlock Text="تتبع العمليات التي قام بها المستخدمون (إضافة، تعديل، حذف، تسجيل دخول)" FontSize="12" Foreground="{StaticResource TextSecondaryBrush}" Margin="0,2,0,0" />
                             </StackPanel>
 
-                            <StackPanel Grid.Column="1" Orientation="Horizontal">
+                            <StackPanel Grid.Column="1" Orientation="Horizontal" VerticalAlignment="Center">
                                 <Button x:Name="btnRefreshAudit" Content="↻ تحديث السجل" Style="{StaticResource SecondaryButtonStyle}" Margin="0,0,8,0" Click="btnRefreshAudit_Click" />
                                 <Button x:Name="btnPrintAudit" Content="🖨 طباعة السجل" Style="{StaticResource PrimaryButtonStyle}" Margin="0,0,8,0" Click="btnPrintAudit_Click" />
                                 <Button x:Name="btnExportAudit" Content="تصدير Excel" Style="{StaticResource SecondaryButtonStyle}" Click="btnExportAudit_Click" />
@@ -137,11 +137,11 @@
 
                         <DataGrid Grid.Row="1" x:Name="dgAuditLog" Style="{StaticResource ModernDataGridStyle}">
                             <DataGrid.Columns>
-                                <DataGridTextColumn Header="رقم الحركة" Binding="{Binding LogID}" Width="90" />
-                                <DataGridTextColumn Header="التاريخ والوقت" Binding="{Binding LogDate, StringFormat={}{0:yyyy-MM-dd HH:mm:ss}}" Width="160" />
-                                <DataGridTextColumn Header="المستخدم" Binding="{Binding Username}" Width="130" />
-                                <DataGridTextColumn Header="نوع الإجراء" Binding="{Binding ActionType}" Width="140" />
-                                <DataGridTextColumn Header="تفاصيل الإجراء / التغييرات" Binding="{Binding Description}" Width="*" />
+                                <DataGridTextColumn Header="رقم الحركة" Binding="{Binding LogID}" Width="90" MinWidth="70" />
+                                <DataGridTextColumn Header="التاريخ والوقت" Binding="{Binding LogDate, StringFormat={}{0:yyyy-MM-dd HH:mm:ss}}" Width="1.3*" MinWidth="130" />
+                                <DataGridTextColumn Header="المستخدم" Binding="{Binding Username}" Width="1.2*" MinWidth="110" />
+                                <DataGridTextColumn Header="نوع الإجراء" Binding="{Binding ActionType}" Width="1.3*" MinWidth="120" />
+                                <DataGridTextColumn Header="تفاصيل الإجراء / التغييرات" Binding="{Binding Description}" Width="3*" MinWidth="200" />
                             </DataGrid.Columns>
                         </DataGrid>
                     </Grid>

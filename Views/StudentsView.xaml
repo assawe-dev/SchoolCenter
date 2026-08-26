@@ -19,26 +19,26 @@
                     <ColumnDefinition Width="Auto" />
                 </Grid.ColumnDefinitions>
 
-                <StackPanel Grid.Column="0" Orientation="Horizontal">
+                <StackPanel Grid.Column="0" Orientation="Horizontal" VerticalAlignment="Center">
                     <TextBlock Text="🔍" FontSize="16" VerticalAlignment="Center" Margin="0,0,8,0" />
-                    <TextBox x:Name="txtSearch" Style="{StaticResource ModernTextBoxStyle}" Width="320" Height="38" TextChanged="txtSearch_TextChanged" ToolTip="بحث بالاسم أو هاتف ولي الأمر" />
+                    <TextBox x:Name="txtSearch" Style="{StaticResource ModernTextBoxStyle}" Width="280" TextChanged="txtSearch_TextChanged" ToolTip="بحث بالاسم أو هاتف ولي الأمر" AlignmentX="Right" />
                 </StackPanel>
 
-                <StackPanel Grid.Column="1" Orientation="Horizontal" Margin="0,0,12,0">
+                <StackPanel Grid.Column="1" Orientation="Horizontal" Margin="0,0,12,0" VerticalAlignment="Center">
                     <Button x:Name="btnPrint" Content="🖨 طباعة" Style="{StaticResource SecondaryButtonStyle}" Margin="0,0,8,0" Click="btnPrint_Click" />
                     <Button x:Name="btnExport" Content="تصدير Excel" Style="{StaticResource SecondaryButtonStyle}" Margin="0,0,8,0" Click="btnExport_Click" />
                     <Button x:Name="btnShowStatement" Content="... كشف حساب" Style="{StaticResource InfoButtonStyle}" Click="btnShowStatement_Click" />
                 </StackPanel>
 
-                <Button Grid.Column="2" x:Name="btnAddNewStudent" Content="+ جديد" Style="{StaticResource PrimaryButtonStyle}" Click="btnAddNewStudent_Click" />
+                <Button Grid.Column="2" x:Name="btnAddNewStudent" Content="+ جديد" Style="{StaticResource PrimaryButtonStyle}" Click="btnAddNewStudent_Click" VerticalAlignment="Center" />
             </Grid>
         </Border>
 
-        <!-- Main Content Area: Left DataGrid, Right Add/Edit Form Overlay / Side Panel -->
+        <!-- Main Content Area: Left DataGrid, Right Add/Edit Form Panel -->
         <Grid Grid.Row="1">
             <Grid.ColumnDefinitions>
-                <ColumnDefinition Width="*" />
-                <ColumnDefinition x:Name="colForm" Width="360" />
+                <ColumnDefinition Width="2.5*" />
+                <ColumnDefinition x:Name="colForm" Width="1*" MinWidth="320" />
             </Grid.ColumnDefinitions>
 
             <!-- DataGrid Panel -->
@@ -53,11 +53,11 @@
 
                     <DataGrid Grid.Row="1" x:Name="dgStudents" Style="{StaticResource ModernDataGridStyle}" SelectionChanged="dgStudents_SelectionChanged" MouseDoubleClick="dgStudents_MouseDoubleClick">
                         <DataGrid.Columns>
-                            <DataGridTextColumn Header="رقم الطالب" Binding="{Binding StudentID}" Width="90" />
-                            <DataGridTextColumn Header="اسم الطالب بالكامل" Binding="{Binding StudentName}" Width="*" />
-                            <DataGridTextColumn Header="رقم الهاتف" Binding="{Binding ParentPhone}" Width="140" />
-                            <DataGridTextColumn Header="الرصيد المتبقي" Binding="{Binding CurrentBalance, StringFormat={}{0:N2}}" Width="130" />
-                            <DataGridTextColumn Header="تاريخ التسجيل" Binding="{Binding RegistrationDate, StringFormat={}{0:yyyy-MM-dd}}" Width="130" />
+                            <DataGridTextColumn Header="رقم الطالب" Binding="{Binding StudentID}" Width="90" MinWidth="70" />
+                            <DataGridTextColumn Header="اسم الطالب بالكامل" Binding="{Binding StudentName}" Width="2*" MinWidth="150" />
+                            <DataGridTextColumn Header="رقم الهاتف" Binding="{Binding ParentPhone}" Width="1.2*" MinWidth="110" />
+                            <DataGridTextColumn Header="الرصيد المتبقي" Binding="{Binding CurrentBalance, StringFormat={}{0:N2}}" Width="*" MinWidth="100" />
+                            <DataGridTextColumn Header="تاريخ التسجيل" Binding="{Binding RegistrationDate, StringFormat={}{0:yyyy-MM-dd}}" Width="1.1*" MinWidth="110" />
                         </DataGrid.Columns>
                     </DataGrid>
                 </Grid>
@@ -65,25 +65,25 @@
 
             <!-- Student Add / Edit Form Panel -->
             <Border Grid.Column="1" Style="{StaticResource CardStyle}">
-                <ScrollViewer VerticalScrollBarVisibility="Auto">
+                <ScrollViewer VerticalScrollBarVisibility="Auto" HorizontalScrollBarVisibility="Disabled">
                     <StackPanel x:Name="pnlStudentForm">
                         <TextBlock x:Name="txtFormTitle" Text="إضافة طالب جديد" FontSize="18" FontWeight="Bold" Foreground="{StaticResource TextPrimaryBrush}" Margin="0,0,0,16" />
 
-                        <TextBlock Text="اسم الطالب بالكامل *" FontSize="13" FontWeight="SemiBold" Margin="0,0,0,4" />
-                        <TextBox x:Name="txtStudentName" Style="{StaticResource ModernTextBoxStyle}" Height="36" Margin="0,0,0,14" TabIndex="1" />
+                        <TextBlock Text="اسم الطالب بالكامل *" FontSize="13" FontWeight="SemiBold" Margin="0,0,0,6" />
+                        <TextBox x:Name="txtStudentName" Style="{StaticResource ModernTextBoxStyle}" Margin="0,0,0,14" TabIndex="1" />
 
-                        <TextBlock Text="رقم الهاتف *" FontSize="13" FontWeight="SemiBold" Margin="0,0,0,4" />
-                        <TextBox x:Name="txtParentPhone" Style="{StaticResource ModernTextBoxStyle}" Height="36" Margin="0,0,0,14" TabIndex="2" />
+                        <TextBlock Text="رقم الهاتف *" FontSize="13" FontWeight="SemiBold" Margin="0,0,0,6" />
+                        <TextBox x:Name="txtParentPhone" Style="{StaticResource ModernTextBoxStyle}" Margin="0,0,0,14" TabIndex="2" />
 
-                        <TextBlock Text="ملاحظات" FontSize="13" FontWeight="SemiBold" Margin="0,0,0,4" />
-                        <TextBox x:Name="txtNotes" Style="{StaticResource ModernTextBoxStyle}" Height="54" TextWrapping="Wrap" AcceptsReturn="True" Margin="0,0,0,14" TabIndex="4" />
+                        <TextBlock Text="ملاحظات" FontSize="13" FontWeight="SemiBold" Margin="0,0,0,6" />
+                        <TextBox x:Name="txtNotes" Style="{StaticResource ModernTextBoxStyle}" MinHeight="60" TextWrapping="Wrap" AcceptsReturn="True" Margin="0,0,0,14" TabIndex="4" VerticalContentAlignment="Top" />
 
                         <!-- Opening Balance Section (only active for new student) -->
                         <Border x:Name="pnlOpeningBalance" Background="#F1F5F9" CornerRadius="8" Padding="12" Margin="0,0,0,16">
                             <StackPanel>
                                 <TextBlock Text="الرصيد الافتتاحي السابق (إن وجد)" FontSize="13" FontWeight="Bold" Foreground="{StaticResource PrimaryBrush}" Margin="0,0,0,8" />
 
-                                <Grid Margin="0,0,0,8">
+                                <Grid Margin="0,0,0,4">
                                     <Grid.ColumnDefinitions>
                                         <ColumnDefinition Width="*" />
                                         <ColumnDefinition Width="110" />
@@ -91,12 +91,12 @@
 
                                     <StackPanel Grid.Column="0" Margin="0,0,8,0">
                                         <TextBlock Text="المبلغ" FontSize="12" Margin="0,0,0,4" />
-                                        <TextBox x:Name="txtOpeningBalanceAmount" Style="{StaticResource ModernTextBoxStyle}" Height="34" Text="0.00" TabIndex="5" />
+                                        <TextBox x:Name="txtOpeningBalanceAmount" Style="{StaticResource ModernTextBoxStyle}" Text="0.00" TabIndex="5" />
                                     </StackPanel>
 
                                     <StackPanel Grid.Column="1">
                                         <TextBlock Text="نوع الرصيد" FontSize="12" Margin="0,0,0,4" />
-                                        <ComboBox x:Name="cmbBalanceType" Style="{StaticResource ModernComboBoxStyle}" Height="34" SelectedIndex="0" TabIndex="6">
+                                        <ComboBox x:Name="cmbBalanceType" Style="{StaticResource ModernComboBoxStyle}" SelectedIndex="0" TabIndex="6">
                                             <ComboBoxItem Content="مدين (عليه)" />
                                             <ComboBoxItem Content="دائن (له)" />
                                         </ComboBox>
