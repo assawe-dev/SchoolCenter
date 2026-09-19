@@ -21,7 +21,7 @@
 
                 <StackPanel Grid.Column="0" Orientation="Horizontal" VerticalAlignment="Center">
                     <TextBlock Text="🔍" FontSize="16" VerticalAlignment="Center" Margin="0,0,8,0" />
-                    <TextBox x:Name="txtSearch" Style="{StaticResource ModernTextBoxStyle}" Width="280" TextChanged="txtSearch_TextChanged" ToolTip="بحث بالاسم أو هاتف ولي الأمر" AlignmentX="Right" />
+                    <TextBox x:Name="txtSearch" Style="{StaticResource ModernTextBoxStyle}" Width="280" TextChanged="txtSearch_TextChanged" ToolTip="بحث بالاسم أو هاتف ولي الأمر" />
                 </StackPanel>
 
                 <StackPanel Grid.Column="1" Orientation="Horizontal" Margin="0,0,12,0" VerticalAlignment="Center">
