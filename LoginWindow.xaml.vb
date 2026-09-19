@@ -1,28 +1,22 @@
 Imports System
 Imports System.Data.SqlClient
 Imports System.Windows
+Imports System.Windows.Controls
 Imports System.Windows.Input
 
 Public Class LoginWindow
-    Private Sub Window_Loaded(sender As Object, e As RoutedEventArgs)
-        ' تحديث اسم المركز في الشاشة من الإعدادات
-        Try
-            Dim settings As SettingsService.CenterSettings = SettingsService.GetSettings()
-            If Not String.IsNullOrEmpty(settings.CenterName) Then
-                txtBrandTitle.Text = settings.CenterName
-            End If
-        Catch ex As Exception
-        End Try
-        txtUsername.Focus()
+    Private _lastFocusedControl As Control
+
+    Private Sub InputControl_GotFocus(sender As Object, e As RoutedEventArgs)
+        _lastFocusedControl = TryCast(sender, Control)
     End Sub
 
-    Private Sub btnLogin_Click(sender As Object, e As RoutedEventArgs)
-        pnlError.Visibility = Visibility.Collapsed
-        Dim username As String = txtUsername.Text.Trim()
-        Dim password As String = txtPassword.Password.Trim()
+    Private Sub BtnLogin_Click(sender As Object, e As RoutedEventArgs)
+        Dim username As String = TxtUsername.Text.Trim()
+        Dim password As String = TxtPassword.Password.Trim()
 
         If String.IsNullOrEmpty(username) OrElse String.IsNullOrEmpty(password) Then
-            ShowError("يرجى إدخال اسم المستخدم وكلمة المرور.")
+            MessageBox.Show("يرجى إدخال اسم المستخدم وكلمة المرور.", "تنبيه", MessageBoxButton.OK, MessageBoxImage.Warning)
             Return
         End If
 
@@ -44,7 +38,7 @@ Public Class LoginWindow
                         If reader.Read() Then
                             Dim isActive As Boolean = Convert.ToBoolean(reader("IsActive"))
                             If Not isActive Then
-                                ShowError("هذا الحساب معطل حالياً. يرجى مراجعة مدير النظام.")
+                                MessageBox.Show("هذا الحساب معطل حالياً. يرجى مراجعة مدير النظام.", "تنبيه", MessageBoxButton.OK, MessageBoxImage.Warning)
                                 Return
                             End If
 
@@ -68,24 +62,46 @@ Public Class LoginWindow
                             mainWin.Show()
                             Me.Close()
                         Else
-                            ShowError("اسم المستخدم أو كلمة المرور غير صحيحة.")
+                            MessageBox.Show("اسم المستخدم أو كلمة المرور غير صحيحة.", "خطأ في تسجيل الدخول", MessageBoxButton.OK, MessageBoxImage.Error)
                         End If
                     End Using
                 End Using
             End Using
         Catch ex As Exception
-            ShowError("تعذر الاتصال بقاعدة البيانات: " & ex.Message)
+            MessageBox.Show("تعذر الاتصال بقاعدة البيانات: " & ex.Message, "خطأ اتصال", MessageBoxButton.OK, MessageBoxImage.Error)
         End Try
     End Sub
 
-    Private Sub ShowError(message As String)
-        txtErrorMessage.Text = message
-        pnlError.Visibility = Visibility.Visible
+    Private Sub BtnExit_Click(sender As Object, e As RoutedEventArgs)
+        Application.Current.Shutdown()
     End Sub
 
-    Private Sub txtPassword_KeyDown(sender As Object, e As KeyEventArgs)
-        If e.Key = Key.Enter Then
-            btnLogin_Click(sender, e)
+    Private Sub Numpad_Click(sender As Object, e As RoutedEventArgs)
+        Dim btn As Button = TryCast(sender, Button)
+        If btn Is Nothing OrElse btn.Content Is Nothing Then Return
+
+        Dim digit As String = btn.Content.ToString()
+
+        If _lastFocusedControl Is TxtUsername OrElse TxtUsername.IsFocused Then
+            TxtUsername.Text &= digit
+            TxtUsername.CaretIndex = TxtUsername.Text.Length
+            TxtUsername.Focus()
+        Else
+            TxtPassword.Password &= digit
+            TxtPassword.Focus()
+        End If
+    End Sub
+
+    Private Sub BtnClear_Click(sender As Object, e As RoutedEventArgs)
+        If _lastFocusedControl Is TxtUsername OrElse TxtUsername.IsFocused Then
+            TxtUsername.Clear()
+            TxtUsername.Focus()
+        ElseIf _lastFocusedControl Is TxtPassword OrElse TxtPassword.IsFocused Then
+            TxtPassword.Clear()
+            TxtPassword.Focus()
+        Else
+            TxtPassword.Clear()
+            TxtUsername.Clear()
         End If
     End Sub
 End Class
