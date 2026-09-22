@@ -76,6 +76,14 @@
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </Page>
+    <Page Include="Views\FinancialAffairsView.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Include="Views\AcademicAffairsView.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
     <Page Include="LoginWindow.xaml">
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
@@ -138,6 +146,12 @@
     <Compile Include="PrintingService.vb" />
     <Compile Include="Views\DashboardView.xaml.vb">
       <DependentUpon>DashboardView.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Views\FinancialAffairsView.xaml.vb">
+      <DependentUpon>FinancialAffairsView.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Views\AcademicAffairsView.xaml.vb">
+      <DependentUpon>AcademicAffairsView.xaml</DependentUpon>
     </Compile>
     <Compile Include="Views\StudentsView.xaml.vb">
       <DependentUpon>StudentsView.xaml</DependentUpon>

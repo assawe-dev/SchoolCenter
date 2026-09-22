@@ -48,6 +48,44 @@
                 </Setter>
             </Style>
 
+            <!-- Interactive Module Tile Card Button Style -->
+            <Style x:Key="ModuleCardButtonStyle" TargetType="Button">
+                <Setter Property="Background" Value="#FFFFFF" />
+                <Setter Property="BorderBrush" Value="{StaticResource BorderBrushLight}" />
+                <Setter Property="BorderThickness" Value="1" />
+                <Setter Property="Padding" Value="20" />
+                <Setter Property="Margin" Value="10" />
+                <Setter Property="Cursor" Value="Hand" />
+                <Setter Property="HorizontalContentAlignment" Value="Stretch" />
+                <Setter Property="VerticalContentAlignment" Value="Stretch" />
+                <Setter Property="Focusable" Value="False" />
+                <Setter Property="Template">
+                    <Setter.Value>
+                        <ControlTemplate TargetType="Button">
+                            <Border x:Name="border" Background="{TemplateBinding Background}" BorderBrush="{TemplateBinding BorderBrush}" BorderThickness="{TemplateBinding BorderThickness}" CornerRadius="12" Padding="{TemplateBinding Padding}" SnapsToDevicePixels="True">
+                                <Border.Effect>
+                                    <DropShadowEffect x:Name="shadow" BlurRadius="12" Color="#000000" Opacity="0.05" Direction="270" ShadowDepth="2" />
+                                </Border.Effect>
+                                <ContentPresenter HorizontalAlignment="Stretch" VerticalAlignment="Stretch" />
+                            </Border>
+                            <ControlTemplate.Triggers>
+                                <Trigger Property="IsMouseOver" Value="True">
+                                    <Setter TargetName="border" Property="BorderBrush" Value="{StaticResource PrimaryBrush}" />
+                                    <Setter TargetName="border" Property="Background" Value="#F8FAFC" />
+                                    <Setter TargetName="shadow" Property="BlurRadius" Value="20" />
+                                    <Setter TargetName="shadow" Property="Opacity" Value="0.16" />
+                                    <Setter TargetName="shadow" Property="ShadowDepth" Value="4" />
+                                </Trigger>
+                                <Trigger Property="IsPressed" Value="True">
+                                    <Setter TargetName="border" Property="Background" Value="#EFF6FF" />
+                                    <Setter TargetName="border" Property="BorderBrush" Value="{StaticResource PrimaryHoverBrush}" />
+                                </Trigger>
+                            </ControlTemplate.Triggers>
+                        </ControlTemplate>
+                    </Setter.Value>
+                </Setter>
+            </Style>
+
             <!-- Primary Button Style -->
             <Style x:Key="PrimaryButtonStyle" TargetType="Button">
                 <Setter Property="Background" Value="{StaticResource PrimaryBrush}" />
