@@ -29,6 +29,8 @@ Public Class MainWindow
     End Sub
 
     Private Sub ApplyUserPermissions()
+        btnFinancialAffairs.Visibility = If(UserSession.CanReceivePayments OrElse UserSession.CanViewReports, Visibility.Visible, Visibility.Collapsed)
+        btnAcademicAffairs.Visibility = If(UserSession.CanManageStudents OrElse UserSession.CanManageCourses OrElse UserSession.CanAssignDues, Visibility.Visible, Visibility.Collapsed)
         btnStudents.Visibility = If(UserSession.CanManageStudents, Visibility.Visible, Visibility.Collapsed)
         btnCourses.Visibility = If(UserSession.CanManageCourses, Visibility.Visible, Visibility.Collapsed)
         btnDues.Visibility = If(UserSession.CanAssignDues, Visibility.Visible, Visibility.Collapsed)
@@ -53,6 +55,10 @@ Public Class MainWindow
 
         If btn Is btnDashboard Then
             NavigateTo("Dashboard")
+        ElseIf btn Is btnFinancialAffairs Then
+            NavigateTo("FinancialAffairs")
+        ElseIf btn Is btnAcademicAffairs Then
+            NavigateTo("AcademicAffairs")
         ElseIf btn Is btnStudents Then
             NavigateTo("Students")
         ElseIf btn Is btnCourses Then
@@ -75,6 +81,12 @@ Public Class MainWindow
             Case "Dashboard"
                 txtHeaderTitle.Text = "لوحة التحكم الإحصائية"
                 mainContentControl.Content = New DashboardView()
+            Case "FinancialAffairs"
+                txtHeaderTitle.Text = "وحدة الشؤون المالية والحسابات"
+                mainContentControl.Content = New FinancialAffairsView()
+            Case "AcademicAffairs"
+                txtHeaderTitle.Text = "وحدة الشؤون الدراسية والتعليمية"
+                mainContentControl.Content = New AcademicAffairsView()
             Case "Students"
                 txtHeaderTitle.Text = "إدارة سجل الطلاب"
                 mainContentControl.Content = New StudentsView()
