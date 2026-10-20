@@ -31,11 +31,6 @@ Public Class MainWindow
     Private Sub ApplyUserPermissions()
         btnFinancialAffairs.Visibility = If(UserSession.CanReceivePayments OrElse UserSession.CanViewReports, Visibility.Visible, Visibility.Collapsed)
         btnAcademicAffairs.Visibility = If(UserSession.CanManageStudents OrElse UserSession.CanManageCourses OrElse UserSession.CanAssignDues, Visibility.Visible, Visibility.Collapsed)
-        btnStudents.Visibility = If(UserSession.CanManageStudents, Visibility.Visible, Visibility.Collapsed)
-        btnCourses.Visibility = If(UserSession.CanManageCourses, Visibility.Visible, Visibility.Collapsed)
-        btnDues.Visibility = If(UserSession.CanAssignDues, Visibility.Visible, Visibility.Collapsed)
-        btnPayments.Visibility = If(UserSession.CanReceivePayments, Visibility.Visible, Visibility.Collapsed)
-        btnReports.Visibility = If(UserSession.CanViewReports, Visibility.Visible, Visibility.Collapsed)
         btnUsers.Visibility = If(UserSession.CanManageUsers, Visibility.Visible, Visibility.Collapsed)
         btnSettings.Visibility = If(UserSession.CanManageUsers, Visibility.Visible, Visibility.Collapsed)
     End Sub
@@ -59,16 +54,6 @@ Public Class MainWindow
             NavigateTo("FinancialAffairs")
         ElseIf btn Is btnAcademicAffairs Then
             NavigateTo("AcademicAffairs")
-        ElseIf btn Is btnStudents Then
-            NavigateTo("Students")
-        ElseIf btn Is btnCourses Then
-            NavigateTo("Courses")
-        ElseIf btn Is btnDues Then
-            NavigateTo("StudentDues")
-        ElseIf btn Is btnPayments Then
-            NavigateTo("Payments")
-        ElseIf btn Is btnReports Then
-            NavigateTo("BalanceReport")
         ElseIf btn Is btnUsers Then
             NavigateTo("Users")
         ElseIf btn Is btnSettings Then
